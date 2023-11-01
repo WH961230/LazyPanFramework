@@ -1,28 +1,31 @@
-using System;
+using LazyPan.Scripts.Core.Component;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace LazyPan.Scripts.Game {
     public class Game : MonoBehaviour {
-        private Transform uiRoot;
-        private PlayerInput playerInput;
-        public GameState gameState;
+        public Transform uiRoot;
+        public PlayerInput playerInput;
 
-        void Update() {
-            if (gameState == GameState.Fight) {
-                playerInput.actions["Setting"].performed += OpenSetting;
-            }
+        private void Awake() {
+            uiRoot = Loader.Loader.Load("画布", "Interface/UI_Canvas", null).transform;
+            playerInput.actions["Setting"].performed += OpenSetting;
         }
 
         private void OpenSetting(InputAction.CallbackContext callbackContext) {
-            Loader.Loader.Load("设置界面", "Interface/UI_Setting", uiRoot);
+            GameComp comp = Loader.Loader.LoadComp("设置界面", "Interface/UI_Setting", uiRoot);
+            Button uiSettingQuit = comp.Get<Button>("UI_Setting_Quit");
+            Listener.Listener.AddListener(uiSettingQuit, QuitGame);
         }
 
-        [Serializable]
-        public enum GameState {
-            Launch,
-            Loading,
-            Fight,
+        private void QuitGame() {
+            Debug.Log("QuitGame");
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
+            Application.Quit();
         }
     }
 }

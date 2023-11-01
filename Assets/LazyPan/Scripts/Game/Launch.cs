@@ -22,10 +22,6 @@ namespace LazyPan.Scripts.Game {
 
             Listener.Listener.AddListener(startBtn, StartGame);
             Listener.Listener.AddListener(quitBtn, QuitGame);
-
-            game = Loader.Loader.Load("游戏管理器", "Global/Global", null).GetComponent<Game>();
-            game.gameState = Game.GameState.Launch;
-            DontDestroyOnLoad(game);
         }
 
         private void StartGame() {
@@ -35,34 +31,34 @@ namespace LazyPan.Scripts.Game {
             StartCoroutine(LoadScene("Fight", uiLoadingSlider, uiLoadingText));
         }
 
-        IEnumerator<string> LoadScene(string name, Slider slider, TextMeshProUGUI text) {
-            yield return null;
-
-            game.gameState = Game.GameState.Loading;
-            
-            AsyncOperation operation = Loader.Loader.LoadSceneAsync(name);
-            operation.completed += asyncOperation => Debug.Log("Load scene completed!");
-            operation.allowSceneActivation = false;
-            float progress = 0;
-            while (!operation.isDone) {
-                progress = Mathf.MoveTowards(progress, operation.progress, Time.deltaTime);
-                slider.value = progress;
-                text.text = string.Concat("Loading ", progress * 100, "%");
-                if (progress >= 0.9f) {
-                    slider.value = 1;
-                    operation.allowSceneActivation = true;
-                    game.gameState = Game.GameState.Fight;
-                }
-                yield return null;
-            }
-        }
-
         private void QuitGame() {
             Debug.Log("QuitGame");
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
 #endif
             Application.Quit();
+        }
+
+        IEnumerator<string> LoadScene(string name, Slider slider, TextMeshProUGUI text) {
+            yield return null;
+
+            AsyncOperation operation = Loader.Loader.LoadSceneAsync(name);
+            operation.completed += asyncOperation => Debug.Log("Load scene completed!");
+            operation.allowSceneActivation = false;
+            float progress = 0;
+            while (!operation.isDone) {
+                progress = Mathf.MoveTowards(progress, operation.progress, Time.deltaTime);
+                if (progress >= 0.9f) {
+                    slider.value = Mathf.MoveTowards(slider.value, 1, Time.deltaTime);
+                    if (slider.value == 1) {
+                        operation.allowSceneActivation = true;
+                    }
+                } else {
+                    slider.value = progress;
+                }
+                text.text = string.Concat("Loading ", slider.value * 100, "%");
+                yield return null;
+            }
         }
     }
 }
