@@ -1,0 +1,15 @@
+LazyPan Document
+
+Entity
+GameObj
+Interface
+Data
+System
+Function
+Condition
+Behaviour
+Component
+
+原则：
+1、每一个独立的功能可以单独使用测试工具进行测试
+2、实体和功能绝对解耦
