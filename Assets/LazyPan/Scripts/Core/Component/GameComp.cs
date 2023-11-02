@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace LazyPan.Scripts.Core.Component {
+namespace LazyPan {
     public class GameComp : MonoBehaviour {
         public List<GameObjectData> GameObjects = new List<GameObjectData>();
         public List<ButtonData> Buttons = new List<ButtonData>();

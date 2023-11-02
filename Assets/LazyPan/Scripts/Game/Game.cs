@@ -1,31 +1,30 @@
-using LazyPan.Scripts.Core.Component;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
-namespace LazyPan.Scripts.Game {
+namespace LazyPan {
     public class Game : MonoBehaviour {
-        public Transform uiRoot;
-        public PlayerInput playerInput;
+        public Transform GameRoot => transform;
 
+        public static Game Instance;
         private void Awake() {
-            uiRoot = Loader.Loader.Load("画布", "Interface/UI_Canvas", null).transform;
-            playerInput.actions["Setting"].performed += OpenSetting;
+            Instance = this;
         }
 
-        private void OpenSetting(InputAction.CallbackContext callbackContext) {
-            GameComp comp = Loader.Loader.LoadComp("设置界面", "Interface/UI_Setting", uiRoot);
-            Button uiSettingQuit = comp.Get<Button>("UI_Setting_Quit");
-            Listener.Listener.AddListener(uiSettingQuit, QuitGame);
+        private void Start() {
+            Init();
+            Load();
         }
 
-        private void QuitGame() {
-            Debug.Log("QuitGame");
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#endif
-            Application.Quit();
+        private void Init() {
+            new Message();
+            new Input().Start();
+            new UI().Start();
+            new Obj().Start();
+        }
+
+        private void Load() {
+            Input.Instance.Load();
+            UI.Instance.Load();
+            Obj.Instance.Load();
         }
     }
 }
