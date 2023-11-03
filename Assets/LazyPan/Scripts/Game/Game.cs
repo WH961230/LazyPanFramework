@@ -19,13 +19,14 @@ namespace LazyPan {
         private void Init() {
             new Message();
             new Data();
-            new Input().Start();
-            new UI().Start();
-            new Obj().Start();
+            new Input();
+            new UI();
+            new Obj();
+            new Behaviour();
         }
 
         private void Load() {
-            Input.Instance.Load();
+            Input.Instance.Load("Setting", Act.OpenSetting);
             UI.Instance.Load();
             Obj.Instance.Load();
             LoadFinished = true;

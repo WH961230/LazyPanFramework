@@ -11,9 +11,12 @@ namespace LazyPan {
             UGo = Loader.Load("", GetPath(type), GetRoot(type));
             int uGoID = UGo.GetInstanceID();
             UGo.name = string.Concat(name, "_", uGoID, "_", ID);
-            Texture2D icon = EditorGUIUtility.IconContent("sv_label_0").image as Texture2D;
-            EditorGUIUtility.SetIconForObject(UGo, icon);
+            if (type == GoType.Player) {
+                Texture2D icon = EditorGUIUtility.IconContent("sv_label_0").image as Texture2D;
+                EditorGUIUtility.SetIconForObject(UGo, icon);
+            }
             Data.Instance.goID.TryAdd(uGoID, ID);
+            Data.Instance.go.TryAdd(ID, this);
         }
 
         private string GetPath(GoType type) {

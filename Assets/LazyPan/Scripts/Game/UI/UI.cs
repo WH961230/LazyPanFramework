@@ -9,7 +9,7 @@ namespace LazyPan {
         private Dictionary<string, Comp> uICompDics = new Dictionary<string, Comp>();
 
         public static UI Instance;
-        public void Start() {
+        public UI() {
             Instance = this;
             UIPreLoad();
             UIEventRegister();

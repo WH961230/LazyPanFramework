@@ -7,9 +7,9 @@ namespace LazyPan {
         public Transform LightRoot;
         public Transform VolumeRoot;
         public Transform TerrainRoot;
-        public static Obj Instance;
 
-        public void Start() {
+        public static Obj Instance;
+        public Obj() {
             Instance = this;
             ObjRoot = Loader.Load("物体", "Global/Global_Obj_Root", null).transform;
             CameraRoot = Loader.Load("相机", "Global/Global_Camera_Root", null).transform;
@@ -24,9 +24,10 @@ namespace LazyPan {
             new Go(GoType.Light, "直射灯光");
             new Go(GoType.Volume, "后处理");
 
-            new Go(GoType.Player, "玩家");
-            new Go(GoType.Player, "玩家");
-            new Go(GoType.Player, "玩家");
+            Go go1 = new Go(GoType.Player, "玩家");
+            new Function(go1.ID, new Behaviour_Move());
+            Go go2 = new Go(GoType.Player, "玩家");
+            Go go3 = new Go(GoType.Player, "玩家");
         }
     }
 }

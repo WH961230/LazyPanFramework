@@ -12,6 +12,12 @@ namespace LazyPan {
             Application.Quit();
         }
 
+        public static void Move(InputAction.CallbackContext callbackContext) {
+            if (callbackContext.performed) {
+                Debug.Log("Test Move");
+            }
+        }
+
         public static void OpenSetting(InputAction.CallbackContext callbackContext) {
             if (callbackContext.performed) {
                 if(UI.Instance.IsUI("UI_Setting")) {
