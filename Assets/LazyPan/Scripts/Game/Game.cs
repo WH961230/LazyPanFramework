@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace LazyPan {
@@ -16,6 +17,10 @@ namespace LazyPan {
             Load();
         }
 
+        private void Update() {
+            UpdateEvent();
+        }
+
         private void Init() {
             new Message();
             new Data();
@@ -30,6 +35,10 @@ namespace LazyPan {
             UI.Instance.Load();
             Obj.Instance.Load();
             LoadFinished = true;
+        }
+
+        private void UpdateEvent() {
+            
         }
     }
 }

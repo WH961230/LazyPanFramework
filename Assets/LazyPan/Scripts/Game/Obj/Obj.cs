@@ -25,7 +25,7 @@ namespace LazyPan {
             new Go(GoType.Volume, "后处理");
 
             Go go1 = new Go(GoType.Player, "玩家");
-            new Function(go1.ID, new Behaviour_Move());
+            new Function(go1.ID, new Behaviour_Move(go1.ID));
             Go go2 = new Go(GoType.Player, "玩家");
             Go go3 = new Go(GoType.Player, "玩家");
         }
