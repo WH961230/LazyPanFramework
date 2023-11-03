@@ -19,11 +19,14 @@ namespace LazyPan {
         }
 
         public void Load() {
-            Loader.Load("地形", "Terrain/Terrain_Main", TerrainRoot);
-            Loader.Load("主相机", "Camera/Camera_Main", CameraRoot);
-            Loader.Load("后处理", "Volume/Volume", VolumeRoot);
-            Loader.Load("直射灯光", "Light/Light_Directional", LightRoot);
-            Loader.Load("玩家", "Obj/Obj_Player", ObjRoot);
+            new Go(GoType.Terrain, "地形");
+            new Go(GoType.Camera, "主相机");
+            new Go(GoType.Light, "直射灯光");
+            new Go(GoType.Volume, "后处理");
+
+            new Go(GoType.Player, "玩家");
+            new Go(GoType.Player, "玩家");
+            new Go(GoType.Player, "玩家");
         }
     }
 }

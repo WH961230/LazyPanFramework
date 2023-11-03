@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace LazyPan {
     public class Game : MonoBehaviour {
+        public bool LoadFinished;
         public Transform GameRoot => transform;
+        public Setting Setting => Loader.Load<Setting>(Loader.LoaderType.ASSET, "Setting");
 
         public static Game Instance;
         private void Awake() {
@@ -16,6 +18,7 @@ namespace LazyPan {
 
         private void Init() {
             new Message();
+            new Data();
             new Input().Start();
             new UI().Start();
             new Obj().Start();
@@ -25,6 +28,7 @@ namespace LazyPan {
             Input.Instance.Load();
             UI.Instance.Load();
             Obj.Instance.Load();
+            LoadFinished = true;
         }
     }
 }

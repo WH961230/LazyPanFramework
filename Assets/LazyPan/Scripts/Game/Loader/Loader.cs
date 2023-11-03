@@ -12,11 +12,16 @@ namespace LazyPan {
         private static string PREFAB_PATH = "Assets/LazyPan/Bundles/Prefabs/";
         private static string PREFAB_SUFFIX = ".prefab";
 
+        private static string ASSET_PATH = "Assets/LazyPan/Bundles/Configs/Setting/";
+        private static string ASSET_SUFFIX = ".asset";
         public static T Load<T>(LoaderType type, string assetPath) where T : Object {
             string path = "";
             switch (type) {
                 case LoaderType.PREFAB:
                     path = String.Concat(String.Concat(PREFAB_PATH, assetPath), PREFAB_SUFFIX);
+                    break;
+                case LoaderType.ASSET:
+                    path = String.Concat(String.Concat(ASSET_PATH, assetPath), ASSET_SUFFIX);
                     break;
                 case LoaderType.INPUTACTIONASSET:
                     path = String.Concat(String.Concat(INPUTACTIONASSET_PATH, assetPath), INPUTACTIONASSET_SUFFIX);
@@ -46,9 +51,9 @@ namespace LazyPan {
             return rets;
         }
 
-        public static GameComp LoadComp(string name, string path, Transform parent) {
+        public static Comp LoadComp(string name, string path, Transform parent) {
             GameObject go = Load(name, path, parent);
-            return go.GetComponent<GameComp>();
+            return go.GetComponent<Comp>();
         }
 
         public static AsyncOperation LoadSceneAsync(string name) {
@@ -57,6 +62,7 @@ namespace LazyPan {
 
         [Serializable]
         public enum LoaderType {
+            ASSET,
             PREFAB,
             INPUTACTIONASSET,
         }

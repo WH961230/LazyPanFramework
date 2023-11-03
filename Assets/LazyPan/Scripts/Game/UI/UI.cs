@@ -5,8 +5,8 @@ using UnityEngine.UI;
 namespace LazyPan {
     public class UI {
         public Transform UIRoot;
-        private GameComp UIComp;
-        private Dictionary<string, GameComp> uICompDics = new Dictionary<string, GameComp>();
+        private Comp UIComp;
+        private Dictionary<string, Comp> uICompDics = new Dictionary<string, Comp>();
 
         public static UI Instance;
         public void Start() {
@@ -21,7 +21,7 @@ namespace LazyPan {
 
             uICompDics.Clear();
             for (int i = 0; i < uiGos.Length; i++) {
-                uICompDics.Add(uiGos[i].name, uiGos[i].GetComponent<GameComp>());
+                uICompDics.Add(uiGos[i].name, uiGos[i].GetComponent<Comp>());
             }
         }
 
@@ -34,12 +34,12 @@ namespace LazyPan {
             
         }
 
-        public GameComp Open(string name) {
+        public Comp Open(string name) {
             if (UIComp != null) {
                 UIComp.gameObject.SetActive(false);
             }
 
-            if (uICompDics.TryGetValue(name, out GameComp comp)) {
+            if (uICompDics.TryGetValue(name, out Comp comp)) {
                 UIComp = comp;
                 UIComp.gameObject.SetActive(true);
                 return UIComp;
@@ -48,8 +48,8 @@ namespace LazyPan {
             return null;
         }
 
-        public GameComp Get(string name) {
-            if (uICompDics.TryGetValue(name, out GameComp comp)) {
+        public Comp Get(string name) {
+            if (uICompDics.TryGetValue(name, out Comp comp)) {
                 return comp;
             }
 
@@ -76,7 +76,7 @@ namespace LazyPan {
             }
         }
 
-        private void Close(GameComp comp) {
+        private void Close(Comp comp) {
             comp.gameObject.SetActive(false);
         }
     }
