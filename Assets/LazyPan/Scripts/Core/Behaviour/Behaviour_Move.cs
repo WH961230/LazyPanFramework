@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace LazyPan {
@@ -7,10 +8,15 @@ namespace LazyPan {
         public Vector2 vec;
         public Behaviour_Move(int id) {
             go = Data.Instance.go[id];
-
-            InputControls inputControls = new InputControls();
-            inputControls.Enable();
-            inputControls.Player.Move.performed += Move;
+            Input.Instance.Load("Player/Move", Move);
+            if (Data.Instance.goFunc.TryGetValue(id, out List<Behaviour> list)) {
+                list.Add(this);
+                Data.Instance.goFunc[id] = list;
+            } else {
+                List<Behaviour> behaviourList = new List<Behaviour>();
+                behaviourList.Add(this);
+                Data.Instance.goFunc.Add(id, behaviourList);
+            }
             Data.Instance.OnUpdateEvent?.AddListener(Update_Move);
         }
 
