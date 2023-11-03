@@ -11,7 +11,7 @@ namespace LazyPan {
             InputControls inputControls = new InputControls();
             inputControls.Enable();
             inputControls.Player.Move.performed += Move;
-            Data.Instance.OnUpdateEvent.AddListener(Update_Move);
+            Data.Instance.OnUpdateEvent?.AddListener(Update_Move);
         }
 
         private void Update_Move() {
