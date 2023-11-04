@@ -18,6 +18,12 @@ namespace LazyPan {
                 Data.Instance.goFunc.Add(id, behaviourList);
             }
             Data.Instance.OnUpdateEvent?.AddListener(Update_Move);
+            Comp goComp = go.UGo.GetComponent<Comp>();
+            goComp.OnTriggerEnterAction += TriggerEnter;
+        }
+
+        private void TriggerEnter(Collider collider) {
+            Debug.Log($"Collider Name : {collider.name}");
         }
 
         private void Update_Move() {
