@@ -19,15 +19,15 @@ namespace LazyPan {
         }
 
         public void Load() {
-            new Go(GoType.Terrain, "地形");
-            new Go(GoType.Camera, "主相机");
-            new Go(GoType.Light, "直射灯光");
-            new Go(GoType.Volume, "后处理");
+            new Go(GoType.Terrain, "Main", "地形");
+            new Go(GoType.Camera, "Main", "主相机");
+            new Go(GoType.Light, "Directional" , "直射灯光");
+            new Go(GoType.Volume, "","后处理");
 
-            Go go1 = new Go(GoType.Player, "玩家");
+            Go go1 = new Go(GoType.Player, "Player", "玩家");
             new Function(go1.ID, new Behaviour_Move(go1.ID));
-            Go go2 = new Go(GoType.Player, "玩家");
-            Go go3 = new Go(GoType.Player, "玩家");
+            // Go go2 = new Go(GoType.Player, "玩家");
+            // Go go3 = new Go(GoType.Player, "玩家");
         }
     }
 }

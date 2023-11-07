@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 namespace LazyPan {
     public class Launch : MonoBehaviour {
+        [SerializeField] private string sceneName;
         private Transform uiRoot;
         private Game game;
 
@@ -15,7 +16,7 @@ namespace LazyPan {
             Stage stage = uiRoot.gameObject.AddComponent<Stage>();
             DontDestroyOnLoad(uiRoot.gameObject);
 
-            Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Start"), stage.Load);
+            Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Start"), stage.Load, sceneName);
             Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Quit"), Act.QuitGame);
         }
     }

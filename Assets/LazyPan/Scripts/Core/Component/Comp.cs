@@ -8,6 +8,8 @@ using Object = UnityEngine.Object;
 namespace LazyPan {
     public class Comp : MonoBehaviour {
         public Action<Collider> OnTriggerEnterAction;
+        public Action<Collider> OnTriggerStayAction;
+        public Action<Collider> OnTriggerExitAction;
 
         public List<GameObjectData> GameObjects = new List<GameObjectData>();
         public List<ButtonData> Buttons = new List<ButtonData>();
@@ -51,9 +53,9 @@ namespace LazyPan {
             return null;
         }
 
-        public void OnTriggerEnter(Collider other) {
-            OnTriggerEnterAction?.Invoke(other);
-        }
+        public void OnTriggerEnter(Collider other) { OnTriggerEnterAction?.Invoke(other); }
+        public void OnTriggerStay(Collider other) { OnTriggerStayAction?.Invoke(other); }
+        private void OnTriggerExit(Collider other) { OnTriggerExitAction?.Invoke(other); }
 
         [Serializable]
         public class ButtonData {

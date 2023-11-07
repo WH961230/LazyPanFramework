@@ -1,0 +1,6 @@
+﻿Sign,Description,Type
+string,string,int
+标识,描述,类型(0:互斥 1:永久)
+UI_Loading,加载界面,1
+UI_Setting,设置界面,0
+UI_Begin,开始界面,1

@@ -23,6 +23,9 @@ namespace LazyPan {
             for (int i = 0; i < uiGos.Length; i++) {
                 uICompDics.Add(uiGos[i].name, uiGos[i].GetComponent<Comp>());
             }
+
+            Debug.Log(Config.Instance.Get<string>("PlayerConfig", "Lisi"));
+            Debug.Log(Config.Instance.Get<string>("UIConfig", "UI_Setting"));
         }
 
         private void UIEventRegister() {

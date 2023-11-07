@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace LazyPan {
@@ -22,6 +21,7 @@ namespace LazyPan {
         private void LateUpdate() { LateUpdateEvent(); }
 
         private void Init() {
+            new Config();
             new Message();
             new Data();
             new Input();

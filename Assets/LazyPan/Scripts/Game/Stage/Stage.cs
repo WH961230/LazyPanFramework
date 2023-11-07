@@ -13,10 +13,10 @@ namespace LazyPan {
         private StageWork work;
         private Queue<StageWork> works = new Queue<StageWork>();
 
-        public void Load() {
-            works.Enqueue(new LoadLoadingUI(new LoadLoadingUIParameters() { Description = "Loading UI", uiRoot = transform }, this));
-            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "Loading Scene", sceneName = "Fight" }));
-            works.Enqueue(new LoadGlobal(new StageParameters() { Description = "Loading Global" }, this));
+        public void Load(string sceneName) {
+            works.Enqueue(new LoadLoadingUI(new LoadLoadingUIParameters() { Description = "加载 Loading 界面", uiRoot = transform }, this));
+            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景", sceneName = sceneName }));
+            works.Enqueue(new LoadGlobal(new LoadGlobalParameters() { Description = "加载场景物体", sceneName = sceneName }, this));
             StageCount = works.Count;
         }
 
@@ -48,13 +48,17 @@ namespace LazyPan {
         }
     }
 
+    public class LoadGlobalParameters : StageParameters {
+        public string sceneName;
+    }
+
     public class LoadGlobal : StageWork {
-        private StageParameters Parameters;
+        private LoadGlobalParameters Parameters;
         private Stage stage;
         private Game game;
 
         public LoadGlobal(StageParameters Parameters, Stage stage) : base(Parameters) {
-            this.Parameters = Parameters;
+            this.Parameters = (LoadGlobalParameters)Parameters;
             this.stage = stage;
         }
 
@@ -63,7 +67,7 @@ namespace LazyPan {
         }
 
         public override void OnUpdate() {
-            if (SceneManager.GetActiveScene().name == "Fight" && game == null) {
+            if (SceneManager.GetActiveScene().name == Parameters.sceneName && game == null) {
                 game = Loader.Load("全局", "Global/Global", null).GetComponent<Game>();
             }
 

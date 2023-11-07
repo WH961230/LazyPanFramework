@@ -1,0 +1,7 @@
+﻿Sign,Name,Age,Type
+string,string,int,int
+标识,姓名,年龄,类型
+ZhangSan,张三,1,1
+Lisi,李四,2,1
+WangWu,王五,3,1
+ZhaoLiu,赵六,4,1

@@ -167,3 +167,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91152c5aed76abb49990768ba8fcea1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: Fight
