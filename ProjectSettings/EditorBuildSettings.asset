@@ -6,11 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/LazyPan/Scenes/Fight.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
     path: Assets/LazyPan/Scenes/Launch.unity
     guid: 785611d280c3ef3499f44dc58b9729d6
+  - enabled: 1
+    path: Assets/LazyPan/Scenes/Fight.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 66c0a1f411d154e46a064fd0b15ead2f,
+      type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: f8e0887921f508d43b113547dff07b45,
       type: 2}

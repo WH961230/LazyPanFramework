@@ -4,7 +4,7 @@ namespace LazyPan {
     public class Game : MonoBehaviour {
         public bool LoadFinished;
         public Transform GameRoot => transform;
-        public Setting Setting => Loader.Load<Setting>(Loader.LoaderType.ASSET, "Setting");
+        public Setting Setting => Loader.LoadAsset<Setting>(Loader.AssetType.ASSET, "Setting");
 
         public static Game Instance;
         private void Awake() {
@@ -21,7 +21,7 @@ namespace LazyPan {
         private void LateUpdate() { LateUpdateEvent(); }
 
         private void Init() {
-            new Config();
+            Config.Instance.Init();
             new Message();
             new Data();
             new Input();
@@ -31,7 +31,6 @@ namespace LazyPan {
         }
 
         private void Load() {
-            Input.Instance.Load("Setting", Act.OpenSetting);
             UI.Instance.Load();
             Obj.Instance.Load();
             LoadFinished = true;

@@ -1,8 +1,7 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
 
 namespace LazyPan {
     public partial class Loader {
@@ -14,45 +13,37 @@ namespace LazyPan {
 
         private static string ASSET_PATH = "Assets/LazyPan/Bundles/Configs/Setting/";
         private static string ASSET_SUFFIX = ".asset";
-        public static T Load<T>(LoaderType type, string assetPath) where T : Object {
-            string path = "";
+
+        private static string GetAddress(AssetType type, string assetName) {
+            string address = "";
             switch (type) {
-                case LoaderType.PREFAB:
-                    path = String.Concat(String.Concat(PREFAB_PATH, assetPath), PREFAB_SUFFIX);
+                case AssetType.PREFAB:
+                    address = String.Concat(String.Concat(PREFAB_PATH, assetName), PREFAB_SUFFIX);
                     break;
-                case LoaderType.ASSET:
-                    path = String.Concat(String.Concat(ASSET_PATH, assetPath), ASSET_SUFFIX);
+                case AssetType.ASSET:
+                    address = String.Concat(String.Concat(ASSET_PATH, assetName), ASSET_SUFFIX);
                     break;
-                case LoaderType.INPUTACTIONASSET:
-                    path = String.Concat(String.Concat(INPUTACTIONASSET_PATH, assetPath), INPUTACTIONASSET_SUFFIX);
+                case AssetType.INPUTACTIONASSET:
+                    address = String.Concat(String.Concat(INPUTACTIONASSET_PATH, assetName), INPUTACTIONASSET_SUFFIX);
                     break;
             }
-            return AssetDatabase.LoadAssetAtPath<T>(path);
+
+            return address;
         }
 
-        public static GameObject Load(string name, string path, Transform parent) {
-            GameObject prefab = Load<GameObject>(LoaderType.PREFAB, path);
-            GameObject go = Object.Instantiate(prefab, parent);
-            go.name = name;
+        public static T LoadAsset<T>(AssetType type, string assetName) {
+            return Addressables.LoadAssetAsync<T>(GetAddress(type, assetName)).WaitForCompletion();
+        }
+
+        public static GameObject LoadGo(string finalName, string assetName, Transform parent, bool active) {
+            GameObject go = Addressables.InstantiateAsync(GetAddress(AssetType.PREFAB, assetName), parent).WaitForCompletion();
+            go.SetActive(active);
+            go.name = finalName;
             return go;
         }
 
-        public static GameObject[] Load(string folderPath, string filter, Transform parent, bool isActive) {
-            string[] prefabGuids = AssetDatabase.FindAssets(filter, new[] { PREFAB_PATH + folderPath });
-            GameObject[] rets = new GameObject[prefabGuids.Length];
-            for (int i = 0 ; i < prefabGuids.Length; i++) {
-                string prefabPath = AssetDatabase.GUIDToAssetPath(prefabGuids[i]);
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-                GameObject go = Object.Instantiate(prefab, parent);
-                go.name = prefab.name;
-                go.SetActive(isActive);
-                rets[i] = go;
-            }
-            return rets;
-        }
-
-        public static Comp LoadComp(string name, string path, Transform parent) {
-            GameObject go = Load(name, path, parent);
+        public static Comp LoadComp(string finalName, string assetName, Transform parent, bool isActive) {
+            GameObject go = LoadGo(finalName, assetName, parent, isActive);
             return go.GetComponent<Comp>();
         }
 
@@ -61,7 +52,7 @@ namespace LazyPan {
         }
 
         [Serializable]
-        public enum LoaderType {
+        public enum AssetType {
             ASSET,
             PREFAB,
             INPUTACTIONASSET,

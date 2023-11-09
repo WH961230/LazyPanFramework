@@ -43,7 +43,6 @@ namespace LazyPan {
                 float eachProgress = (float) 1 / StageCount;
                 loadingSlider.value = eachProgress * (StageCountIndex + work.Progress);
                 loadingText.text = string.Concat(work.Parameters.Description, " ", Mathf.Round(loadingSlider.value * 100f), "%");
-                Debug.LogFormat("index: {0} progress:{1} totalProgress{2}", StageCountIndex, work.Progress, eachProgress * (StageCountIndex + work.Progress));
             }
         }
     }
@@ -68,18 +67,17 @@ namespace LazyPan {
 
         public override void OnUpdate() {
             if (SceneManager.GetActiveScene().name == Parameters.sceneName && game == null) {
-                game = Loader.Load("全局", "Global/Global", null).GetComponent<Game>();
+                game = Loader.LoadGo("全局", "Global/Global", null, true).GetComponent<Game>();
             }
 
-            if (game != null && game.LoadFinished) {
+            if (game != null && game.LoadFinished && !IsDone) {
                 Progress = 1;
                 IsDone = true;
+                ClockUtil.Instance.AlarmAfter(1f, () => { Object.DestroyImmediate(stage.gameObject); });
             }
         }
 
         public override void OnComplete() {
-            Debug.Log(string.Concat(Parameters.Description, " 完成!"));
-            Object.DestroyImmediate(stage.gameObject);
         }
     }
 
@@ -99,10 +97,12 @@ namespace LazyPan {
             operation.allowSceneActivation = false;
 
             while (!operation.isDone) {
-                if (operation.progress >= 0.9f) {
+                if (operation.progress >= 0.9f && Progress < 1) {
                     Progress = 1;
-                    operation.allowSceneActivation = true;
-                    IsDone = true;
+                    ClockUtil.Instance.AlarmAfter(1f, () => {
+                        operation.allowSceneActivation = true;
+                        IsDone = true;
+                    });
                     break;
                 } else {
                     Progress = operation.progress;
@@ -114,7 +114,6 @@ namespace LazyPan {
         }
 
         public override void OnComplete() {
-            Debug.Log(string.Concat(Parameters.Description, " 完成!"));
         }
     }
 
@@ -133,7 +132,7 @@ namespace LazyPan {
 
         public override void OnStart() {
             Progress = 0;
-            stage.loadingUIComp = Loader.LoadComp("加载界面", "UI/UI_Loading", Parameters.uiRoot);
+            stage.loadingUIComp = Loader.LoadComp("加载界面", "UI/UI_Loading", Parameters.uiRoot, true);
         }
 
         public override void OnUpdate() {
@@ -145,7 +144,6 @@ namespace LazyPan {
         }
 
         public override void OnComplete() {
-            Debug.Log(string.Concat(Parameters.Description, " 完成!"));
         }
     }
 

@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Setting
   m_EditorClassIdentifier: 
   InstanceID: 0
-  FilePath: /LazyPan/Bundles/Configs/Txt/
+  CsvPath: /LazyPan/Bundles/Configs/Csv/
+  TxtPath: /LazyPan/Bundles/Configs/Txt/
+  ConfigScriptPath: /LazyPan/Scripts/Game/Config/

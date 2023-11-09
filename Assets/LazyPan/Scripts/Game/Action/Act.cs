@@ -11,15 +11,5 @@ namespace LazyPan {
 #endif
             Application.Quit();
         }
-
-        public static void OpenSetting(InputAction.CallbackContext callbackContext) {
-            if (callbackContext.performed) {
-                if(UI.Instance.IsUI("UI_Setting")) {
-                    UI.Instance.Close();
-                } else {
-                    UI.Instance.Open("UI_Setting");
-                }
-            }
-        }
     }
 }

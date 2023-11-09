@@ -8,7 +8,7 @@ namespace LazyPan {
 
         public Go(GoType type, string sign, string name) {
             ID = ++Game.Instance.Setting.InstanceID;
-            UGo = Loader.Load("", GetPath(type, sign), GetRoot(type));
+            UGo = Loader.LoadGo("", GetPath(type, sign), GetRoot(type), true);
             int uGoID = UGo.GetInstanceID();
             UGo.name = string.Concat(name, "_", uGoID, "_", ID);
 
@@ -16,14 +16,12 @@ namespace LazyPan {
             Data.Instance.go.TryAdd(ID, this);
             Debug.LogFormat("Go ID : {0} , UGo ID : {1} , Name : {2}", ID, uGoID, UGo.name);
 
-            GizmosIcon(type);
-        }
-
-        private void GizmosIcon(GoType type) {
+#if UNITY_EDITOR
             if (type == GoType.Player) {
                 Texture2D icon = EditorGUIUtility.IconContent("sv_label_0").image as Texture2D;
                 EditorGUIUtility.SetIconForObject(UGo, icon);
             }
+#endif
         }
 
         private string GetPath(GoType type, string sign) {

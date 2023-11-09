@@ -6,6 +6,8 @@ namespace LazyPan {
     public class UI {
         public Transform UIRoot;
         private Comp UIComp;
+        private Dictionary<string, Comp> uICompAlwaysDics = new Dictionary<string, Comp>();
+        private Dictionary<string, Comp> uICompExchangeDics = new Dictionary<string, Comp>();
         private Dictionary<string, Comp> uICompDics = new Dictionary<string, Comp>();
 
         public static UI Instance;
@@ -16,16 +18,29 @@ namespace LazyPan {
         }
 
         private void UIPreLoad() {
-            UIRoot = Loader.Load("画布", "Global/Global_UI_Root", null).transform;
-            GameObject[] uiGos = Loader.Load("UI", "t:prefab", UIRoot, false);
+            UIRoot = Loader.LoadGo("画布", "Global/Global_UI_Root", null, true).transform;
+
+            List<string> keys = UIConfig.GetKeys();
+            int length = keys.Count;
 
             uICompDics.Clear();
-            for (int i = 0; i < uiGos.Length; i++) {
-                uICompDics.Add(uiGos[i].name, uiGos[i].GetComponent<Comp>());
-            }
+            uICompExchangeDics.Clear();
+            uICompAlwaysDics.Clear();
 
-            Debug.Log(Config.Instance.Get<string>("PlayerConfig", "Lisi"));
-            Debug.Log(Config.Instance.Get<string>("UIConfig", "UI_Setting"));
+            for (int i = 0; i < length; i++) {
+                string key = keys[i];
+                GameObject uiGo = Loader.LoadGo(key, string.Concat("UI/",key), UIRoot, false);
+                switch (UIConfig.Get(key).Type) {
+                    case 0:
+                        uICompExchangeDics.Add(key, uiGo.GetComponent<Comp>());
+                        break;
+                    case 1:
+                        uICompAlwaysDics.Add(key, uiGo.GetComponent<Comp>());
+                        break;
+                }
+
+                uICompDics.Add(key, uiGo.GetComponent<Comp>());
+            }
         }
 
         private void UIEventRegister() {
@@ -38,14 +53,19 @@ namespace LazyPan {
         }
 
         public Comp Open(string name) {
-            if (UIComp != null) {
-                UIComp.gameObject.SetActive(false);
-            }
+            if (uICompExchangeDics.TryGetValue(name, out Comp uiExchangeComp)) {
+                if (UIComp != null) {
+                    UIComp.gameObject.SetActive(false);
+                }
 
-            if (uICompDics.TryGetValue(name, out Comp comp)) {
-                UIComp = comp;
+                UIComp = uiExchangeComp;
                 UIComp.gameObject.SetActive(true);
                 return UIComp;
+            }
+
+            if (uICompAlwaysDics.TryGetValue(name, out Comp uiAlwaysComp)) {
+                uiAlwaysComp.gameObject.SetActive(true);
+                return uiAlwaysComp;
             }
 
             return null;
@@ -59,12 +79,16 @@ namespace LazyPan {
             return null;
         }
 
-        public bool IsUI(string name) {
-            if (UIComp == null) {
-                return false;
+        public string GetExchangeUIName() {
+            if (UIComp != null) {
+                return UIComp.gameObject.name;
             }
 
-            return UIComp.gameObject.name == name;
+            return null;
+        }
+
+        public bool IsExchangeUI() {
+            return UIComp != null;
         }
 
         public void Close() {
@@ -73,14 +97,15 @@ namespace LazyPan {
         }
 
         public void Close(string name) {
-            if (IsUI(name)) {
-                Close(Get(name));
-                UIComp = null;
+            if (uICompAlwaysDics.TryGetValue(name, out Comp uiAlwaysComp)) {
+                Close(uiAlwaysComp);
             }
         }
 
         private void Close(Comp comp) {
-            comp.gameObject.SetActive(false);
+            if (comp != null) {
+                comp.gameObject.SetActive(false);
+            }
         }
     }
 }
