@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using TMPro;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace LazyPan {
@@ -31,24 +28,6 @@ namespace LazyPan {
             dataBody.ID = ++Game.Instance.Setting.InstanceID;
             dataBody.Go = new Go(dataBody.ID, "Obj_Player");
             dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
-
-            // List<string> keys = BehaviourConfig.GetKeys();
-            // for (int i = 0; i < keys.Count; i++) {
-            //     string key = keys[i];
-            //     BehaviourConfig tmpConfig = BehaviourConfig.Get(key);
-            //     if (tmpConfig.Default == 1) {
-            //         if (tmpConfig.Type == 1) {
-            //             ObjConfig subjectObjConfig = ObjConfig.Get(tmpConfig.DefaultSubject);
-            //             subjectObjConfig.Sign
-            //         } else if (tmpConfig.Type == 2) {
-            //             
-            //         } else if (tmpConfig.Type == 3) {
-            //             
-            //         }
-            //         Type type = Assembly.Load("Assembly-CSharp").GetType(key);
-            //         Behaviour behaviour = (Behaviour) Activator.CreateInstance(type, dataBody.ID);
-            //     }
-            // }
 
             var behaviours = new List<Behaviour>();
             behaviours.Add(new Behaviour_Move(dataBody.ID, -1));
