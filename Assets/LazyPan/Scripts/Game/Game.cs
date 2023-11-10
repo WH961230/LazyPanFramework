@@ -27,7 +27,6 @@ namespace LazyPan {
             new Input();
             new UI();
             new Obj();
-            new Behaviour();
         }
 
         private void Load() {

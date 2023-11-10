@@ -1,18 +1,32 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace LazyPan {
-    public class #ClassName# {
-#Property#
+    public class BehaviourConfig {
+		public string Sign;
+		public int Type;
+		public string DefaultSubject;
+		public string DefaultObject;
+		public int Default;
+		public string Name;
+		public string Description;
+
         private static bool isInit;
         private static string content;
         private static string[] lines;
-        private static Dictionary<string, #ClassName#> dics = new Dictionary<string, #ClassName#>();
+        private static Dictionary<string, BehaviourConfig> dics = new Dictionary<string, BehaviourConfig>();
 
-        public #ClassName#(string line) {
+        public BehaviourConfig(string line) {
             try {
                 string[] values = line.Split(',');
-#ReadContent#
+				Sign = values[0];
+				Type = int.Parse(values[1]);
+				DefaultSubject = values[2];
+				DefaultObject = values[3];
+				Default = int.Parse(values[4]);
+				Name = values[5];
+				Description = values[6];
+
             } catch (Exception e) {
                 Console.WriteLine(e);
                 throw;
@@ -23,11 +37,11 @@ namespace LazyPan {
             if (isInit) {
                 return;
             }
-            ReadCSV.Instance.Read("#ClassName#", out content, out lines);
+            ReadCSV.Instance.Read("BehaviourConfig", out content, out lines);
             dics.Clear();
             for (int i = 0; i < lines.Length; i++) {
                 if (i > 2) {
-                    #ClassName# config = new #ClassName#(lines[i]);
+                    BehaviourConfig config = new BehaviourConfig(lines[i]);
                     dics.Add(config.Sign, config);
                 }
             }
@@ -35,8 +49,8 @@ namespace LazyPan {
             isInit = true;
         }
 
-        public static #ClassName# Get(string sign) {
-            if (dics.TryGetValue(sign, out #ClassName# config)) {
+        public static BehaviourConfig Get(string sign) {
+            if (dics.TryGetValue(sign, out BehaviourConfig config)) {
                 return config;
             }
 

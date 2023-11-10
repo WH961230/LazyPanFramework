@@ -31,7 +31,7 @@ namespace LazyPan {
             if (isInit) {
                 return;
             }
-            ReadCSV.Instance.Read("Csv/UIConfig", out content, out lines);
+            ReadCSV.Instance.Read("UIConfig", out content, out lines);
             dics.Clear();
             for (int i = 0; i < lines.Length; i++) {
                 if (i > 2) {

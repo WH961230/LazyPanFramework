@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "InputView",
+                    "type": "Value",
+                    "id": "58ae8b60-b2d0-4d31-aeff-839095eb2a2a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -98,6 +107,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "a3694804-d563-4e4e-b9fc-2cc04a0a8bca",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

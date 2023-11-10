@@ -1,0 +1,8 @@
+﻿Sign,Type,Name
+string,int,string
+标识,类型（0：物体 1：玩家 2：相机 3：灯光 4：地形 5：后处理）,名称
+Obj_Player,1,玩家物体
+Obj_MainTerrain,4,主地形物体
+Obj_MainCamera,2,主相机物体
+Obj_MainDirectionalLight,3,主直射灯光
+Obj_MainVolume,5,主后处理

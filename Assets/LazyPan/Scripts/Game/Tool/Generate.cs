@@ -7,13 +7,12 @@ using Object = UnityEngine.Object;
 
 namespace LazyPan {
     public class Generate {
-
 #if UNITY_EDITOR
         [MenuItem("Assets/Create/LazyPan/生成配置脚本")]
         public static void GenerateConfig() {
             Object obj = Selection.objects[0];
-            Setting setting = AssetDatabase.LoadAssetAtPath<Setting>("Assets/LazyPan/Bundles/Configs/Setting/Setting.asset");
-            ReadCSV.Instance.Read("Csv/" + obj.name, out string content, out string[] lines);
+            Setting setting = Loader.LoadAsset<Setting>(Loader.AssetType.ASSET, "Setting");
+            ReadCSV.Instance.Read(obj.name, out string content, out string[] lines);
             GenerateScript(obj.name, setting, lines);
         }
 
@@ -65,6 +64,5 @@ namespace LazyPan {
             return false;
         }
 #endif
-
     }
 }

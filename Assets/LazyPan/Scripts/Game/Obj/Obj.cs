@@ -1,5 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using TMPro;
+using UnityEngine;
 
 namespace LazyPan {
     public class Obj {
@@ -20,16 +23,47 @@ namespace LazyPan {
         }
 
         public void Load() {
-            new Go(GoType.Terrain, "Main", "地形");
-            new Go(GoType.Camera, "Main", "主相机");
-            new Go(GoType.Light, "Directional" , "直射灯光");
-            new Go(GoType.Volume, "","后处理");
+            new Go(++Game.Instance.Setting.InstanceID, "Obj_MainTerrain");
+            new Go(++Game.Instance.Setting.InstanceID, "Obj_MainDirectionalLight");
+            new Go(++Game.Instance.Setting.InstanceID, "Obj_MainVolume");
 
-            Go go1 = new Go(GoType.Player, "Player", "玩家");
-            new Function(go1.ID, new Behaviour_Move(go1.ID));
+            DataBody dataBody = new DataBody();
+            dataBody.ID = ++Game.Instance.Setting.InstanceID;
+            dataBody.Go = new Go(dataBody.ID, "Obj_Player");
+            dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
 
-            // Go go2 = new Go(GoType.Player, "玩家");
-            // Go go3 = new Go(GoType.Player, "玩家");
+            // List<string> keys = BehaviourConfig.GetKeys();
+            // for (int i = 0; i < keys.Count; i++) {
+            //     string key = keys[i];
+            //     BehaviourConfig tmpConfig = BehaviourConfig.Get(key);
+            //     if (tmpConfig.Default == 1) {
+            //         if (tmpConfig.Type == 1) {
+            //             ObjConfig subjectObjConfig = ObjConfig.Get(tmpConfig.DefaultSubject);
+            //             subjectObjConfig.Sign
+            //         } else if (tmpConfig.Type == 2) {
+            //             
+            //         } else if (tmpConfig.Type == 3) {
+            //             
+            //         }
+            //         Type type = Assembly.Load("Assembly-CSharp").GetType(key);
+            //         Behaviour behaviour = (Behaviour) Activator.CreateInstance(type, dataBody.ID);
+            //     }
+            // }
+
+            var behaviours = new List<Behaviour>();
+            behaviours.Add(new Behaviour_Move(dataBody.ID, -1));
+            dataBody.Behaviours = behaviours;
+            Data.Instance.dataBodyDic.TryAdd(dataBody.ID, dataBody);
+
+            DataBody mainCameraDataBody = new DataBody();
+            mainCameraDataBody.ID = ++Game.Instance.Setting.InstanceID;
+            mainCameraDataBody.Go = new Go(mainCameraDataBody.ID, "Obj_MainCamera");
+            mainCameraDataBody.GoInstanceID = mainCameraDataBody.Go.UGo.GetInstanceID();
+            var mainCameraBehaviours = new List<Behaviour>();
+            mainCameraBehaviours.Add(new Behaivour_Follow(mainCameraDataBody.ID, dataBody.ID));
+            mainCameraBehaviours.Add(new Behaviour_Look(mainCameraDataBody.ID, dataBody.ID));
+            mainCameraBehaviours.Add(new Behaviour_InputView(dataBody.ID, -1));
+            mainCameraDataBody.Behaviours = mainCameraBehaviours;
         }
     }
 }

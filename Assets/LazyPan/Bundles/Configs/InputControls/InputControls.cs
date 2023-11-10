@@ -63,6 +63,15 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""InputView"",
+                    ""type"": ""Value"",
+                    ""id"": ""58ae8b60-b2d0-4d31-aeff-839095eb2a2a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -120,6 +129,17 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3694804-d563-4e4e-b9fc-2cc04a0a8bca"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InputView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -132,6 +152,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_InputView = m_Player.FindAction("InputView", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,11 +261,13 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_InputView;
     public struct PlayerActions
     {
         private @InputControls m_Wrapper;
         public PlayerActions(@InputControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
+        public InputAction @InputView => m_Wrapper.m_Player_InputView;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -257,6 +280,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @InputView.started += instance.OnInputView;
+            @InputView.performed += instance.OnInputView;
+            @InputView.canceled += instance.OnInputView;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -264,6 +290,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @InputView.started -= instance.OnInputView;
+            @InputView.performed -= instance.OnInputView;
+            @InputView.canceled -= instance.OnInputView;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -288,5 +317,6 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnInputView(InputAction.CallbackContext context);
     }
 }

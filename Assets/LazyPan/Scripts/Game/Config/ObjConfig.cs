@@ -1,18 +1,24 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace LazyPan {
-    public class #ClassName# {
-#Property#
+    public class ObjConfig {
+		public string Sign;
+		public int Type;
+		public string Name;
+
         private static bool isInit;
         private static string content;
         private static string[] lines;
-        private static Dictionary<string, #ClassName#> dics = new Dictionary<string, #ClassName#>();
+        private static Dictionary<string, ObjConfig> dics = new Dictionary<string, ObjConfig>();
 
-        public #ClassName#(string line) {
+        public ObjConfig(string line) {
             try {
                 string[] values = line.Split(',');
-#ReadContent#
+				Sign = values[0];
+				Type = int.Parse(values[1]);
+				Name = values[2];
+
             } catch (Exception e) {
                 Console.WriteLine(e);
                 throw;
@@ -23,11 +29,11 @@ namespace LazyPan {
             if (isInit) {
                 return;
             }
-            ReadCSV.Instance.Read("#ClassName#", out content, out lines);
+            ReadCSV.Instance.Read("ObjConfig", out content, out lines);
             dics.Clear();
             for (int i = 0; i < lines.Length; i++) {
                 if (i > 2) {
-                    #ClassName# config = new #ClassName#(lines[i]);
+                    ObjConfig config = new ObjConfig(lines[i]);
                     dics.Add(config.Sign, config);
                 }
             }
@@ -35,8 +41,8 @@ namespace LazyPan {
             isInit = true;
         }
 
-        public static #ClassName# Get(string sign) {
-            if (dics.TryGetValue(sign, out #ClassName# config)) {
+        public static ObjConfig Get(string sign) {
+            if (dics.TryGetValue(sign, out ObjConfig config)) {
                 return config;
             }
 

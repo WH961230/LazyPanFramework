@@ -1,37 +1,22 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace LazyPan {
     public class Behaviour_Move : Behaviour {
-        public Go go;
-        public Vector2 vec;
-        public Behaviour_Move(int id) {
-            go = Data.Instance.go[id];
-            Input.Instance.Load("Player/Move", Move);
-            if (Data.Instance.goFunc.TryGetValue(id, out List<Behaviour> list)) {
-                list.Add(this);
-                Data.Instance.goFunc[id] = list;
-            } else {
-                List<Behaviour> behaviourList = new List<Behaviour>();
-                behaviourList.Add(this);
-                Data.Instance.goFunc.Add(id, behaviourList);
-            }
-            Data.Instance.OnUpdateEvent?.AddListener(Update_Move);
-            Comp goComp = go.UGo.GetComponent<Comp>();
-            goComp.OnTriggerEnterAction += TriggerEnter;
+        private Vector2 inputVec;
+
+        public Behaviour_Move(int subjectId, int objectId) : base(subjectId, objectId) {
+            Input.Instance.Load("Player/Move", Input_Move);
+            Data.Instance.OnUpdateEvent?.AddListener(Update_Behaviour_Move);
         }
 
-        private void TriggerEnter(Collider collider) {
-            Debug.Log($"Collider Name : {collider.name}");
+        private void Input_Move(InputAction.CallbackContext callbackContext) {
+            inputVec = callbackContext.ReadValue<Vector2>();
         }
 
-        private void Update_Move() {
-            go.UGo.transform.Translate(new Vector3(vec.x, 0, vec.y) * Time.deltaTime);
-        }
-
-        private void Move(InputAction.CallbackContext callbackContext) {
-            vec = callbackContext.ReadValue<Vector2>();
+        private void Update_Behaviour_Move() {
+            SubjectGo.UGo.transform.position += SubjectGo.UGo.transform.forward * inputVec.y * Time.deltaTime * 3;
+            SubjectGo.UGo.transform.position += SubjectGo.UGo.transform.right * inputVec.x * Time.deltaTime * 3;
         }
     }
 }

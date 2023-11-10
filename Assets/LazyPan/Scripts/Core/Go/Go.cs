@@ -6,44 +6,43 @@ namespace LazyPan {
         public int ID;
         public GameObject UGo;
 
-        public Go(GoType type, string sign, string name) {
-            ID = ++Game.Instance.Setting.InstanceID;
-            UGo = Loader.LoadGo("", GetPath(type, sign), GetRoot(type), true);
-            int uGoID = UGo.GetInstanceID();
-            UGo.name = string.Concat(name, "_", uGoID, "_", ID);
-
-            Data.Instance.goID.TryAdd(uGoID, ID);
-            Data.Instance.go.TryAdd(ID, this);
-            Debug.LogFormat("Go ID : {0} , UGo ID : {1} , Name : {2}", ID, uGoID, UGo.name);
-
+        public Go(int id, string sign) {
+            ID = id;
+            GoType goType = (GoType)ObjConfig.Get(sign).Type;
+            UGo = Loader.LoadGo("", string.Concat("Obj/", sign), GetRoot(goType), true);
+            UGo.name = string.Concat(GetGoName(goType), "_", UGo.GetInstanceID(), "_", ID);
+            Data.Instance.goDic.TryAdd(ID, this);
 #if UNITY_EDITOR
-            if (type == GoType.Player) {
+            if (goType == GoType.Player) {
                 Texture2D icon = EditorGUIUtility.IconContent("sv_label_0").image as Texture2D;
                 EditorGUIUtility.SetIconForObject(UGo, icon);
             }
 #endif
         }
 
-        private string GetPath(GoType type, string sign) {
+        private string GetGoName(GoType type) {
             string path = null;
             switch (type) {
                 case GoType.Obj:
+                    path = "物体";
+                    break;
                 case GoType.Player:
-                    path = $"Obj/Obj_{sign}";
+                    path = "玩家";
                     break;
                 case GoType.Camera:
-                    path = $"Camera/Camera_{sign}";
+                    path = "相机";
                     break;
                 case GoType.Light:
-                    path = $"Light/Light_{sign}";
+                    path = "灯光";
                     break;
                 case GoType.Terrain:
-                    path = $"Terrain/Terrain_{sign}";
+                    path = "地形";
                     break;
                 case GoType.Volume:
-                    path = $"Volume/Volume";
+                    path = "后处理";
                     break;
             }
+
             return path;
         }
 

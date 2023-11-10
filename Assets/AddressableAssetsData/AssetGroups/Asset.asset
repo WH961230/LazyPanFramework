@@ -17,23 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 33f2619ff9255f645b98ba6f397352df
   m_SerializeEntries:
-  - m_GUID: b73a25654e6a71147bcb769ffd48c124
-    m_Address: Assets/LazyPan/Bundles/Prefabs/Volume
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Volume
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1b61972b8f559c147b81542103de15e6
     m_Address: Assets/LazyPan/Bundles/Prefabs/UI
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b2afb9b1bee7d6744bc413ac58633637
-    m_Address: Assets/LazyPan/Bundles/Prefabs/Terrain
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Terrain
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15fd72e463764e9d9901de2df403c9ac
     m_Address: Assets/LazyPan/Bundles/Prefabs/Obj
@@ -41,23 +29,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Obj
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 40e6df3c4c1529d4b9384ec85d50a1f3
-    m_Address: Assets/LazyPan/Bundles/Prefabs/Light
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Light
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d73ecf0513f2b0f459e0cd79e284a8b5
     m_Address: Assets/LazyPan/Bundles/Prefabs/Global
     m_ReadOnly: 0
     m_SerializedLabels:
     - Global
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f834ce1819a96474299e24f050903644
-    m_Address: Assets/LazyPan/Bundles/Prefabs/Camera
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Camera
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aadae2946f7571e4aba2449661f8a8aa
     m_Address: Assets/LazyPan/Bundles/Configs/Setting
