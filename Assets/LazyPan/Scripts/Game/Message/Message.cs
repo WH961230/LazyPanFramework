@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace LazyPan {
-    public class Message {
+    public class Message : Singleton<Message> {
         private MessageRegister register = new MessageRegister();
 
         public void Reg(int id, Action a) {

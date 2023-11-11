@@ -14,10 +14,8 @@ namespace LazyPan {
 
         private void Input_InputView(InputAction.CallbackContext callbackContext) {
             inputVec = callbackContext.ReadValue<Vector2>();
-            inputVec *= 0.5f; // Account for scaling applied directly in Windows code by old input system.
-            inputVec *= 0.1f; // Account for sensitivity setting on old Mouse X and Y axes.
-            Debug.LogFormat("x:{0} y:{1}", inputVec.x, inputVec.y);
-            Debug.LogFormat("oldx : {0} oldy: {1}", UnityEngine.Input.GetAxis("Mouse X"), UnityEngine.Input.GetAxis("Mouse Y"));
+            inputVec *= 0.5f;
+            inputVec *= 0.1f;
         }
 
         private void Update_Behaviour_InputView() {

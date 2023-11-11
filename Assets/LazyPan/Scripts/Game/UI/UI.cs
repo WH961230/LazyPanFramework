@@ -3,16 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace LazyPan {
-    public class UI {
+    public class UI : Singleton<UI> {
         public Transform UIRoot;
         private Comp UIComp;
         private Dictionary<string, Comp> uICompAlwaysDics = new Dictionary<string, Comp>();
         private Dictionary<string, Comp> uICompExchangeDics = new Dictionary<string, Comp>();
         private Dictionary<string, Comp> uICompDics = new Dictionary<string, Comp>();
 
-        public static UI Instance;
-        public UI() {
-            Instance = this;
+        public void Init() {
             UIPreLoad();
             UIEventRegister();
         }

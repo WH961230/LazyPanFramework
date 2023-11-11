@@ -2,17 +2,13 @@
 using UnityEngine.InputSystem;
 
 namespace LazyPan {
-    public class Input {
-        private InputControls inputControls;
-        public static Input Instance;
-        public Input() {
-            Instance = this;
-            inputControls = new InputControls();
-        }
-
+    public class Input : Singleton<Input> {
+        private InputControls inputControls = new InputControls();
         public void Load(string actionName, Action<InputAction.CallbackContext> action) {
             inputControls.Enable();
+            inputControls.FindAction(actionName).started += action;
             inputControls.FindAction(actionName).performed += action;
+            inputControls.FindAction(actionName).canceled += action;
         }
     }
 }

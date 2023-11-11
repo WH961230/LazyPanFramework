@@ -16,17 +16,14 @@ namespace LazyPan {
             Load();
         }
 
-        private void Update() { UpdateEvent(); }
-        private void FixedUpdate() { FixedUpdateEvent(); }
-        private void LateUpdate() { LateUpdateEvent(); }
+        private void Update() { Data.Instance.OnUpdateEvent?.Invoke(); }
+        private void FixedUpdate() { Data.Instance.OnFixedUpdateEvent?.Invoke(); }
+        private void LateUpdate() { Data.Instance.OnLateUpdateEvent?.Invoke(); }
 
         private void Init() {
             Config.Instance.Init();
-            new Message();
-            new Data();
-            new Input();
-            new UI();
-            new Obj();
+            UI.Instance.Init();
+            Obj.Instance.Init();
         }
 
         private void Load() {
@@ -34,9 +31,5 @@ namespace LazyPan {
             Obj.Instance.Load();
             LoadFinished = true;
         }
-
-        private void UpdateEvent() { Data.Instance.OnUpdateEvent?.Invoke(); }
-        private void FixedUpdateEvent() { Data.Instance.OnFixedUpdateEvent?.Invoke(); }
-        private void LateUpdateEvent() { Data.Instance.OnLateUpdateEvent?.Invoke(); }
     }
 }

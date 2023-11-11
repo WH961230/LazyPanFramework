@@ -3,6 +3,7 @@
         public void Init() {
             ObjConfig.Init();
             UIConfig.Init();
+            BehaviourConfig.Init();
         }
     }
 }
