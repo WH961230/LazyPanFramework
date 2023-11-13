@@ -4,12 +4,9 @@ using System.Collections.Generic;
 namespace LazyPan {
     public class BehaviourConfig {
 		public string Sign;
-		public int Type;
-		public string DefaultSubject;
-		public string DefaultObject;
-		public int Default;
 		public string Name;
 		public string Description;
+		public string Parameter;
 
         private static bool isInit;
         private static string content;
@@ -20,12 +17,9 @@ namespace LazyPan {
             try {
                 string[] values = line.Split(',');
 				Sign = values[0];
-				Type = int.Parse(values[1]);
-				DefaultSubject = values[2];
-				DefaultObject = values[3];
-				Default = int.Parse(values[4]);
-				Name = values[5];
-				Description = values[6];
+				Name = values[1];
+				Description = values[2];
+				Parameter = values[3];
 
             } catch (Exception e) {
                 Console.WriteLine(e);

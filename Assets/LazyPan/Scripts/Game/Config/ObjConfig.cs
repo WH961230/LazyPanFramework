@@ -6,6 +6,9 @@ namespace LazyPan {
 		public string Sign;
 		public int Type;
 		public string Name;
+		public string Behaviour;
+		public bool CanBePickedUp;
+		public string BindBehaviour;
 
         private static bool isInit;
         private static string content;
@@ -18,6 +21,9 @@ namespace LazyPan {
 				Sign = values[0];
 				Type = int.Parse(values[1]);
 				Name = values[2];
+				Behaviour = values[3];
+				CanBePickedUp = int.Parse(values[4]) == 1;
+				BindBehaviour = values[5];
 
             } catch (Exception e) {
                 Console.WriteLine(e);

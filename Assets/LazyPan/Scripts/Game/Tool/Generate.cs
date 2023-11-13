@@ -36,7 +36,7 @@ namespace LazyPan {
                 } else if (tmpTypeName == "float") {
                     readContent += string.Concat("\t\t\t\t", propertyName[i], " = float.Parse(values[", i, "])", ";", "\n");
                 } else if (tmpTypeName == "bool") {
-                    readContent += string.Concat("\t\t\t\t", propertyName[i], " = bool.Parse(values[", i, "])", ";", "\n");
+                    readContent += string.Concat("\t\t\t\t", propertyName[i], " =  int.Parse(values[", i, "]) == 1", ";", "\n");
                 }
             }
             string inputPath = string.Concat(Application.dataPath, setting.TxtPath, "GenerateConfigTemplate.txt");

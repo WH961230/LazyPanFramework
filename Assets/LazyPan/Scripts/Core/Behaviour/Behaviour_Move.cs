@@ -5,7 +5,7 @@ namespace LazyPan {
     public class Behaviour_Move : Behaviour {
         private Vector2 inputVec;
 
-        public Behaviour_Move(int subjectId, int objectId) : base(subjectId, objectId) {
+        public Behaviour_Move(int subjectId) : base(subjectId) {
             Input.Instance.Load("Player/Move", Input_Move);
             Data.Instance.OnUpdateEvent?.AddListener(Update_Behaviour_Move);
         }

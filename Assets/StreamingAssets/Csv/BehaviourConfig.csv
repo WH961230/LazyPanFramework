@@ -1,8 +1,10 @@
-﻿Sign,Type,DefaultSubject,DefaultObject,Default,Name,Description
-string,int,string,string,int,string,string
-标识,类型（0：无主无客 1：有主有客 2：有主无客 3：无主有客）,默认主体,默认客体,是否默认（0：否 1：是）,名称,描述
-Behaviour_Move,2,Obj_Player,,1,移动行为,主体 WASD 移动
-Behaviour_Follow,1,Obj_MainCamera,Obj_Player,1,跟随行为,主体跟随客体
-Behaviour_Shoot,1,,,0,射击行为,主体射击客体
-Behaviour_Look,1,Obj_MainCamera,Obj_Player,1,注视行为,主体看客体
-Behaviour_InputView,3,,Obj_Player,1,控制视角行为,控制客体视角行为
+﻿Sign,Name,Description,Parameter
+string,string,string,string
+标识,名称,描述,参数
+Behaviour_Move,移动行为,移动,
+Behaviour_Follow,跟随行为,跟随,6
+Behaviour_Shoot,射击行为,射击,
+Behaviour_Look,注视行为,朝向,6
+Behaviour_View,视角行为,视角,
+Behaviour_Pick,拾取行为,拾取,7
+Behaviour_Jump,跳跃行为,跳跃,

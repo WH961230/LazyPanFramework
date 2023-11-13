@@ -1,6 +1,6 @@
 ﻿namespace LazyPan {
     public class Behaviour_Shoot : Behaviour {
-        protected Behaviour_Shoot(int subjectId, int objectId) : base(subjectId, objectId) {
+        protected Behaviour_Shoot(int subjectId) : base(subjectId) {
         }
     }
 }

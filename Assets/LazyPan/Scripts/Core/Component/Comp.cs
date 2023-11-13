@@ -12,13 +12,20 @@ namespace LazyPan {
         public Action<Collider> OnTriggerExitAction;
 
         public List<GameObjectData> GameObjects = new List<GameObjectData>();
+        public List<CharacterControllerData> CharacterControllers = new List<CharacterControllerData>();
         public List<ButtonData> Buttons = new List<ButtonData>();
         public List<SliderData> Sliders = new List<SliderData>();
         public List<TextData> Texts = new List<TextData>();
         public List<TextMeshProUGUIData> TextMeshProUGUIs = new List<TextMeshProUGUIData>();
 
         public T Get<T>(string sign) where T : Object {
-            if (typeof(T) == typeof(GameObject)) {
+            if (typeof(T) == typeof(CharacterController)) {
+                foreach (CharacterControllerData controllerData in CharacterControllers) {
+                    if (controllerData.Sign == sign) {
+                        return controllerData.Controller as T;
+                    }
+                }
+            } else if (typeof(T) == typeof(GameObject)) {
                 foreach (GameObjectData gameObjectData in GameObjects) {
                     if (gameObjectData.Sign == sign) {
                         return gameObjectData.GO as T;
@@ -85,6 +92,12 @@ namespace LazyPan {
         public class GameObjectData {
             public string Sign;
             public GameObject GO;
+        }
+
+        [Serializable]
+        public class CharacterControllerData {
+            public string Sign;
+            public CharacterController Controller;
         }
     }
 }
