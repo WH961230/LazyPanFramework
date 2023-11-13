@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameObjects: []
+  CharacterControllers:
+  - Sign: CharacterController
+    Controller: {fileID: 462787600255823269}
   Buttons: []
   Sliders: []
   Texts: []

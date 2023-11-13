@@ -8,3 +8,4 @@ Behaviour_Look,注视行为,朝向,6
 Behaviour_View,视角行为,视角,
 Behaviour_Pick,拾取行为,拾取,7
 Behaviour_Jump,跳跃行为,跳跃,
+Behaviour_Gravity,重力行为,重力,10
