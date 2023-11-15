@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace LazyPan {
     public class Comp : MonoBehaviour {
-        public Action<Collider> OnTriggerEnterAction;
-        public Action<Collider> OnTriggerStayAction;
-        public Action<Collider> OnTriggerExitAction;
+        [HideInInspector] public UnityEvent<Collider> OnTriggerEnterEvent;
+        [HideInInspector] public UnityEvent<Collider> OnTriggerStayEvent;
+        [HideInInspector] public UnityEvent<Collider> OnTriggerExitEvent;
+        [HideInInspector] public UnityEvent OnDrawGizmosAction;
 
         public List<GameObjectData> GameObjects = new List<GameObjectData>();
+        public List<TransformData> Transforms = new List<TransformData>();
         public List<CharacterControllerData> CharacterControllers = new List<CharacterControllerData>();
         public List<ButtonData> Buttons = new List<ButtonData>();
         public List<SliderData> Sliders = new List<SliderData>();
@@ -29,6 +32,12 @@ namespace LazyPan {
                 foreach (GameObjectData gameObjectData in GameObjects) {
                     if (gameObjectData.Sign == sign) {
                         return gameObjectData.GO as T;
+                    }
+                }
+            } else if (typeof(T) == typeof(Transform)) {
+                foreach (TransformData transformData in Transforms) {
+                    if (transformData.Sign == sign) {
+                        return transformData.Tran as T;
                     }
                 }
             } else if (typeof(T) == typeof(Button)) {
@@ -60,9 +69,13 @@ namespace LazyPan {
             return null;
         }
 
-        public void OnTriggerEnter(Collider other) { OnTriggerEnterAction?.Invoke(other); }
-        public void OnTriggerStay(Collider other) { OnTriggerStayAction?.Invoke(other); }
-        private void OnTriggerExit(Collider other) { OnTriggerExitAction?.Invoke(other); }
+        public void OnTriggerEnter(Collider other) { OnTriggerEnterEvent?.Invoke(other); }
+        public void OnTriggerStay(Collider other) { OnTriggerStayEvent?.Invoke(other); }
+        private void OnTriggerExit(Collider other) { OnTriggerExitEvent?.Invoke(other); }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos() { OnDrawGizmosAction.Invoke(); }
+#endif
 
         [Serializable]
         public class ButtonData {
@@ -92,6 +105,12 @@ namespace LazyPan {
         public class GameObjectData {
             public string Sign;
             public GameObject GO;
+        }
+
+        [Serializable]
+        public class TransformData {
+            public string Sign;
+            public Transform Tran;
         }
 
         [Serializable]

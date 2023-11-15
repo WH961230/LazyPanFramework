@@ -2,9 +2,7 @@
 string,string,string,string
 标识,名称,描述,参数
 Behaviour_Move,移动行为,移动,
-Behaviour_Follow,跟随行为,跟随,6
 Behaviour_Shoot,射击行为,射击,
-Behaviour_Look,注视行为,朝向,6
-Behaviour_View,视角行为,视角,
-Behaviour_Pick,拾取行为,拾取,7
-Behaviour_Jump,跳跃行为,跳跃,1|-10
+Behaviour_Pick,拾取行为,拾取,
+Behaviour_Jump,跳跃行为,跳跃,7
+Behaviour_FreeLook,自由视角行为,自由视角,1|-10

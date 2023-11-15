@@ -43,7 +43,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "InputView",
+                    "name": "View",
                     "type": "Value",
                     "id": "58ae8b60-b2d0-4d31-aeff-839095eb2a2a",
                     "expectedControlType": "Vector2",
@@ -55,6 +55,15 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "6aff5f0a-2c3b-4f20-b862-688c14061bb9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "f0733c40-e850-4e46-af6e-0f48e43a4dad",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -124,7 +133,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InputView",
+                    "action": "View",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -136,6 +145,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12f369b2-57e2-45dd-b1f2-c75ea9d08866",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

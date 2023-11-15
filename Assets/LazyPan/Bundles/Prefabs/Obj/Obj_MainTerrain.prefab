@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3045849650426979968}
   - component: {fileID: 2353671895385294574}
   - component: {fileID: 1921709284433089252}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obj_MainTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8566306495962780051
 MeshFilter:
@@ -119,7 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ec67d1c2c345b5b9b964d6f2eef6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDrawGizmosAction:
+    m_PersistentCalls:
+      m_Calls: []
   GameObjects: []
+  CharacterControllers: []
   Buttons: []
   Sliders: []
   Texts: []
