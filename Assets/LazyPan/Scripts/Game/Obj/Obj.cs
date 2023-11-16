@@ -25,32 +25,31 @@ namespace LazyPan {
             LoadObj("Obj_MainVolume");
             LoadObj("Obj_MainPlayer");
             LoadObj("Obj_MainCamera");
+            LoadObj("Obj_PickableObj");
         }
 
-        private void LoadObj(string sign) {
+        private int LoadObj(string sign) {
             DataBody dataBody = new DataBody();
             dataBody.ID = ++Game.Instance.Setting.InstanceID;
             dataBody.Go = new Go(dataBody.ID, sign);
+            dataBody.GoSign = sign;
             dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
             ObjConfig config = ObjConfig.Get(sign);
             dataBody.Type = config.Type;
+            dataBody.Behaviours = new List<Behaviour>();
             Data.Instance.dataBodyDic.TryAdd(dataBody.ID, dataBody);
+            AddBehaviourFromConfig(dataBody.ID, sign);
+            return dataBody.ID;
+        }
 
+        private void AddBehaviourFromConfig(int id, string objSign) {
+            ObjConfig config = ObjConfig.Get(objSign);
             if (!string.IsNullOrEmpty(config.Behaviour)) {
-                List<Behaviour> behaviours = new List<Behaviour>();
                 string[] behaviourArray = config.Behaviour.Split("|");
                 int length = behaviourArray.Length;
                 for (int i = 0; i < length; i++) {
                     string behaviourSign = behaviourArray[i];
-                    Behaviour behaviour;
-                    Type type = Assembly.Load("Assembly-CSharp").GetType(string.Concat("LazyPan.", behaviourSign));
-                    behaviour = (Behaviour) Activator.CreateInstance(type, dataBody.ID);
-                    behaviours.Add(behaviour);
-                }
-
-                if (Data.Instance.dataBodyDic.TryGetValue(dataBody.ID, out dataBody)) {
-                    dataBody.Behaviours = behaviours;
-                    Data.Instance.dataBodyDic[dataBody.ID] = dataBody;
+                    Data.Instance.AddBehaviour(id, behaviourSign);
                 }
             }
         }

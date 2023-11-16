@@ -311,7 +311,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6160181299118318607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -351,6 +351,7 @@ MonoBehaviour:
     Tran: {fileID: 4529046151957633213}
   - Sign: ViewPoint
     Tran: {fileID: 3370097686255457606}
+  Colliders: []
   CharacterControllers:
   - Sign: CharacterController
     Controller: {fileID: 462787600255823269}

@@ -12,6 +12,7 @@ namespace LazyPan {
     public class DataBody {
         public int GoInstanceID;
         public int ID;
+        public string GoSign;
         public Go Go;
         public int Type;
         public List<Behaviour> Behaviours = new List<Behaviour>();

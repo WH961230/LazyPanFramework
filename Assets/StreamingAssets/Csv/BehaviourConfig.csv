@@ -1,8 +1,8 @@
-﻿Sign,Name,Description,Parameter
-string,string,string,string
-标识,名称,描述,参数
-Behaviour_Move,移动行为,移动,
-Behaviour_Shoot,射击行为,射击,
-Behaviour_Pick,拾取行为,拾取,
-Behaviour_Jump,跳跃行为,跳跃,1|-10
-Behaviour_FollowLook,跟随视角行为,跟随视角,10
+﻿Sign,Name,Description,Parameter,CanFallOff
+string,string,string,string,bool
+标识,名称,描述,参数,可掉落（0:不可掉落 1：可掉落的）
+Behaviour_Move,移动行为,移动,,0
+Behaviour_Shoot,射击行为,射击,,1
+Behaviour_Pick,拾取行为,拾取,,0
+Behaviour_Jump,跳跃行为,跳跃,1|-10,0
+Behaviour_FollowLook,跟随视角行为,跟随视角,10,0

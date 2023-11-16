@@ -7,6 +7,7 @@ namespace LazyPan {
 		public string Name;
 		public string Description;
 		public string Parameter;
+		public bool CanFallOff;
 
         private static bool isInit;
         private static string content;
@@ -20,6 +21,7 @@ namespace LazyPan {
 				Name = values[1];
 				Description = values[2];
 				Parameter = values[3];
+				CanFallOff =  int.Parse(values[4]) == 1;
 
             } catch (Exception e) {
                 Console.WriteLine(e);

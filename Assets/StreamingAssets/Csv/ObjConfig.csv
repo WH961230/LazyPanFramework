@@ -1,10 +1,10 @@
-﻿Sign,Type,Name,Behaviour,CanBePickedUp,BindBehaviour
-string,int,string,string,bool,string
-标识,类型（0：其他物体 1：其他玩家 2：相机 3：灯光 4：地形 5：后处理 6：主玩家 7：可拾取物体）,名称,可用的绑定的行为,物体是否可以被拾取,禁用的绑定的行为
-Obj_OtherPlayer,1,其他玩家物体,Behaviour_Move|Behaviour_Pick|Behaviour_Jump,0,
-Obj_MainPlayer,6,主玩家物体,Behaviour_Move|Behaviour_Pick|Behaviour_Jump|Behaviour_Shoot,0,
-Obj_MainTerrain,4,主地形物体,,0,
-Obj_MainCamera,2,主相机物体,Behaviour_FollowLook,0,
-Obj_MainDirectionalLight,3,主直射灯光,,0,
-Obj_MainVolume,5,主后处理,,0,
-Obj_PickableObj_BehaviourShoot,7,可拾取物体[移动行为],,1,Behaviour_Shoot
+﻿Sign,Type,Name,Behaviour,CanBePickedUp
+string,int,string,string,bool
+标识,类型（0：其他物体 1：其他玩家 2：相机 3：灯光 4：地形 5：后处理 6：主玩家 7：可拾取物体）,名称,可用的绑定的行为,物体是否可以被拾取
+Obj_OtherPlayer,1,其他玩家物体,Behaviour_Move|Behaviour_Pick|Behaviour_Jump,0
+Obj_MainPlayer,6,主玩家物体,Behaviour_Move|Behaviour_Pick|Behaviour_Jump,0
+Obj_MainTerrain,4,主地形物体,,0
+Obj_MainCamera,2,主相机物体,Behaviour_FollowLook,0
+Obj_MainDirectionalLight,3,主直射灯光,,0
+Obj_MainVolume,5,主后处理,,0
+Obj_PickableObj,7,可拾取物体,Behaviour_Shoot,1

@@ -15,6 +15,7 @@ namespace LazyPan {
 
         public List<GameObjectData> GameObjects = new List<GameObjectData>();
         public List<TransformData> Transforms = new List<TransformData>();
+        public List<ColliderData> Colliders = new List<ColliderData>();
         public List<CharacterControllerData> CharacterControllers = new List<CharacterControllerData>();
         public List<ButtonData> Buttons = new List<ButtonData>();
         public List<SliderData> Sliders = new List<SliderData>();
@@ -62,6 +63,12 @@ namespace LazyPan {
                 foreach (TextMeshProUGUIData textMeshProUGUIData in TextMeshProUGUIs) {
                     if (textMeshProUGUIData.Sign == sign) {
                         return textMeshProUGUIData.TextMeshProUGUI as T;
+                    }
+                }
+            } else if (typeof(T) == typeof(Collider)) {
+                foreach (ColliderData colliderData in Colliders) {
+                    if (colliderData.Sign == sign) {
+                        return colliderData.Collider as T;
                     }
                 }
             }
@@ -117,6 +124,12 @@ namespace LazyPan {
         public class CharacterControllerData {
             public string Sign;
             public CharacterController Controller;
+        }
+
+        [Serializable]
+        public class ColliderData {
+            public string Sign;
+            public Collider Collider;
         }
     }
 }

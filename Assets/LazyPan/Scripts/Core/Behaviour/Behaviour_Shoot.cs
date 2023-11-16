@@ -17,7 +17,9 @@ namespace LazyPan {
         }
 
         private void Shoot() {
-            Debug.Log("Shoot");
+            if (ShootPoint == null) {
+                return;
+            }
             var bullet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             bullet.transform.localScale /= 5;
             bullet.transform.position = ShootPoint.position;
