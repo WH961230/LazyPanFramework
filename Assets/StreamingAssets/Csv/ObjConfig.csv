@@ -4,7 +4,7 @@ string,int,string,string,bool,string
 Obj_OtherPlayer,1,其他玩家物体,Behaviour_Move|Behaviour_Pick|Behaviour_Jump,0,
 Obj_MainPlayer,6,主玩家物体,Behaviour_Move|Behaviour_Pick|Behaviour_Jump|Behaviour_Shoot,0,
 Obj_MainTerrain,4,主地形物体,,0,
-Obj_MainCamera,2,主相机物体,Behaviour_FreeLook,0,
+Obj_MainCamera,2,主相机物体,Behaviour_FollowLook,0,
 Obj_MainDirectionalLight,3,主直射灯光,,0,
 Obj_MainVolume,5,主后处理,,0,
 Obj_PickableObj_BehaviourShoot,7,可拾取物体[移动行为],,1,Behaviour_Shoot

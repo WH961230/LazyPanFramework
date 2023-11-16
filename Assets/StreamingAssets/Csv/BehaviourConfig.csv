@@ -5,4 +5,4 @@ Behaviour_Move,移动行为,移动,
 Behaviour_Shoot,射击行为,射击,
 Behaviour_Pick,拾取行为,拾取,
 Behaviour_Jump,跳跃行为,跳跃,1|-10
-Behaviour_FreeLook,自由视角行为,自由视角,1|-10
+Behaviour_FollowLook,跟随视角行为,跟随视角,10

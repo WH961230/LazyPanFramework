@@ -7,11 +7,15 @@ namespace LazyPan {
         private Vector2 viewInputVec;
         private Vector3 moveDir;
         private float yRotate = 0.0f;
+        private float xRotate = 0.0f;
+        private GameObject Head;
         private CharacterController controller;
+
         public Behaviour_Move(int subjectId) : base(subjectId) {
             Input.Instance.Load("Player/Move", Input_Move);
             Input.Instance.Load("Player/View", Input_View);
             controller = SubjectComp.Get<CharacterController>("CharacterController");
+            Head = SubjectComp.Get<GameObject>("Head");
             Data.Instance.OnUpdateEvent?.AddListener(Update_Behaviour_Move);
             Data.Instance.OnUpdateEvent?.AddListener(Update_Behaviour_View);
         }
@@ -33,7 +37,9 @@ namespace LazyPan {
 
         private void Update_Behaviour_View() {
             yRotate += viewInputVec.x;
-            SubjectGo.UGo.transform.rotation = Quaternion.Euler(0, yRotate, 0);
+            xRotate -= viewInputVec.y;
+            SubjectUGo.transform.rotation = Quaternion.Euler(0, yRotate, 0);
+            Head.transform.rotation = Quaternion.Euler(xRotate, Head.transform.rotation.eulerAngles.y, 0);
         }
     }
 }

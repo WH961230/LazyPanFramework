@@ -13,7 +13,7 @@ namespace LazyPan {
             if (SubjectID != -1) {
                 SubjectGo = Data.Instance.dataBodyDic[SubjectID].Go;
                 SubjectUGo = SubjectGo.UGo;
-                SubjectComp = SubjectUGo.GetComponent<Comp>();
+                SubjectComp = SubjectGo.Comp;
             }
         }
     }
