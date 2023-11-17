@@ -17,7 +17,7 @@ namespace LazyPan {
 
         private void Update_Behaviour_Fly() {
             if (controller != null) {
-                SubjectBehaviourData.MoveVec = inputFlyVec.y * SubjectUGo.transform.up * 5f - inputFlyVec.x * SubjectUGo.transform.up * 5f;
+                SubjectBehaviourData.MoveVec.y += (inputFlyVec.y - inputFlyVec.x) * Time.deltaTime * 20f;
                 SubjectBehaviourData.IsFlying = inputFlyVec.y > 0 || inputFlyVec.x > 0;
             }
         }
