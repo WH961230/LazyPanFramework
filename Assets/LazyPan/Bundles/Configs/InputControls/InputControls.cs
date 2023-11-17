@@ -90,6 +90,15 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fly"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""8dfa9957-af97-4445-a196-cf791f7382b8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -180,6 +189,61 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""183cae87-5f3c-440b-925c-052995762091"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fly"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""9c0bc73e-2389-4a7b-94cf-2a8172141b1d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""4e902c8d-4c3f-4f5d-b405-70e1f6a86ac7"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""7ecf96e2-c0c9-44c6-aa56-640f68c0e0d9"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""67c4bd0d-233a-4e89-ba30-68e017bf0622"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -195,6 +259,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_Player_View = m_Player.FindAction("View", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_Fly = m_Player.FindAction("Fly", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,6 +371,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_View;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_Fly;
     public struct PlayerActions
     {
         private @InputControls m_Wrapper;
@@ -314,6 +380,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         public InputAction @View => m_Wrapper.m_Player_View;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @Fly => m_Wrapper.m_Player_Fly;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -335,6 +402,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @Fly.started += instance.OnFly;
+            @Fly.performed += instance.OnFly;
+            @Fly.canceled += instance.OnFly;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -351,6 +421,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @Fly.started -= instance.OnFly;
+            @Fly.performed -= instance.OnFly;
+            @Fly.canceled -= instance.OnFly;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -378,5 +451,6 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         void OnView(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnFly(InputAction.CallbackContext context);
     }
 }

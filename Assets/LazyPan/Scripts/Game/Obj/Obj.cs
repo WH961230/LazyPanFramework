@@ -25,7 +25,9 @@ namespace LazyPan {
             LoadObj("Obj_MainVolume");
             LoadObj("Obj_MainPlayer");
             LoadObj("Obj_MainCamera");
-            LoadObj("Obj_PickableObj");
+            LoadObj("Obj_PickableObj_Shoot");
+            LoadObj("Obj_PickableObj_Fly");
+            LoadObj("Obj_PickableObj_Jump");
         }
 
         private int LoadObj(string sign) {

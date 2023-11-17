@@ -7,7 +7,6 @@ namespace LazyPan {
         }
 
         private void OnTriggerEnter(Collider collider) {
-            Debug.Log($"Collider {collider.name}");
             string[] strArray = collider.name.Split('_');
             int id = int.Parse(strArray[2]);
             GoType type = (GoType)Data.Instance.dataBodyDic[id].Type;
