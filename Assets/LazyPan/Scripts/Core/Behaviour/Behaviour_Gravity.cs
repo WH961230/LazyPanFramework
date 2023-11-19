@@ -12,7 +12,9 @@ namespace LazyPan {
             Comp goComp = SubjectUGo.GetComponent<Comp>();
             controller = goComp.Get<CharacterController>("CharacterController");
             OverlapCapsuleOffset = -0.1f;
+#if UNITY_EDITOR
             goComp.OnDrawGizmosAction.AddListener(Gizmos_Gravity);
+#endif
             GravityDetectMaskLayer = 1 << LayerMask.NameToLayer("Terrain");
             SubjectBehaviourData.GravityValue = -9.8f;
         }

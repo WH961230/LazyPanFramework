@@ -43,14 +43,24 @@ namespace LazyPan {
 
         private void UIEventRegister() {
             Listener.AddListener(Get("UI_Setting").Get<Button>("UI_Setting_Quit"), Act.QuitGame);
-            Listener.AddListener(Get("UI_Setting").Get<Button>("UI_Setting_Close"), Close, "UI_Setting");
+            Listener.AddListener(Get("UI_Setting").Get<Button>("UI_Setting_Close"), Close);
+            Input.Instance.Load("UI/Setting", (context) => {
+                if (GetExchangeUIName() == "UI_Setting") Close();
+                else Open("UI_Setting");
+            });
+
+            Listener.AddListener(Get("UI_Backpack").Get<Button>("UI_Backpack_Close"), Close);
+            Input.Instance.Load("UI/Backpack", (context) => {
+                if (GetExchangeUIName() == "UI_Backpack") Close();
+                else Open("UI_Backpack");
+            });
         }
 
         public void Load() {
-            
+            Open("UI_Main");
         }
 
-        public Comp Open(string name) {
+        public void Open(string name) {
             if (uICompExchangeDics.TryGetValue(name, out Comp uiExchangeComp)) {
                 if (UIComp != null) {
                     UIComp.gameObject.SetActive(false);
@@ -58,15 +68,12 @@ namespace LazyPan {
 
                 UIComp = uiExchangeComp;
                 UIComp.gameObject.SetActive(true);
-                return UIComp;
+                return;
             }
 
             if (uICompAlwaysDics.TryGetValue(name, out Comp uiAlwaysComp)) {
                 uiAlwaysComp.gameObject.SetActive(true);
-                return uiAlwaysComp;
             }
-
-            return null;
         }
 
         public Comp Get(string name) {
@@ -83,6 +90,10 @@ namespace LazyPan {
             }
 
             return null;
+        }
+
+        public bool IsAlwaysUIName(string name) {
+            return uICompAlwaysDics.TryGetValue(name, out Comp comp);
         }
 
         public bool IsExchangeUI() {
