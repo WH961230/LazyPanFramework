@@ -4,7 +4,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 using Object = UnityEngine.Object;
+using Slider = UnityEngine.UI.Slider;
 
 namespace LazyPan {
     public class Comp : MonoBehaviour {
@@ -21,6 +24,7 @@ namespace LazyPan {
         public List<SliderData> Sliders = new List<SliderData>();
         public List<TextData> Texts = new List<TextData>();
         public List<TextMeshProUGUIData> TextMeshProUGUIs = new List<TextMeshProUGUIData>();
+        // public List<TextMeshProTextInputData> TextMeshProInputs = new List<TextMeshProTextInputData>();
 
         public T Get<T>(string sign) where T : Object {
             if (typeof(T) == typeof(CharacterController)) {
@@ -71,6 +75,12 @@ namespace LazyPan {
                         return colliderData.Collider as T;
                     }
                 }
+            } else if (typeof(T) == typeof(TextMeshPro)) {
+                // foreach (TextMeshPro test in Colliders) {
+                //     if (test.Sign == sign) {
+                //         return test.Collider as T;
+                //     }
+                // }
             }
 
             return null;
@@ -84,6 +94,12 @@ namespace LazyPan {
         private void OnDrawGizmos() { OnDrawGizmosAction.Invoke(); }
 #endif
 
+        [Serializable]
+        public class TextMeshProInputData {
+            public string Sign;
+            public TMP_InputField Text;
+        }
+        
         [Serializable]
         public class ButtonData {
             public string Sign;

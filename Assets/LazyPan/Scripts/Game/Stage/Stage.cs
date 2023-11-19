@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -93,22 +94,32 @@ namespace LazyPan {
 
         public override void OnStart() {
             Progress = 0;
-            AsyncOperation operation = Loader.LoadSceneAsync(Parameters.sceneName);
-            operation.allowSceneActivation = false;
-
-            while (!operation.isDone) {
-                if (operation.progress >= 0.9f && Progress < 1) {
-                    Progress = 1;
-                    ClockUtil.Instance.AlarmAfter(1f, () => {
-                        operation.allowSceneActivation = true;
-                        IsDone = true;
-                    });
-                    break;
-                } else {
-                    Progress = operation.progress;
-                }
+            Net.singleton.StartHost();
+            if (Net.singleton.mode == NetworkManagerMode.Host) {
+                Progress = 1;
+                IsDone = true;
             }
         }
+
+        //旧场景加载方式
+        // public override void OnStart() {
+        //     Progress = 0;
+        //     AsyncOperation operation = Loader.LoadSceneAsync(Parameters.sceneName);
+        //     operation.allowSceneActivation = false;
+        //
+        //     while (!operation.isDone) {
+        //         if (operation.progress >= 0.9f && Progress < 1) {
+        //             Progress = 1;
+        //             ClockUtil.Instance.AlarmAfter(1f, () => {
+        //                 operation.allowSceneActivation = true;
+        //                 IsDone = true;
+        //             });
+        //             break;
+        //         } else {
+        //             Progress = operation.progress;
+        //         }
+        //     }
+        // }
 
         public override void OnUpdate() {
         }

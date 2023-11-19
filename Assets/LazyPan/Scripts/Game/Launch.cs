@@ -16,6 +16,8 @@ namespace LazyPan {
             Stage stage = uiRoot.gameObject.AddComponent<Stage>();
             DontDestroyOnLoad(uiRoot.gameObject);
 
+            Loader.LoadGo("网络", "Global/Global_Net_Root", uiRoot, true);
+
             Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Start"), stage.Load, sceneName);
             Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Quit"), Act.QuitGame);
         }

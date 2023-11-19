@@ -23,7 +23,6 @@ namespace LazyPan {
             LoadObj("Obj_MainTerrain");
             LoadObj("Obj_MainDirectionalLight");
             LoadObj("Obj_MainVolume");
-            LoadObj("Obj_MainPlayer");
             LoadObj("Obj_OtherPlayer");
             LoadObj("Obj_MainCamera");
             LoadObj("Obj_PickableObj_Shoot");
@@ -31,7 +30,7 @@ namespace LazyPan {
             LoadObj("Obj_PickableObj_Jump");
         }
 
-        private int LoadObj(string sign) {
+        public int LoadObj(string sign) {
             DataBody dataBody = new DataBody();
             dataBody.ID = ++Game.Instance.Setting.InstanceID;
             dataBody.Go = new Go(dataBody.ID, sign);
