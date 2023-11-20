@@ -24,7 +24,7 @@ namespace LazyPan {
         public List<SliderData> Sliders = new List<SliderData>();
         public List<TextData> Texts = new List<TextData>();
         public List<TextMeshProUGUIData> TextMeshProUGUIs = new List<TextMeshProUGUIData>();
-        // public List<TextMeshProTextInputData> TextMeshProInputs = new List<TextMeshProTextInputData>();
+        public List<TMP_InputFieldData> TMPInputFields = new List<TMP_InputFieldData>();
 
         public T Get<T>(string sign) where T : Object {
             if (typeof(T) == typeof(CharacterController)) {
@@ -75,12 +75,12 @@ namespace LazyPan {
                         return colliderData.Collider as T;
                     }
                 }
-            } else if (typeof(T) == typeof(TextMeshPro)) {
-                // foreach (TextMeshPro test in Colliders) {
-                //     if (test.Sign == sign) {
-                //         return test.Collider as T;
-                //     }
-                // }
+            } else if (typeof(T) == typeof(TMP_InputField)) {
+                foreach (TMP_InputFieldData test in TMPInputFields) {
+                    if (test.Sign == sign) {
+                        return test.Text as T;
+                    }
+                }
             }
 
             return null;
@@ -95,7 +95,7 @@ namespace LazyPan {
 #endif
 
         [Serializable]
-        public class TextMeshProInputData {
+        public class TMP_InputFieldData {
             public string Sign;
             public TMP_InputField Text;
         }

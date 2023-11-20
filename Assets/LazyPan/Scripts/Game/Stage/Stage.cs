@@ -16,7 +16,7 @@ namespace LazyPan {
 
         public void Load(string networkAddress) {
             works.Enqueue(new LoadLoadingUI(new LoadLoadingUIParameters() { Description = "加载 Loading 界面", uiRoot = transform }, this));
-            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景"}));
+            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景", networkAddress = networkAddress}));
             works.Enqueue(new LoadGlobal(new LoadGlobalParameters() { Description = "加载场景物体"}, this));
             StageCount = works.Count;
         }
