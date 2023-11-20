@@ -14,10 +14,10 @@ namespace LazyPan {
         private StageWork work;
         private Queue<StageWork> works = new Queue<StageWork>();
 
-        public void Load(string sceneName) {
+        public void Load(string networkAddress) {
             works.Enqueue(new LoadLoadingUI(new LoadLoadingUIParameters() { Description = "加载 Loading 界面", uiRoot = transform }, this));
-            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景", sceneName = sceneName }));
-            works.Enqueue(new LoadGlobal(new LoadGlobalParameters() { Description = "加载场景物体", sceneName = sceneName }, this));
+            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景"}));
+            works.Enqueue(new LoadGlobal(new LoadGlobalParameters() { Description = "加载场景物体"}, this));
             StageCount = works.Count;
         }
 
@@ -67,7 +67,7 @@ namespace LazyPan {
         }
 
         public override void OnUpdate() {
-            if (SceneManager.GetActiveScene().name == Parameters.sceneName && game == null) {
+            if (SceneManager.GetActiveScene().name == NetworkManager.singleton.onlineScene && game == null) {
                 game = Loader.LoadGo("全局", "Global/Global", null, true).GetComponent<Game>();
             }
 
@@ -84,6 +84,7 @@ namespace LazyPan {
 
     public class LoadSceneParameters : StageParameters {
         public string sceneName;
+        public string networkAddress;
     }
 
     public class LoadScene : StageWork {
@@ -94,7 +95,12 @@ namespace LazyPan {
 
         public override void OnStart() {
             Progress = 0;
-            Net.singleton.StartHost();
+            if (string.IsNullOrEmpty(Parameters.networkAddress)) {
+                Net.singleton.StartClient();
+            } else {
+                Net.singleton.StartHost();
+            }
+            
             if (Net.singleton.mode == NetworkManagerMode.Host) {
                 Progress = 1;
                 IsDone = true;

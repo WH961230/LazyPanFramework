@@ -1,6 +1,5 @@
 ﻿using Mirror;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace LazyPan {
     public class Net : NetworkManager {
