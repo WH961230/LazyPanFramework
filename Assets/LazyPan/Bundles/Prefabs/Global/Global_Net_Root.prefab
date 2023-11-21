@@ -51,7 +51,7 @@ MonoBehaviour:
   autoStartServerBuild: 1
   autoConnectClientBuild: 0
   sendRate: 30
-  offlineScene: 
+  offlineScene: Assets/LazyPan/Scenes/Launch.unity
   onlineScene: Assets/LazyPan/Scenes/Fight.unity
   transport: {fileID: 2001582561753057784}
   networkAddress: localhost

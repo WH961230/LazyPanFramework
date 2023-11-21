@@ -14,9 +14,10 @@ namespace LazyPan {
         private StageWork work;
         private Queue<StageWork> works = new Queue<StageWork>();
 
-        public void Load(string networkAddress) {
+        public void Load(LoadType loadType) {
+            Debug.Log("networkaddress: " + Net.singleton.networkAddress);
             works.Enqueue(new LoadLoadingUI(new LoadLoadingUIParameters() { Description = "加载 Loading 界面", uiRoot = transform }, this));
-            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景", networkAddress = networkAddress}));
+            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景", loadType = loadType}));
             works.Enqueue(new LoadGlobal(new LoadGlobalParameters() { Description = "加载场景物体"}, this));
             StageCount = works.Count;
         }
@@ -49,7 +50,6 @@ namespace LazyPan {
     }
 
     public class LoadGlobalParameters : StageParameters {
-        public string sceneName;
     }
 
     public class LoadGlobal : StageWork {
@@ -67,13 +67,15 @@ namespace LazyPan {
         }
 
         public override void OnUpdate() {
-            if (SceneManager.GetActiveScene().name == NetworkManager.singleton.onlineScene && game == null) {
+            if (SceneManager.GetActiveScene().path == NetworkManager.singleton.onlineScene && game == null) {
                 game = Loader.LoadGo("全局", "Global/Global", null, true).GetComponent<Game>();
+                Debug.Log("加载 Global");
             }
 
             if (game != null && game.LoadFinished && !IsDone) {
                 Progress = 1;
                 IsDone = true;
+                Debug.Log("加载 Global 完成");
                 ClockUtil.Instance.AlarmAfter(1f, () => { Object.DestroyImmediate(stage.gameObject); });
             }
         }
@@ -83,8 +85,7 @@ namespace LazyPan {
     }
 
     public class LoadSceneParameters : StageParameters {
-        public string sceneName;
-        public string networkAddress;
+        public LoadType loadType;
     }
 
     public class LoadScene : StageWork {
@@ -95,37 +96,25 @@ namespace LazyPan {
 
         public override void OnStart() {
             Progress = 0;
-            if (string.IsNullOrEmpty(Parameters.networkAddress)) {
-                Net.singleton.StartClient();
-            } else {
-                Net.singleton.StartHost();
+            switch (Parameters.loadType) {
+                case LoadType.Host:
+                    Net.singleton.StartHost();
+                    Debug.Log("开启 HOST");
+                    break;
+                case LoadType.Client:
+                    Net.singleton.StartClient();
+                    Debug.Log("开启 CLIENT");
+                    break;
+                case LoadType.Server:
+                    break;
             }
-            
-            if (Net.singleton.mode == NetworkManagerMode.Host) {
+
+            if (Net.singleton.mode == NetworkManagerMode.Host || Net.singleton.mode == NetworkManagerMode.ClientOnly) {
                 Progress = 1;
                 IsDone = true;
-            }
+                Debug.Log("已连接： " + Net.singleton.mode);
+            }   
         }
-
-        //旧场景加载方式
-        // public override void OnStart() {
-        //     Progress = 0;
-        //     AsyncOperation operation = Loader.LoadSceneAsync(Parameters.sceneName);
-        //     operation.allowSceneActivation = false;
-        //
-        //     while (!operation.isDone) {
-        //         if (operation.progress >= 0.9f && Progress < 1) {
-        //             Progress = 1;
-        //             ClockUtil.Instance.AlarmAfter(1f, () => {
-        //                 operation.allowSceneActivation = true;
-        //                 IsDone = true;
-        //             });
-        //             break;
-        //         } else {
-        //             Progress = operation.progress;
-        //         }
-        //     }
-        // }
 
         public override void OnUpdate() {
         }
@@ -150,6 +139,7 @@ namespace LazyPan {
         public override void OnStart() {
             Progress = 0;
             stage.loadingUIComp = Loader.LoadComp("加载界面", "UI/UI_Loading", Parameters.uiRoot, true);
+            Debug.Log("开始加载 Loading 界面");
         }
 
         public override void OnUpdate() {
@@ -157,6 +147,7 @@ namespace LazyPan {
                 stage.loadingUIComp.gameObject.SetActive(true);
                 Progress = 1;
                 IsDone = true;
+                Debug.Log("加载 Loading 界面完成");
             }
         }
 
@@ -179,5 +170,11 @@ namespace LazyPan {
         public abstract void OnStart();
         public abstract void OnUpdate();
         public abstract void OnComplete();
+    }
+
+    public enum LoadType {
+        Host,
+        Client,
+        Server,
     }
 }

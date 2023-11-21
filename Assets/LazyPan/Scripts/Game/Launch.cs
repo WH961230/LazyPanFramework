@@ -19,9 +19,16 @@ namespace LazyPan {
             GameObject netRoot = Loader.LoadGo("网络", "Global/Global_Net_Root", null, true);
             DontDestroyOnLoad(netRoot);
 
-            string networkAddress = uiBeginComp.Get<TMP_InputField>("UI_Begin_networkAddress").text;
-            Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Start"), stage.Load, networkAddress);
+            Net.singleton.networkAddress = uiBeginComp.Get<TMP_InputField>("UI_Begin_networkAddress").text;
+            uiBeginComp.Get<TMP_InputField>("UI_Begin_networkAddress").onValueChanged.AddListener(ChangeNetworkAddress);
+
+            Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Host"), stage.Load, LoadType.Host);
+            Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Client"), stage.Load, LoadType.Client);
             Listener.AddListener(uiBeginComp.Get<Button>("UI_Begin_Quit"), Act.QuitGame);
+        }
+
+        private void ChangeNetworkAddress(string networkAddress) {
+            Net.singleton.networkAddress = networkAddress;
         }
     }
 }

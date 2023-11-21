@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
 namespace LazyPan {
@@ -27,6 +28,13 @@ namespace LazyPan {
             LoadObj("Obj_PickableObj_Shoot");
             LoadObj("Obj_PickableObj_Fly");
             LoadObj("Obj_PickableObj_Jump");
+            LoadObjSync("Obj_MainPlayer");
+        }
+
+        private int LoadObjSync(string sign) {
+            Net.singleton.spawnPrefabs.Add(new Go(++Game.Instance.Setting.InstanceID, sign).UGo);
+            Debug.Log("Spawn main player");
+            return 0;
         }
 
         public int LoadObj(string sign) {
