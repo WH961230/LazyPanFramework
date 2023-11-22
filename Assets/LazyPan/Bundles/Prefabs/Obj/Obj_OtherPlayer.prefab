@@ -376,6 +376,7 @@ MonoBehaviour:
   OnDrawGizmosAction:
     m_PersistentCalls:
       m_Calls: []
+  ObjSign: Obj_OtherPlayer
   GameObjects:
   - Sign: Head
     GO: {fileID: 3719858720153842183}
@@ -394,6 +395,7 @@ MonoBehaviour:
   Sliders: []
   Texts: []
   TextMeshProUGUIs: []
+  TMPInputFields: []
 --- !u!143 &462787600255823269
 CharacterController:
   m_ObjectHideFlags: 0

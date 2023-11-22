@@ -119,12 +119,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ec67d1c2c345b5b9b964d6f2eef6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTriggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerStayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
   OnDrawGizmosAction:
     m_PersistentCalls:
       m_Calls: []
+  ObjSign: Obj_MainTerrain
   GameObjects: []
+  Transforms: []
+  Colliders: []
   CharacterControllers: []
   Buttons: []
   Sliders: []
   Texts: []
   TextMeshProUGUIs: []
+  TMPInputFields: []

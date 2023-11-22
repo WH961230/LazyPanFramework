@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Object = UnityEngine.Object;
 using Slider = UnityEngine.UI.Slider;
@@ -17,6 +15,7 @@ namespace LazyPan {
         [HideInInspector] public UnityEvent<Collider> OnTriggerExitEvent;
         [HideInInspector] public UnityEvent OnDrawGizmosAction;
 
+        public string ObjSign;
         public List<GameObjectData> GameObjects = new List<GameObjectData>();
         public List<TransformData> Transforms = new List<TransformData>();
         public List<ColliderData> Colliders = new List<ColliderData>();

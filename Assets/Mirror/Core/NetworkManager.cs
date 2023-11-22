@@ -1308,22 +1308,6 @@ namespace Mirror
             NetworkServer.AddPlayerForConnection(conn, player);
         }
 
-        /// <summary>Called on server when a client requests to add the player. Adds playerPrefab by default. Can be overwritten.</summary>
-        // The default implementation for this function creates a new player object from the playerPrefab.
-        public virtual void OnServerAddPlayer(NetworkConnectionToClient conn, GameObject uGo)
-        {
-            Transform startPos = GetStartPosition();
-            if (startPos != null) {
-                uGo.transform.position = startPos.position;
-                uGo.transform.rotation = startPos.rotation;
-            }
-
-            // instantiating a "Player" prefab gives it the name "Player(clone)"
-            // => appending the connectionId is WAY more useful for debugging!
-            uGo.name = $"{uGo.name} [connId={conn.connectionId}]";
-            NetworkServer.AddPlayerForConnection(conn, uGo);
-        }
-
         /// <summary>Called on server when transport raises an exception. NetworkConnection may be null.</summary>
         public virtual void OnServerError(NetworkConnectionToClient conn, TransportError error, string reason) { }
 

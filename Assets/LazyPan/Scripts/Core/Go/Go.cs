@@ -21,6 +21,20 @@ namespace LazyPan {
 #endif
         }
 
+        public Go(int id, string sign, GameObject uGo) {
+            ID = id;
+            GoType goType = (GoType)ObjConfig.Get(sign).Type;
+            UGo = Loader.LoadGo("", string.Concat("Obj/", sign), GetRoot(goType), true);
+            UGo.name = string.Concat(GetGoName(goType), "_", UGo.GetInstanceID(), "_", ID);
+            Comp = UGo.GetComponent<Comp>();
+#if UNITY_EDITOR
+            if (goType == GoType.OtherPlayer) {
+                Texture2D icon = EditorGUIUtility.IconContent("sv_label_0").image as Texture2D;
+                EditorGUIUtility.SetIconForObject(UGo, icon);
+            }
+#endif
+        }
+
         private string GetGoName(GoType type) {
             string path = null;
             switch (type) {

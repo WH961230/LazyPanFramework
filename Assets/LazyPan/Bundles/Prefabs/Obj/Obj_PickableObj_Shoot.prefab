@@ -58,6 +58,7 @@ MonoBehaviour:
   OnDrawGizmosAction:
     m_PersistentCalls:
       m_Calls: []
+  ObjSign: Obj_PickableObj_Shoot
   GameObjects: []
   Transforms: []
   Colliders:
@@ -68,6 +69,7 @@ MonoBehaviour:
   Sliders: []
   Texts: []
   TextMeshProUGUIs: []
+  TMPInputFields: []
 --- !u!65 &13273421143022203
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -57,8 +57,9 @@ MonoBehaviour:
   networkAddress: localhost
   maxConnections: 100
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
-  autoCreatePlayer: 0
+  playerPrefab: {fileID: 6160181299118318607, guid: e719ba13dc3ecae469c20d8329cc96fe,
+    type: 3}
+  autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
   snapshotSettings:
@@ -72,6 +73,7 @@ MonoBehaviour:
     dynamicAdjustmentTolerance: 1
     deliveryTimeEmaDuration: 2
   timeInterpolationGui: 0
+  ObjNets: []
 --- !u!114 &2001582561753057784
 MonoBehaviour:
   m_ObjectHideFlags: 0

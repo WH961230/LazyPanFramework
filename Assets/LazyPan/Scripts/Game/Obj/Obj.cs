@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
@@ -23,18 +22,12 @@ namespace LazyPan {
             LoadObj("Obj_MainTerrain");
             LoadObj("Obj_MainDirectionalLight");
             LoadObj("Obj_MainVolume");
-            LoadObj("Obj_OtherPlayer");
             LoadObj("Obj_MainCamera");
-            LoadObj("Obj_PickableObj_Shoot");
-            LoadObj("Obj_PickableObj_Fly");
-            LoadObj("Obj_PickableObj_Jump");
-            LoadObjSync("Obj_MainPlayer");
         }
 
-        private int LoadObjSync(string sign) {
-            Net.singleton.spawnPrefabs.Add(new Go(++Game.Instance.Setting.InstanceID, sign).UGo);
-            Debug.Log("Spawn main player");
-            return 0;
+        [Server]
+        public void AddObj(DataBody dataBody) {
+            Debug.Log("Server AddObj: " + dataBody.ID);
         }
 
         public int LoadObj(string sign) {
