@@ -1,6 +1,9 @@
 ﻿using Mirror;
 
 namespace LazyPan {
-    public partial class NetManager : NetworkManager {
+    public class NetManager : NetworkManager {
+        public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
+            base.OnServerAddPlayer(conn);
+        }
     }
 }

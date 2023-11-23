@@ -2,7 +2,7 @@
 
 namespace LazyPan {
     public interface INet {
-        void AwakeInit(Net net);
+        void AwakeInit(NetBehaviour netBehaviour);
         void StartInit();
         void OnUpdate();
         void OnClear();
@@ -13,18 +13,6 @@ namespace LazyPan {
         public NetClient NetClient;
 
         private List<INet> loops = new List<INet>();
-        protected override void AwakeInit() {
-            base.AwakeInit();
-            if (NetManager.ConnectType == ConnectType.Server) {
-                RequestLoop<NetServer>();
-            }
-
-            if (NetManager.ConnectType == ConnectType.Client) {
-                RequestLoop<NetClient>();
-            }
-            Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
-        }
-
         private void RequestLoop<T>() where T : INet, new() {
             T loop = new T();
             loop.AwakeInit(this);
@@ -39,7 +27,12 @@ namespace LazyPan {
 
         public override void OnStartClient() {
             base.OnStartClient();
-            if (NetManager.IsClient && isLocalPlayer) {
+            if (isClient) {
+                RequestLoop<NetClient>();
+                Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
+            }
+
+            if (isClient && isLocalPlayer) {
                 DataBody dataBody = new DataBody();
                 string objSign = GetComponent<Comp>().ObjSign;
                 dataBody.Go = new Go(dataBody.ID, objSign, gameObject);
@@ -55,14 +48,10 @@ namespace LazyPan {
 
         public override void OnStartServer() {
             base.OnStartServer();
-        }
-
-        public override void OnStartLocalPlayer() {
-            base.OnStartLocalPlayer();
-        }
-
-        public override void OnStartAuthority() {
-            base.OnStartAuthority();
+            if (isServer) {
+                RequestLoop<NetServer>();
+                Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
+            }
         }
     }
 }

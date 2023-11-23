@@ -3,8 +3,8 @@
 namespace LazyPan {
     public class NetServer : INet {
         private Net net;
-        public void AwakeInit(Net net) {
-            this.net = net;
+        public void AwakeInit(NetBehaviour netBehaviour) {
+            this.net = (Net)netBehaviour;
             this.net.NetServer = this;
         }
 

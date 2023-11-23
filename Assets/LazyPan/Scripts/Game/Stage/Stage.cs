@@ -15,7 +15,6 @@ namespace LazyPan {
         private Queue<StageWork> works = new Queue<StageWork>();
 
         public void Load(ConnectType connectType) {
-            NetManager.ConnectType = connectType;
             works.Enqueue(new LoadLoadingUI(new LoadLoadingUIParameters() { Description = "加载 Loading 界面", uiRoot = transform }, this));
             works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景", ConnectType = connectType}));
             works.Enqueue(new LoadGlobal(new LoadGlobalParameters() { Description = "加载场景物体"}, this));

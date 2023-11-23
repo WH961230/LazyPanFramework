@@ -3,8 +3,8 @@ using UnityEngine;
 namespace LazyPan {
     public class NetClient : INet {
         private Net net;
-        public void AwakeInit(Net net) {
-            this.net = net;
+        public void AwakeInit(NetBehaviour netBehaviour) {
+            this.net = (Net)netBehaviour;
             this.net.NetClient = this;
         }
 
