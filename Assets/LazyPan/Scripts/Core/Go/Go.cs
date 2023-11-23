@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace LazyPan {
     public class Go {
-        public int ID;
+        public uint ID;
         public GameObject UGo;
         public Comp Comp;
 
-        public Go(int id, string sign) {
+        public Go(uint id, string sign) {
             ID = id;
             GoType goType = (GoType)ObjConfig.Get(sign).Type;
             UGo = Loader.LoadGo("", string.Concat("Obj/", sign), GetRoot(goType), true);
@@ -21,10 +21,11 @@ namespace LazyPan {
 #endif
         }
 
-        public Go(int id, string sign, GameObject uGo) {
+        public Go(uint id, string sign, GameObject uGo) {
             ID = id;
             GoType goType = (GoType)ObjConfig.Get(sign).Type;
-            UGo = Loader.LoadGo("", string.Concat("Obj/", sign), GetRoot(goType), true);
+            UGo = uGo;
+            UGo.transform.parent = GetRoot(goType);
             UGo.name = string.Concat(GetGoName(goType), "_", UGo.GetInstanceID(), "_", ID);
             Comp = UGo.GetComponent<Comp>();
 #if UNITY_EDITOR

@@ -5,7 +5,7 @@ namespace LazyPan {
     public class Behaviour_Shoot : Behaviour {
         private Transform ShootPoint;
 
-        public Behaviour_Shoot(int subjectId) : base(subjectId) {
+        public Behaviour_Shoot(uint subjectId) : base(subjectId) {
             ShootPoint = SubjectComp.Get<Transform>("ShootPoint");
             Input.Instance.Load("Player/Shoot", Input_Shoot);
         }

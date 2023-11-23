@@ -9,6 +9,7 @@ namespace LazyPan {
         public static Game Instance;
         private void Awake() {
             Instance = this;
+            Setting.InstanceID = 0;
         }
 
         private void Start() {

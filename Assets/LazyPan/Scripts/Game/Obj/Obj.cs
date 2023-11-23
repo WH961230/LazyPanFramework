@@ -25,12 +25,7 @@ namespace LazyPan {
             LoadObj("Obj_MainCamera");
         }
 
-        [Server]
-        public void AddObj(DataBody dataBody) {
-            Debug.Log("Server AddObj: " + dataBody.ID);
-        }
-
-        public int LoadObj(string sign) {
+        public uint LoadObj(string sign) {
             DataBody dataBody = new DataBody();
             dataBody.ID = ++Game.Instance.Setting.InstanceID;
             dataBody.Go = new Go(dataBody.ID, sign);
@@ -44,7 +39,7 @@ namespace LazyPan {
             return dataBody.ID;
         }
 
-        private void AddBehaviourFromConfig(int id, string objSign) {
+        public void AddBehaviourFromConfig(uint id, string objSign) {
             ObjConfig config = ObjConfig.Get(objSign);
             if (!string.IsNullOrEmpty(config.Behaviour)) {
                 string[] behaviourArray = config.Behaviour.Split("|");

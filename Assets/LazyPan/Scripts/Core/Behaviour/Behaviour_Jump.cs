@@ -8,7 +8,7 @@ namespace LazyPan {
         private CharacterController controller;
         private float JumpHeight;
 
-        public Behaviour_Jump(int subjectId) : base(subjectId) {
+        public Behaviour_Jump(uint subjectId) : base(subjectId) {
             Input.Instance.Load("Player/Jump", Input_Jump);
             Data.Instance.OnUpdateEvent?.AddListener(Update_Behaviour_Jump);
             uGo = SubjectGo.UGo;

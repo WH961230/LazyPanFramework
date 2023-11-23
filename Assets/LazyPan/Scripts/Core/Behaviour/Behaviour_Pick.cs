@@ -2,13 +2,13 @@
 
 namespace LazyPan {
     public class Behaviour_Pick : Behaviour {
-        public Behaviour_Pick(int subjectId) : base(subjectId) {
+        public Behaviour_Pick(uint subjectId) : base(subjectId) {
             SubjectComp.OnTriggerEnterEvent?.AddListener(OnTriggerEnter);
         }
 
         private void OnTriggerEnter(Collider collider) {
             string[] strArray = collider.name.Split('_');
-            int id = int.Parse(strArray[2]);
+            uint id = uint.Parse(strArray[2]);
             GoType type = (GoType)Data.Instance.dataBodyDic[id].Type;
             if (type == GoType.PickableObj) {
                 DataBody body = Data.Instance.dataBodyDic[id];

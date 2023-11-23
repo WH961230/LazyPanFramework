@@ -2,13 +2,13 @@
 
 namespace LazyPan {
     public class Behaviour {
-        protected int SubjectID;
+        protected uint SubjectID;
         protected Go SubjectGo;
         protected GameObject SubjectUGo;
         protected Comp SubjectComp;
         protected BehaviourData SubjectBehaviourData;
 
-        protected Behaviour(int subjectId) {
+        protected Behaviour(uint subjectId) {
             SubjectID = subjectId;
 
             if (SubjectID != -1) {
