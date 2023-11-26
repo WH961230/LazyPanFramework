@@ -15,6 +15,17 @@ namespace LazyPan {
             return false;
         }
 
+        public bool TryGetLocalPlayer(out uint id) {
+            foreach (var body in dataBodyDic.Values) {
+                if (body.isLocalMainPlayer) {
+                    id = body.ID;
+                    return true;
+                }
+            }
+            id = default;
+            return false;
+        }
+
         public void AddBehaviour(uint id, string sign) {
             if (!dataBodyDic.ContainsKey(id) || GetBehaviourIndex(id, sign) != -1) {
                 return;

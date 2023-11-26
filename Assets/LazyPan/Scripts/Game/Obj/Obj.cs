@@ -18,16 +18,10 @@ namespace LazyPan {
             TerrainRoot = Loader.LoadGo("地形", "Global/Global_Terrain_Root", null, true).transform;
         }
 
-        public void Load() {
-            LoadObj("Obj_MainTerrain");
-            LoadObj("Obj_MainDirectionalLight");
-            LoadObj("Obj_MainVolume");
-            LoadObj("Obj_MainCamera");
-        }
-
-        public uint LoadObj(string sign) {
+        public uint LoadSignObj(string sign) {
             DataBody dataBody = new DataBody();
-            dataBody.ID = ++Game.Instance.Setting.InstanceID;
+            dataBody.ID = Game.Instance.Setting.InstanceID == 0 ? 0 : Game.Instance.Setting.InstanceID;
+            --Game.Instance.Setting.InstanceID;
             dataBody.Go = new Go(dataBody.ID, sign);
             dataBody.GoSign = sign;
             dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
@@ -35,17 +29,34 @@ namespace LazyPan {
             dataBody.Type = config.Type;
             dataBody.Behaviours = new List<Behaviour>();
             Data.Instance.dataBodyDic.TryAdd(dataBody.ID, dataBody);
-            AddBehaviourFromConfig(dataBody.ID, sign);
+            AddBehaviourFromConfig(dataBody.ID, sign, dataBody.Go.Comp);
             return dataBody.ID;
         }
 
-        public void AddBehaviourFromConfig(uint id, string objSign) {
+        public uint LoadObj(uint netID, bool isLocal, GameObject uGo) {
+            DataBody dataBody = new DataBody();
+            string objSign = uGo.GetComponent<Comp>().ObjSign;
+            dataBody.ID = netID;
+            dataBody.Go = new Go(dataBody.ID, objSign, uGo);
+            dataBody.GoSign = objSign;
+            dataBody.isLocalMainPlayer = isLocal;
+            dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
+            ObjConfig config = ObjConfig.Get(objSign);
+            dataBody.Type = config.Type;
+            dataBody.Behaviours = new List<Behaviour>();
+            Data.Instance.dataBodyDic.TryAdd(dataBody.ID, dataBody);
+            AddBehaviourFromConfig(dataBody.ID, objSign, dataBody.Go.Comp);
+            return dataBody.ID;
+        }
+
+        public void AddBehaviourFromConfig(uint id, string objSign, Comp comp) {
             ObjConfig config = ObjConfig.Get(objSign);
             if (!string.IsNullOrEmpty(config.Behaviour)) {
                 string[] behaviourArray = config.Behaviour.Split("|");
                 int length = behaviourArray.Length;
                 for (int i = 0; i < length; i++) {
                     string behaviourSign = behaviourArray[i];
+                    comp.BehaviourBundles.Add(behaviourSign);
                     Data.Instance.AddBehaviour(id, behaviourSign);
                 }
             }

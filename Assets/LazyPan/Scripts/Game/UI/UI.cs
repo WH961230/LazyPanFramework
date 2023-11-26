@@ -56,10 +56,6 @@ namespace LazyPan {
             });
         }
 
-        public void Load() {
-            Open("UI_Main");
-        }
-
         public void Open(string name) {
             if (uICompExchangeDics.TryGetValue(name, out Comp uiExchangeComp)) {
                 if (UIComp != null) {

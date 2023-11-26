@@ -14,7 +14,7 @@ namespace LazyPan {
             UGo.name = string.Concat(GetGoName(goType), "_", UGo.GetInstanceID(), "_", ID);
             Comp = UGo.GetComponent<Comp>();
 #if UNITY_EDITOR
-            if (goType == GoType.OtherPlayer) {
+            if (goType == GoType.Player) {
                 Texture2D icon = EditorGUIUtility.IconContent("sv_label_0").image as Texture2D;
                 EditorGUIUtility.SetIconForObject(UGo, icon);
             }
@@ -29,7 +29,7 @@ namespace LazyPan {
             UGo.name = string.Concat(GetGoName(goType), "_", UGo.GetInstanceID(), "_", ID);
             Comp = UGo.GetComponent<Comp>();
 #if UNITY_EDITOR
-            if (goType == GoType.OtherPlayer) {
+            if (goType == GoType.Player) {
                 Texture2D icon = EditorGUIUtility.IconContent("sv_label_0").image as Texture2D;
                 EditorGUIUtility.SetIconForObject(UGo, icon);
             }
@@ -39,14 +39,8 @@ namespace LazyPan {
         private string GetGoName(GoType type) {
             string path = null;
             switch (type) {
-                case GoType.OtherObj:
-                    path = "其他物体";
-                    break;
-                case GoType.MainPlayer:
-                    path = "主玩家";
-                    break;
-                case GoType.OtherPlayer:
-                    path = "其他玩家";
+                case GoType.Player:
+                    path = "玩家";
                     break;
                 case GoType.Camera:
                     path = "相机";
@@ -71,10 +65,8 @@ namespace LazyPan {
         private Transform GetRoot(GoType type) {
             Transform root = null;
             switch (type) {
-                case GoType.OtherObj:
                 case GoType.PickableObj:
-                case GoType.OtherPlayer:
-                case GoType.MainPlayer:
+                case GoType.Player:
                     root = Obj.Instance.ObjRoot;
                     break;
                 case GoType.Camera:
@@ -95,13 +87,11 @@ namespace LazyPan {
     }
 
     public enum GoType {
-        OtherObj,
-        OtherPlayer,
+        Player,
         Camera,
         Light,
         Terrain,
         Volume,
-        MainPlayer,
         PickableObj,
     }
 }

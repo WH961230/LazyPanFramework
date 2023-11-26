@@ -1,18 +1,13 @@
-using UnityEngine;
-
 namespace LazyPan {
-    public class NetClient : INet {
-        private Net net;
-        public void AwakeInit(NetBehaviour netBehaviour) {
-            this.net = (Net)netBehaviour;
-            this.net.NetClient = this;
-        }
-
-        public void StartInit() {
+    public class NetClient {
+        private Net Net;
+        public NetClient(Net net) {
+            Net = net;
+            Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
+            Obj.Instance.LoadObj(Net.netId, Net.isLocalPlayer, Net.gameObject);
         }
 
         public void OnUpdate() {
-            Debug.Log("NetClient OnUpdate");
         }
 
         public void OnClear() {

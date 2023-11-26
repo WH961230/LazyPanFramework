@@ -15,6 +15,7 @@ namespace LazyPan {
         public string GoSign;
         public Go Go;
         public int Type;
+        public bool isLocalMainPlayer;
         public BehaviourData BehaviourData = new BehaviourData();
         public List<Behaviour> Behaviours = new List<Behaviour>();
     }

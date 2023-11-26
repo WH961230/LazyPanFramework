@@ -1,18 +1,12 @@
-﻿using UnityEngine;
-
-namespace LazyPan {
-    public class NetServer : INet {
-        private Net net;
-        public void AwakeInit(NetBehaviour netBehaviour) {
-            this.net = (Net)netBehaviour;
-            this.net.NetServer = this;
-        }
-
-        public void StartInit() {
+﻿namespace LazyPan {
+    public class NetServer {
+        private Net Net;
+        public NetServer(Net net) {
+            Net = net;
+            Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
         }
 
         public void OnUpdate() {
-            Debug.Log("NetServer OnUpdate");
         }
 
         public void OnClear() {

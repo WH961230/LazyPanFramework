@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace LazyPan {
     public class Stage : MonoBehaviour {
@@ -68,6 +67,18 @@ namespace LazyPan {
         public override void OnUpdate() {
             if (SceneManager.GetActiveScene().path == NetworkManager.singleton.onlineScene && game == null) {
                 game = Loader.LoadGo("全局", "Global/Global", null, true).GetComponent<Game>();
+            }
+
+            if (NetManager.Instance && game && !game.LoadFinished) {
+                if (NetManager.Instance.NetGlobalClient != null && NetworkClient.active) {
+                    NetManager.Instance.NetGlobalClient.OnInit();
+                    NetManager.Instance.NetGlobalClient.LoadClientObj();
+                    game.LoadFinished = true;
+                }
+
+                if (NetManager.Instance.NetGlobalServer != null && NetworkServer.active) {
+                    game.LoadFinished = true;
+                }
             }
 
             if (game != null && game.LoadFinished && !IsDone) {

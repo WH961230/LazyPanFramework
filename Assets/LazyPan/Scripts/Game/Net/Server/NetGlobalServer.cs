@@ -1,15 +1,32 @@
-﻿namespace LazyPan {
-    public class NetGlobalServer : INet {
-        public void AwakeInit(NetBehaviour netBehaviour) {
-        }
+﻿using Mirror;
+using UnityEngine;
 
-        public void StartInit() {
+namespace LazyPan {
+    public class NetGlobalServer {
+        private bool SpawnPrefabFinish;
+        public NetGlobalServer() {
+            Config.Instance.Init();
+            Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
         }
 
         public void OnUpdate() {
+            if (!SpawnPrefabFinish) {
+                if (NetworkServer.active && Game.Instance && Game.Instance.LoadFinished) {
+                    ServerSpawnPrefab();
+                    SpawnPrefabFinish = true;
+                }
+            }
         }
 
         public void OnClear() {
+        }
+
+        [Server]
+        private void ServerSpawnPrefab() {
+            for (int i = 0; i < NetManager.singleton.spawnPrefabs.Count; i++) {
+                GameObject plant = Object.Instantiate(NetManager.singleton.spawnPrefabs[i]);
+                NetworkServer.Spawn(plant);
+            }
         }
     }
 }

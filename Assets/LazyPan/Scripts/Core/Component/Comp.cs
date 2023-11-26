@@ -25,6 +25,7 @@ namespace LazyPan {
         public List<TextData> Texts = new List<TextData>();
         public List<TextMeshProUGUIData> TextMeshProUGUIs = new List<TextMeshProUGUIData>();
         public List<TMP_InputFieldData> TMPInputFields = new List<TMP_InputFieldData>();
+        public List<string> BehaviourBundles = new List<string>();
 
         public T Get<T>(string sign) where T : Object {
             if (typeof(T) == typeof(CharacterController)) {

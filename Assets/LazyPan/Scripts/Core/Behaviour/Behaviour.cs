@@ -6,6 +6,7 @@ namespace LazyPan {
         protected Go SubjectGo;
         protected GameObject SubjectUGo;
         protected Comp SubjectComp;
+        protected bool SubjectIsLocal;
         protected BehaviourData SubjectBehaviourData;
 
         protected Behaviour(uint subjectId) {
@@ -16,6 +17,7 @@ namespace LazyPan {
                 SubjectUGo = SubjectGo.UGo;
                 SubjectComp = SubjectGo.Comp;
                 SubjectBehaviourData = Data.Instance.dataBodyDic[SubjectID].BehaviourData;
+                SubjectIsLocal = Data.Instance.dataBodyDic[SubjectID].isLocalMainPlayer;
             }
         }
     }

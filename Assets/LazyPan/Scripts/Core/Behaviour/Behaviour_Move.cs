@@ -31,11 +31,17 @@ namespace LazyPan {
         }
 
         private void Update_Behaviour_Move() {
+            if (!controller) {
+                return;
+            }
             moveDir = SubjectGo.UGo.transform.right * moveInputVec.x * 3 + SubjectGo.UGo.transform.forward * moveInputVec.y * 3;
             controller.Move(moveDir * Time.deltaTime);
         }
 
         private void Update_Behaviour_View() {
+            if (!Head) {
+                return;
+            }
             yRotate += viewInputVec.x;
             xRotate -= viewInputVec.y;
             SubjectUGo.transform.rotation = Quaternion.Euler(0, yRotate, 0);

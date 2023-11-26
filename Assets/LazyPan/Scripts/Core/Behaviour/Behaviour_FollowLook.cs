@@ -12,7 +12,7 @@ namespace LazyPan {
 
         private void LateUpdate_Behaviour_FollowLook() {
             if (targetViewPoint == null) {
-                if (Data.Instance.TryGetDataBodyByType((int)GoType.MainPlayer, out uint playerId)) {
+                if (Data.Instance.TryGetLocalPlayer(out uint playerId)) {
                     targetViewPoint = Data.Instance.dataBodyDic[playerId].Go.Comp.Get<Transform>("ViewPoint");
                 }
                 return;
