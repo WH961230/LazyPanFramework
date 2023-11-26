@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4529046151957633213}
   m_Layer: 0
-  m_Name: ShootPoint
+  m_Name: ShootTran
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,7 +384,7 @@ MonoBehaviour:
   - Sign: Head
     GO: {fileID: 3719858720153842183}
   Transforms:
-  - Sign: ShootPoint
+  - Sign: ShootTran
     Tran: {fileID: 4529046151957633213}
   - Sign: ViewPoint
     Tran: {fileID: 3370097686255457606}
@@ -399,6 +399,7 @@ MonoBehaviour:
   Texts: []
   TextMeshProUGUIs: []
   TMPInputFields: []
+  BehaviourBundles: []
 --- !u!143 &462787600255823269
 CharacterController:
   m_ObjectHideFlags: 0

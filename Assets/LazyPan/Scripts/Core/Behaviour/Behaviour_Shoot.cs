@@ -3,10 +3,10 @@ using UnityEngine.InputSystem;
 
 namespace LazyPan {
     public class Behaviour_Shoot : Behaviour {
-        private Transform ShootPoint;
+        private Transform ShootTran;
 
         public Behaviour_Shoot(uint subjectId) : base(subjectId) {
-            ShootPoint = SubjectComp.Get<Transform>("ShootPoint");
+            ShootTran = SubjectComp.Get<Transform>("ShootTran");
             Input.Instance.Load("Player/Shoot", Input_Shoot);
         }
 
@@ -17,14 +17,12 @@ namespace LazyPan {
         }
 
         private void Shoot() {
-            if (ShootPoint == null) {
+            if (ShootTran == null) {
                 return;
             }
-            var bullet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            bullet.transform.localScale /= 5;
-            bullet.transform.position = ShootPoint.position;
-            Rigidbody rb = bullet.AddComponent<Rigidbody>();
-            rb.AddForce(ShootPoint.forward * 10f, ForceMode.Impulse);
+
+            Net Net = SubjectUGo.GetComponent<Net>();
+            Net.CmdShoot(ShootTran.position, ShootTran.position + ShootTran.forward);
         }
     }
 }

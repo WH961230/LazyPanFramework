@@ -21,8 +21,8 @@ namespace LazyPan {
         public void OnClear() {
         }
 
-        [Server]
         private void ServerSpawnPrefab() {
+            Debug.Log("ServerSpawnPrefab");
             for (int i = 0; i < NetManager.singleton.spawnPrefabs.Count; i++) {
                 GameObject plant = Object.Instantiate(NetManager.singleton.spawnPrefabs[i]);
                 NetworkServer.Spawn(plant);

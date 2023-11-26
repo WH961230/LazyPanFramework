@@ -16,6 +16,7 @@ namespace LazyPan {
         public Go Go;
         public int Type;
         public bool isLocalMainPlayer;
+        public int Health;
         public BehaviourData BehaviourData = new BehaviourData();
         public List<Behaviour> Behaviours = new List<Behaviour>();
     }

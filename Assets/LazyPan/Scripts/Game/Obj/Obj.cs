@@ -26,6 +26,7 @@ namespace LazyPan {
             dataBody.GoSign = sign;
             dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
             ObjConfig config = ObjConfig.Get(sign);
+            dataBody.Health = config.Health;
             dataBody.Type = config.Type;
             dataBody.Behaviours = new List<Behaviour>();
             Data.Instance.dataBodyDic.TryAdd(dataBody.ID, dataBody);
@@ -42,6 +43,7 @@ namespace LazyPan {
             dataBody.isLocalMainPlayer = isLocal;
             dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
             ObjConfig config = ObjConfig.Get(objSign);
+            dataBody.Health = config.Health;
             dataBody.Type = config.Type;
             dataBody.Behaviours = new List<Behaviour>();
             Data.Instance.dataBodyDic.TryAdd(dataBody.ID, dataBody);

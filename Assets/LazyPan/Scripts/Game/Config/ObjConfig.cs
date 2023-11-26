@@ -8,6 +8,7 @@ namespace LazyPan {
 		public string Name;
 		public string Behaviour;
 		public bool CanBePickedUp;
+		public int Health;
 
         private static bool isInit;
         private static string content;
@@ -22,6 +23,8 @@ namespace LazyPan {
 				Name = values[2];
 				Behaviour = values[3];
 				CanBePickedUp =  int.Parse(values[4]) == 1;
+				Health = int.Parse(values[5]);
+
             } catch (Exception e) {
                 Console.WriteLine(e);
                 throw;

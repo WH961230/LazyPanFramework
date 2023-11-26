@@ -1,3 +1,6 @@
+using Mirror;
+using UnityEngine;
+
 namespace LazyPan {
     public class NetClient {
         private Net Net;

@@ -1,4 +1,7 @@
-﻿namespace LazyPan {
+﻿using Mirror;
+using UnityEngine;
+
+namespace LazyPan {
     public class NetGlobalClient {
         public NetGlobalClient() {
             Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
