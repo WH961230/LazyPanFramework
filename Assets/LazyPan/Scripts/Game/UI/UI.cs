@@ -54,6 +54,9 @@ namespace LazyPan {
                 if (GetExchangeUIName() == "UI_Backpack") Close();
                 else Open("UI_Backpack");
             });
+
+            Input.Instance.Load("UI/Switch_behaviour", Act.Input_Switch_Behaviour);
+            Input.Instance.Load("UI/Switch_Obj", Act.Input_Switch_Obj);
         }
 
         public void Open(string name) {

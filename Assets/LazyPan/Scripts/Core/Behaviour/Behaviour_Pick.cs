@@ -9,10 +9,13 @@ namespace LazyPan {
         private void OnTriggerEnter(Collider collider) {
             string[] strArray = collider.name.Split('_');
             uint id = uint.Parse(strArray[2]);
-            GoType type = (GoType)Data.Instance.dataBodyDic[id].Type;
+            DataBody triggerDataBody = Data.Instance.dataBodyDic[id];
+            GoType type = (GoType)triggerDataBody.Type;
             if (type == GoType.PickableObj) {
-                DataBody body = Data.Instance.dataBodyDic[id];
-                string bindBehaviour = ObjConfig.Get(body.GoSign).Behaviour;
+                if (triggerDataBody.Health > 0) {
+                    return;
+                }
+                string bindBehaviour = ObjConfig.Get(triggerDataBody.GoSign).Behaviour;
                 if (!string.IsNullOrEmpty(bindBehaviour)) {
                     string[] behaviourArray = bindBehaviour.Split('|');
                     for (int i = 0; i < behaviourArray.Length; i++) {
@@ -23,8 +26,9 @@ namespace LazyPan {
                         }
                     }
                 }
-
-                collider.gameObject.SetActive(false);
+                
+                Data.Instance.AddOwnedDataBody(SubjectID, triggerDataBody);
+                triggerDataBody.Go.UGo.SetActive(false);
             }
         }
     }

@@ -19,5 +19,6 @@ namespace LazyPan {
         public int Health;
         public BehaviourData BehaviourData = new BehaviourData();
         public List<Behaviour> Behaviours = new List<Behaviour>();
+        public List<DataBody> OwnedDataBodies = new List<DataBody>();
     }
 }

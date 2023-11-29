@@ -22,6 +22,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Switch_Behaviour",
+                    "type": "Button",
+                    "id": "f5809595-86c9-47fd-b101-46cfcd7f2a2f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Switch_Obj",
+                    "type": "Value",
+                    "id": "1215b076-fb18-4ac2-af8a-2cc6466e096e",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -39,11 +57,44 @@
                 {
                     "name": "",
                     "id": "4275db1f-761f-423f-82a5-b88a4376e3a9",
-                    "path": "<Keyboard>/tab",
+                    "path": "<Keyboard>/b",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Backpack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25fb6d52-7b80-464d-a41c-ecf9c33eba83",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Behaviour",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff81a58d-6b0a-466b-bd71-162c0c1b22a4",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Obj",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18346930-d1f6-43bb-8dff-159f3bc7b81a",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Obj",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

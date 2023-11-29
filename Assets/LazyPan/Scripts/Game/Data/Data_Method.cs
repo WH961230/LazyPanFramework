@@ -26,6 +26,8 @@ namespace LazyPan {
             return false;
         }
 
+        #region Behaviour
+
         public void AddBehaviour(uint id, string sign) {
             if (!dataBodyDic.ContainsKey(id) || GetBehaviourIndex(id, sign) != -1) {
                 return;
@@ -57,5 +59,42 @@ namespace LazyPan {
 
             return retIndex;
         }
+
+        #endregion
+        
+        #region OwnedDataBody
+
+        public void AddOwnedDataBody(uint id, DataBody dataBody) {
+            if (!dataBodyDic.ContainsKey(id) || GetOwnedDataBodyIndex(id, dataBody.ID) != -1) {
+                return;
+            }
+
+            dataBodyDic[id].OwnedDataBodies.Add(dataBody);
+        }
+
+        public void RemoveOwnedDataBody(uint id, uint ownedDataBody) {
+            int index = GetOwnedDataBodyIndex(id, ownedDataBody);
+            if (!dataBodyDic.ContainsKey(id) || index == -1) {
+                return;
+            }
+
+            dataBodyDic[id].OwnedDataBodies.RemoveAt(index);
+        }
+
+        private int GetOwnedDataBodyIndex(uint id, uint dataBodyID) {
+            int retIndex = -1;
+            if (dataBodyDic.TryGetValue(id, out DataBody body)) {
+                for (int i = 0; i < body.OwnedDataBodies.Count; i++) {
+                    if (body.OwnedDataBodies[i].ID == dataBodyID) {
+                        retIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            return retIndex;
+        }
+
+        #endregion
     }
 }

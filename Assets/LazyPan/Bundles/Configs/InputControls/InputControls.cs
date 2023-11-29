@@ -44,6 +44,24 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch_Behaviour"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5809595-86c9-47fd-b101-46cfcd7f2a2f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch_Obj"",
+                    ""type"": ""Value"",
+                    ""id"": ""1215b076-fb18-4ac2-af8a-2cc6466e096e"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -61,11 +79,44 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4275db1f-761f-423f-82a5-b88a4376e3a9"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""path"": ""<Keyboard>/b"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Backpack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25fb6d52-7b80-464d-a41c-ecf9c33eba83"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch_Behaviour"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff81a58d-6b0a-466b-bd71-162c0c1b22a4"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch_Obj"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18346930-d1f6-43bb-8dff-159f3bc7b81a"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch_Obj"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -274,6 +325,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Setting = m_UI.FindAction("Setting", throwIfNotFound: true);
         m_UI_Backpack = m_UI.FindAction("Backpack", throwIfNotFound: true);
+        m_UI_Switch_Behaviour = m_UI.FindAction("Switch_Behaviour", throwIfNotFound: true);
+        m_UI_Switch_Obj = m_UI.FindAction("Switch_Obj", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
@@ -344,12 +397,16 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Setting;
     private readonly InputAction m_UI_Backpack;
+    private readonly InputAction m_UI_Switch_Behaviour;
+    private readonly InputAction m_UI_Switch_Obj;
     public struct UIActions
     {
         private @InputControls m_Wrapper;
         public UIActions(@InputControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Setting => m_Wrapper.m_UI_Setting;
         public InputAction @Backpack => m_Wrapper.m_UI_Backpack;
+        public InputAction @Switch_Behaviour => m_Wrapper.m_UI_Switch_Behaviour;
+        public InputAction @Switch_Obj => m_Wrapper.m_UI_Switch_Obj;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -365,6 +422,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Backpack.started += instance.OnBackpack;
             @Backpack.performed += instance.OnBackpack;
             @Backpack.canceled += instance.OnBackpack;
+            @Switch_Behaviour.started += instance.OnSwitch_Behaviour;
+            @Switch_Behaviour.performed += instance.OnSwitch_Behaviour;
+            @Switch_Behaviour.canceled += instance.OnSwitch_Behaviour;
+            @Switch_Obj.started += instance.OnSwitch_Obj;
+            @Switch_Obj.performed += instance.OnSwitch_Obj;
+            @Switch_Obj.canceled += instance.OnSwitch_Obj;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -375,6 +438,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Backpack.started -= instance.OnBackpack;
             @Backpack.performed -= instance.OnBackpack;
             @Backpack.canceled -= instance.OnBackpack;
+            @Switch_Behaviour.started -= instance.OnSwitch_Behaviour;
+            @Switch_Behaviour.performed -= instance.OnSwitch_Behaviour;
+            @Switch_Behaviour.canceled -= instance.OnSwitch_Behaviour;
+            @Switch_Obj.started -= instance.OnSwitch_Obj;
+            @Switch_Obj.performed -= instance.OnSwitch_Obj;
+            @Switch_Obj.canceled -= instance.OnSwitch_Obj;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -474,6 +543,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     {
         void OnSetting(InputAction.CallbackContext context);
         void OnBackpack(InputAction.CallbackContext context);
+        void OnSwitch_Behaviour(InputAction.CallbackContext context);
+        void OnSwitch_Obj(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {
