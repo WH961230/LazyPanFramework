@@ -13,13 +13,14 @@ namespace LazyPan {
             if (type == GoType.PickableObj) {
                 DataBody body = Data.Instance.dataBodyDic[id];
                 string bindBehaviour = ObjConfig.Get(body.GoSign).Behaviour;
-                string[] behaviourArray = bindBehaviour.Split('|');
-
-                for (int i = 0; i < behaviourArray.Length; i++) {
-                    string behaviourSign = behaviourArray[i];
-                    if (BehaviourConfig.Get(behaviourSign).CanFallOff) {
-                        Data.Instance.RemoveBehaviour(id, behaviourSign);
-                        Data.Instance.AddBehaviour(SubjectID, behaviourSign);
+                if (!string.IsNullOrEmpty(bindBehaviour)) {
+                    string[] behaviourArray = bindBehaviour.Split('|');
+                    for (int i = 0; i < behaviourArray.Length; i++) {
+                        string behaviourSign = behaviourArray[i];
+                        if (BehaviourConfig.Get(behaviourSign).CanFallOff) {
+                            Data.Instance.RemoveBehaviour(id, behaviourSign);
+                            Data.Instance.AddBehaviour(SubjectID, behaviourSign);
+                        }
                     }
                 }
 
