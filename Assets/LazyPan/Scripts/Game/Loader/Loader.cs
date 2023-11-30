@@ -14,6 +14,9 @@ namespace LazyPan {
         private static string ASSET_PATH = "Assets/LazyPan/Bundles/Configs/Setting/";
         private static string ASSET_SUFFIX = ".asset";
 
+        private static string SOUND_PATH = "Assets/LazyPan/Bundles/Sounds/";
+        private static string SOUND_SUFFIX = ".wav";
+
         private static string GetAddress(AssetType type, string assetName) {
             string address = "";
             switch (type) {
@@ -25,6 +28,9 @@ namespace LazyPan {
                     break;
                 case AssetType.INPUTACTIONASSET:
                     address = String.Concat(String.Concat(INPUTACTIONASSET_PATH, assetName), INPUTACTIONASSET_SUFFIX);
+                    break;
+                case AssetType.SOUND:
+                    address = String.Concat(String.Concat(SOUND_PATH, assetName), SOUND_SUFFIX);
                     break;
             }
 
@@ -56,6 +62,7 @@ namespace LazyPan {
             ASSET,
             PREFAB,
             INPUTACTIONASSET,
+            SOUND,
         }
     }
 }

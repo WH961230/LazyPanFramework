@@ -16,6 +16,7 @@ namespace LazyPan {
 
         private void Hit() {
             Debug.Log("挥击");
+            Sound.Instance.PlaySound("WoodHit", new Sound.SoundInfo(SubjectUGo.transform.position));
         }
 
         private void OnTriggerEnter(Collider collider) {

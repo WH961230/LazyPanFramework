@@ -22,6 +22,7 @@ namespace LazyPan {
             if (callbackContext.performed && SubjectBehaviourData.IsGrounded && !SubjectBehaviourData.IsJumping) {
                 SubjectBehaviourData.MoveVec.y += Mathf.Sqrt(JumpHeight * -3.0f * SubjectBehaviourData.GravityValue);
                 SubjectBehaviourData.IsJumping = true;
+                Sound.Instance.PlaySound("Jump", new Sound.SoundInfo(SubjectUGo.transform.position));
             }
         }
 

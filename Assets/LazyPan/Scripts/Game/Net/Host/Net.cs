@@ -43,6 +43,7 @@ namespace LazyPan {
             Rigidbody rb = bulletGo.AddComponent<Rigidbody>();
             rb.AddForce((endShootVec - beginShootVec).normalized * 10f, ForceMode.Impulse);
             Debug.Log("Client - CmdShoot");
+            Sound.Instance.PlaySound("BubbleShot", new Sound.SoundInfo(beginShootVec));
         }
     }
 }

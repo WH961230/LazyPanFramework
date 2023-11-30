@@ -8,6 +8,9 @@ namespace LazyPan {
 
         private void OnTriggerEnter(Collider collider) {
             string[] strArray = collider.name.Split('_');
+            if (strArray.Length < 3) {
+                return;
+            }
             uint id = uint.Parse(strArray[2]);
             DataBody triggerDataBody = Data.Instance.dataBodyDic[id];
             GoType type = (GoType)triggerDataBody.Type;
@@ -29,6 +32,7 @@ namespace LazyPan {
                 
                 Data.Instance.AddOwnedDataBody(SubjectID, triggerDataBody);
                 triggerDataBody.Go.UGo.SetActive(false);
+                Sound.Instance.PlaySound("Pickup", new Sound.SoundInfo(SubjectUGo.transform.position));
             }
         }
     }

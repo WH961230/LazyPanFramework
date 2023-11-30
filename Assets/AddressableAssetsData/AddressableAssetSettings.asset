@@ -95,6 +95,7 @@ MonoBehaviour:
     - Terrain
     - Volume
     - Setting
+    - Sound
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: ac9acee8a0e6b8340a80e6ebe18dc763, type: 2}

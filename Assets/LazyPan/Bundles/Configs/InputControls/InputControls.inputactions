@@ -36,7 +36,7 @@
                     "name": "Switch_Obj",
                     "type": "Value",
                     "id": "1215b076-fb18-4ac2-af8a-2cc6466e096e",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -77,26 +77,59 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "ff81a58d-6b0a-466b-bd71-162c0c1b22a4",
+                    "name": "2D Vector",
+                    "id": "d8c3f728-183d-40fa-b804-42f1f991559a",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Obj",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "3d472959-4b72-4b91-9b39-4c3aca2678c5",
                     "path": "<Mouse>/scroll/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Switch_Obj",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "18346930-d1f6-43bb-8dff-159f3bc7b81a",
+                    "name": "down",
+                    "id": "75511277-49f2-4a36-89c7-156162204cee",
                     "path": "<Mouse>/scroll/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Switch_Obj",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "5a4d5d5b-7ce5-4f41-82a6-e6a05d4e1e49",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Obj",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "94d3836c-2cc6-4fa9-bae8-ddbb02e70602",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Obj",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
