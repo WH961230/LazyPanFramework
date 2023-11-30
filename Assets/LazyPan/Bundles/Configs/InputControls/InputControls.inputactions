@@ -141,6 +141,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Hit",
+                    "type": "Button",
+                    "id": "bbc8e569-acfe-4331-b407-616c625eaf9c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Fly",
                     "type": "PassThrough",
                     "id": "8dfa9957-af97-4445-a196-cf791f7382b8",
@@ -293,6 +302,17 @@
                     "action": "Fly",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "11cb896c-b4f7-4be3-a3e3-76cc61fa1fbd",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

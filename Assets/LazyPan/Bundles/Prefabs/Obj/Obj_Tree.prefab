@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6743981002710368622}
   - component: {fileID: 7927162422443704611}
   - component: {fileID: 4122531312059260505}
+  - component: {fileID: 5090192341019035539}
   m_Layer: 0
   m_Name: Obj_Tree
   m_TagString: Untagged
@@ -213,6 +214,29 @@ CapsuleCollider:
   m_Height: 3.5115602
   m_Direction: 1
   m_Center: {x: -0.00000008940697, y: 1.6248208, z: -0.00000011920929}
+--- !u!136 &5090192341019035539
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738312227926298}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Height: 3.28
+  m_Direction: 1
+  m_Center: {x: -0.00000008940697, y: 1.6248208, z: -0.00000011920929}
 --- !u!1 &544985215041074170
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,3 +429,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd17e0d475e79e74b88a1a26df01b660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAtTargetTran: {fileID: 0}

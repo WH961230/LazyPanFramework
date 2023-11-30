@@ -8,3 +8,4 @@ Behaviour_Jump,跳跃行为,跳跃,1|-10,1
 Behaviour_FollowLook,跟随视角行为,跟随视角,10,0
 Behaviour_Fly,飞行行为,飞行,,1
 Behaviour_Gravity,重力行为,重力,,0
+Behaviour_Hit,挥击行为,挥击,,0

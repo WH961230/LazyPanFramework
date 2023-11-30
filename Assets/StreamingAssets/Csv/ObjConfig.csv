@@ -1,7 +1,7 @@
 ﻿Sign,Type,Name,Behaviour,CanBePickedUp,Health
 string,int,string,string,bool,int
 标识,类型（0：玩家 1：相机 2：灯光 3：地形 4：后处理 5：可拾取物体）,名称,可用的绑定的行为,物体是否可以被拾取,血量
-Obj_MainPlayer,0,主玩家物体,Behaviour_Move|Behaviour_Pick|Behaviour_Gravity,0,5
+Obj_MainPlayer,0,主玩家物体,Behaviour_Move|Behaviour_Pick|Behaviour_Gravity|Behaviour_Hit,0,5
 Obj_MainTerrain,3,主地形物体,,0,0
 Obj_MainCamera,1,主相机物体,Behaviour_FollowLook,0,0
 Obj_MainDirectionalLight,2,主直射灯光,,0,0
