@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using UnityEngine;
 
 namespace LazyPan {
     public partial class Data : Singleton<Data> {
@@ -96,5 +97,15 @@ namespace LazyPan {
         }
 
         #endregion
+
+        public DataBody GetDataBodyByInstanceID(int instanceID) {
+            foreach (var dataBody in dataBodyDic.Values) {
+                if (dataBody.GoInstanceID == instanceID) {
+                    return dataBody;
+                }
+            }
+
+            return null;
+        }
     }
 }
