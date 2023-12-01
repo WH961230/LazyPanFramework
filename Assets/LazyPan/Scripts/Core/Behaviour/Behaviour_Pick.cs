@@ -18,6 +18,7 @@ namespace LazyPan {
                 if (triggerDataBody.Health > 0) {
                     return;
                 }
+
                 string bindBehaviour = ObjConfig.Get(triggerDataBody.GoSign).Behaviour;
                 if (!string.IsNullOrEmpty(bindBehaviour)) {
                     string[] behaviourArray = bindBehaviour.Split('|');

@@ -212,8 +212,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7348919
-  m_Height: 3.5115602
+  m_Radius: 0.97
+  m_Height: 3.9
   m_Direction: 1
   m_Center: {x: -0.00000008940697, y: 1.6248208, z: -0.00000011920929}
 --- !u!136 &5090192341019035539
@@ -378,9 +378,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 4.2}
-  m_SizeDelta: {x: 1.5, y: 0.3}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.43, y: 4.199995}
+  m_SizeDelta: {x: 1, y: 0.3}
+  m_Pivot: {x: 1, y: 0.50000006}
 --- !u!222 &5642070059662851011
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -37,9 +37,11 @@ namespace LazyPan {
                     }
 
                     dataBody.Damage(1, () => {
-                        Transform health = dataBody.Go.UGo.GetComponent<Comp>().Get<Transform>("Health");
+                        Comp comp = dataBody.Go.UGo.GetComponent<Comp>();
+                        Transform health = comp.Get<Transform>("Health");
                         RectTransform healthRect = (RectTransform)health;
-                        healthRect.sizeDelta = new Vector2(healthRect.sizeDelta.x - 0.5f, healthRect.sizeDelta.y);
+                        float healthRatio = (float)dataBody.Health / ObjConfig.Get(dataBody.GoSign).Health;
+                        healthRect.sizeDelta = new Vector2(healthRatio, healthRect.sizeDelta.y);
                     });
                 }
             }
