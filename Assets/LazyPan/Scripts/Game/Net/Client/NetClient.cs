@@ -7,10 +7,12 @@ namespace LazyPan {
         public NetClient(Net net) {
             Net = net;
             Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
-            Obj.Instance.LoadObj(Net.netId, Net.isLocalPlayer, Net.gameObject);
         }
 
         public void OnUpdate() {
+            if (Game.Instance.LoadFinished && !Data.Instance.dataBodyDic.ContainsKey(Net.netId)) {
+                Obj.Instance.LoadObj(Net.netId, Net.isLocalPlayer, Net.gameObject);
+            }
         }
 
         public void OnClear() {

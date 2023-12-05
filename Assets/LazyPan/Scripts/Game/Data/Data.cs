@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace LazyPan {
@@ -20,6 +21,7 @@ namespace LazyPan {
         public BehaviourData BehaviourData = new BehaviourData();
         public List<Behaviour> Behaviours = new List<Behaviour>();
         public List<DataBody> OwnedDataBodies = new List<DataBody>();
+        public Sprite IconSprite;
 
         public void Damage(int value, UnityAction callback) {
             Health -= value;

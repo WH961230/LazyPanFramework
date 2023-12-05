@@ -23,6 +23,7 @@ namespace LazyPan {
         public List<ButtonData> Buttons = new List<ButtonData>();
         public List<SliderData> Sliders = new List<SliderData>();
         public List<TextData> Texts = new List<TextData>();
+        public List<SpriteData> Sprites = new List<SpriteData>();
         public List<TextMeshProUGUIData> TextMeshProUGUIs = new List<TextMeshProUGUIData>();
         public List<TMP_InputFieldData> TMPInputFields = new List<TMP_InputFieldData>();
         public List<string> BehaviourBundles = new List<string>();
@@ -50,6 +51,12 @@ namespace LazyPan {
                 foreach (ButtonData buttonData in Buttons) {
                     if (buttonData.Sign == sign) {
                         return buttonData.Button as T;
+                    }
+                }
+            } else if (typeof(T) == typeof(Sprite)) {
+                foreach (SpriteData spriteData in Sprites) {
+                    if (spriteData.Sign == sign) {
+                        return spriteData.sprite as T;
                     }
                 }
             } else if (typeof(T) == typeof(Slider)) {
@@ -94,6 +101,12 @@ namespace LazyPan {
 #if UNITY_EDITOR
         private void OnDrawGizmos() { OnDrawGizmosAction.Invoke(); }
 #endif
+
+        [Serializable]
+        public class SpriteData {
+            public string Sign;
+            public Sprite sprite;
+        }
 
         [Serializable]
         public class TMP_InputFieldData {

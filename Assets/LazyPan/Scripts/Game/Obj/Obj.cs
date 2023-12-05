@@ -39,6 +39,7 @@ namespace LazyPan {
             string objSign = uGo.GetComponent<Comp>().ObjSign;
             dataBody.ID = netID;
             dataBody.Go = new Go(dataBody.ID, objSign, uGo);
+            dataBody.IconSprite = dataBody.Go.UGo.GetComponent<Comp>().Get<Sprite>("Icon");
             dataBody.GoSign = objSign;
             dataBody.isLocalMainPlayer = isLocal;
             dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();

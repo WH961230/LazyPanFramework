@@ -3,10 +3,10 @@
 namespace LazyPan {
     public class Behaviour_Pick : Behaviour {
         public Behaviour_Pick(uint subjectId) : base(subjectId) {
-            SubjectComp.OnTriggerEnterEvent?.AddListener(OnTriggerEnter);
+            SubjectComp.OnTriggerStayEvent?.AddListener(OnTriggerStay);
         }
 
-        private void OnTriggerEnter(Collider collider) {
+        private void OnTriggerStay(Collider collider) {
             string[] strArray = collider.name.Split('_');
             if (strArray.Length < 3) {
                 return;

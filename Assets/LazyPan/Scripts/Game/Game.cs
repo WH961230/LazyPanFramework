@@ -3,7 +3,6 @@ using UnityEngine;
 namespace LazyPan {
     public class Game : MonoBehaviour {
         public bool LoadFinished;
-        public Transform GameRoot => transform;
         public Setting Setting => Loader.LoadAsset<Setting>(Loader.AssetType.ASSET, "Setting");
 
         public static Game Instance;

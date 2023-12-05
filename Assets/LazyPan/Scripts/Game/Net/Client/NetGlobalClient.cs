@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace LazyPan {
     public class NetGlobalClient {
+        public bool ActiveGlobalClient;
         public NetGlobalClient() {
             Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
         }
@@ -11,6 +12,8 @@ namespace LazyPan {
             Config.Instance.Init();
             UI.Instance.Init();
             Obj.Instance.Init();
+            LoadClientObj();
+            ActiveGlobalClient = true;
         }
 
         public void OnUpdate() {

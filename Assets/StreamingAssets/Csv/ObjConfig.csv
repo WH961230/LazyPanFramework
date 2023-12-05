@@ -10,3 +10,4 @@ Obj_PickableObj_Shoot,5,可拾取物体_射击,Behaviour_Shoot,1,0
 Obj_PickableObj_Fly,5,可拾取物体_飞行,Behaviour_Fly,1,0
 Obj_PickableObj_Jump,5,可拾取物体_跳跃,Behaviour_Jump,1,0
 Obj_Tree,5,树,,1,10
+Obj_Bike,5,机车,,1,15

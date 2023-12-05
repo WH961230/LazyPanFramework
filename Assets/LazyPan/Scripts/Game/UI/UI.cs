@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace LazyPan {
@@ -9,6 +10,7 @@ namespace LazyPan {
         private Dictionary<string, Comp> uICompAlwaysDics = new Dictionary<string, Comp>();
         private Dictionary<string, Comp> uICompExchangeDics = new Dictionary<string, Comp>();
         private Dictionary<string, Comp> uICompDics = new Dictionary<string, Comp>();
+        public UnityEvent<DataBody> OnAddOwnedDataBody = new UnityEvent<DataBody>();
 
         public void Init() {
             UIPreLoad();
@@ -44,6 +46,7 @@ namespace LazyPan {
         private void UIEventRegister() {
             Listener.AddListener(Get("UI_Setting").Get<Button>("UI_Setting_Quit"), Act.QuitGame);
             Listener.AddListener(Get("UI_Setting").Get<Button>("UI_Setting_Close"), Close);
+
             Input.Instance.Load("UI/Setting", (context) => {
                 if (GetExchangeUIName() == "UI_Setting") Close();
                 else Open("UI_Setting");
@@ -57,6 +60,8 @@ namespace LazyPan {
 
             Input.Instance.Load("UI/Switch_behaviour", Act.Input_Switch_Behaviour);
             Input.Instance.Load("UI/Switch_Obj", Act.Input_Switch_Obj);
+
+            UI_Main.Instance.OnInit();
         }
 
         public void Open(string name) {

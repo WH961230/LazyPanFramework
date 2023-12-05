@@ -71,6 +71,7 @@ namespace LazyPan {
             }
 
             dataBodyDic[id].OwnedDataBodies.Add(dataBody);
+            UI.Instance.OnAddOwnedDataBody?.Invoke(dataBody);
         }
 
         public void RemoveOwnedDataBody(uint id, uint ownedDataBody) {

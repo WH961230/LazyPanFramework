@@ -69,22 +69,70 @@ namespace LazyPan {
                 game = Loader.LoadGo("全局", "Global/Global", null, true).GetComponent<Game>();
             }
 
-            if (NetManager.Instance && game && !game.LoadFinished) {
-                if (NetManager.Instance.NetGlobalClient != null && NetworkClient.active) {
-                    NetManager.Instance.NetGlobalClient.OnInit();
-                    NetManager.Instance.NetGlobalClient.LoadClientObj();
-                    game.LoadFinished = true;
-                }
-
-                if (NetManager.Instance.NetGlobalServer != null && NetworkServer.active) {
-                    game.LoadFinished = true;
-                }
+            if (game == null || game.LoadFinished) {
+                return;
             }
 
-            if (game != null && game.LoadFinished && !IsDone) {
-                Progress = 1;
-                IsDone = true;
-                ClockUtil.Instance.AlarmAfter(1f, () => { Object.DestroyImmediate(stage.gameObject); });
+            NetGlobalServer globalServer = NetManager.Instance.NetGlobalServer;
+            NetGlobalClient globalClient = NetManager.Instance.NetGlobalClient;
+
+            switch (NetManager.singleton.mode) {
+                case NetworkManagerMode.Host:
+                    if (globalServer == null || globalClient == null) {
+                        return;
+                    }
+
+                    if (!globalServer.ActiveGlobalServer) {
+                        NetManager.Instance.NetGlobalServer.OnInit();
+                    }
+
+                    if (!globalClient.ActiveGlobalClient) {
+                        NetManager.Instance.NetGlobalClient.OnInit();
+                        game.LoadFinished = true;
+                    }
+
+                    if (globalServer.ActiveGlobalServer &&
+                        globalClient.ActiveGlobalClient) {
+                        Progress = 1;
+                        IsDone = true;
+                        ClockUtil.Instance.AlarmAfter(1f, () => { Object.DestroyImmediate(stage.gameObject); });
+                    }
+
+                    break;
+                case NetworkManagerMode.ClientOnly:
+                    if (globalClient == null) {
+                        return;
+                    }
+
+                    if (!globalClient.ActiveGlobalClient) {
+                        NetManager.Instance.NetGlobalClient.OnInit();
+                        game.LoadFinished = true;
+                    }
+
+                    if (globalClient.ActiveGlobalClient) {
+                        Progress = 1;
+                        IsDone = true;
+                        ClockUtil.Instance.AlarmAfter(1f, () => { Object.DestroyImmediate(stage.gameObject); });
+                    }
+
+                    break;
+                case NetworkManagerMode.ServerOnly:
+                    if (globalServer == null) {
+                        return;
+                    }
+
+                    if (!globalServer.ActiveGlobalServer) {
+                        NetManager.Instance.NetGlobalServer.OnInit();
+                        game.LoadFinished = true;
+                    }
+
+                    if (globalServer.ActiveGlobalServer) {
+                        Progress = 1;
+                        IsDone = true;
+                        ClockUtil.Instance.AlarmAfter(1f, () => { Object.DestroyImmediate(stage.gameObject); });
+                    }
+
+                    break;
             }
         }
 

@@ -31,7 +31,6 @@ namespace LazyPan {
 
         [Command]
         public void CmdShoot(Vector3 beginShootVec, Vector3 endShootVec) {
-            Debug.Log("Server - CmdShoot");
             RpcShoot(beginShootVec, endShootVec);
         }
 
@@ -42,7 +41,6 @@ namespace LazyPan {
             bulletGo.transform.position = beginShootVec;
             Rigidbody rb = bulletGo.AddComponent<Rigidbody>();
             rb.AddForce((endShootVec - beginShootVec).normalized * 10f, ForceMode.Impulse);
-            Debug.Log("Client - CmdShoot");
             Sound.Instance.PlaySound("BubbleShot", new Sound.SoundInfo(beginShootVec));
         }
     }
