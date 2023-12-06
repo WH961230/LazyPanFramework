@@ -14,9 +14,15 @@ namespace LazyPan {
         private Queue<StageWork> works = new Queue<StageWork>();
 
         public void Load(ConnectType connectType) {
-            works.Enqueue(new LoadLoadingUI(new LoadLoadingUIParameters() { Description = "加载 Loading 界面", uiRoot = transform }, this));
-            works.Enqueue(new LoadScene(new LoadSceneParameters() { Description = "加载场景", ConnectType = connectType}));
-            works.Enqueue(new LoadGlobal(new LoadGlobalParameters() { Description = "加载场景物体"}, this));
+            works.Enqueue(new LoadLoadingUI(new LoadLoadingUIParameters() {
+                Description = "加载 Loading 界面", uiRoot = transform
+            }, this));
+            works.Enqueue(new LoadScene(new LoadSceneParameters() {
+                Description = "加载场景", ConnectType = connectType
+            }));
+            works.Enqueue(new LoadGlobal(new LoadGlobalParameters() {
+                Description = "加载场景物体"
+            }, this));
             StageCount = works.Count;
         }
 
@@ -26,6 +32,7 @@ namespace LazyPan {
                 work = works.Dequeue();
                 work?.OnStart();
             }
+
             work?.OnUpdate();
             if (work != null) {
                 LoadingUI();
@@ -42,7 +49,8 @@ namespace LazyPan {
                 TextMeshProUGUI loadingText = loadingUIComp.Get<TextMeshProUGUI>("UI_Loading_Text");
                 float eachProgress = (float) 1 / StageCount;
                 loadingSlider.value = eachProgress * (StageCountIndex + work.Progress);
-                loadingText.text = string.Concat(work.Parameters.Description, " ", Mathf.Round(loadingSlider.value * 100f), "%");
+                loadingText.text = string.Concat(work.Parameters.Description, " ",
+                    Mathf.Round(loadingSlider.value * 100f), "%");
             }
         }
     }
@@ -56,7 +64,7 @@ namespace LazyPan {
         private Game game;
 
         public LoadGlobal(StageParameters Parameters, Stage stage) : base(Parameters) {
-            this.Parameters = (LoadGlobalParameters)Parameters;
+            this.Parameters = (LoadGlobalParameters) Parameters;
             this.stage = stage;
         }
 
@@ -75,7 +83,6 @@ namespace LazyPan {
 
             NetGlobalServer globalServer = NetManager.Instance.NetGlobalServer;
             NetGlobalClient globalClient = NetManager.Instance.NetGlobalClient;
-
             switch (NetManager.singleton.mode) {
                 case NetworkManagerMode.Host:
                     if (globalServer == null || globalClient == null) {
@@ -146,8 +153,9 @@ namespace LazyPan {
 
     public class LoadScene : StageWork {
         LoadSceneParameters Parameters;
+
         public LoadScene(StageParameters Parameters) : base(Parameters) {
-            this.Parameters = (LoadSceneParameters)Parameters;
+            this.Parameters = (LoadSceneParameters) Parameters;
         }
 
         public override void OnStart() {
@@ -164,12 +172,12 @@ namespace LazyPan {
                     break;
             }
 
-            if (NetManager.singleton.mode == NetworkManagerMode.Host || 
+            if (NetManager.singleton.mode == NetworkManagerMode.Host ||
                 NetManager.singleton.mode == NetworkManagerMode.ClientOnly ||
                 NetManager.singleton.mode == NetworkManagerMode.ServerOnly) {
                 Progress = 1;
                 IsDone = true;
-            }   
+            }
         }
 
         public override void OnUpdate() {
@@ -188,7 +196,7 @@ namespace LazyPan {
         Stage stage;
 
         public LoadLoadingUI(StageParameters Parameters, Stage stage) : base(Parameters) {
-            this.Parameters = (LoadLoadingUIParameters)Parameters;
+            this.Parameters = (LoadLoadingUIParameters) Parameters;
             this.stage = stage;
         }
 
@@ -198,7 +206,7 @@ namespace LazyPan {
         }
 
         public override void OnUpdate() {
-            if(stage.loadingUIComp != null) {
+            if (stage.loadingUIComp != null) {
                 stage.loadingUIComp.gameObject.SetActive(true);
                 Progress = 1;
                 IsDone = true;
@@ -217,6 +225,7 @@ namespace LazyPan {
         public float Progress;
         public bool IsDone;
         public StageParameters Parameters;
+
         public StageWork(StageParameters Parameters) {
             this.Parameters = Parameters;
         }

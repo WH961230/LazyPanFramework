@@ -10,15 +10,12 @@ namespace LazyPan {
 
     public class Clock {
         Action onAlarm;
-
         public readonly ClockType type;
         public readonly float alarmTime1;
         public readonly DateTime alarmTime2 = DateTime.Now;
-
         readonly bool repeat = false;
         readonly float interval = 10;
         float nextAlarmSecond = 0f;
-
         public bool IsStopped { get; private set; }
 
         public Clock(float time, Action callBack) {
@@ -80,11 +77,13 @@ namespace LazyPan {
         private void Alarm(bool once) {
             try {
                 onAlarm?.Invoke();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 IsStopped = true;
                 onAlarm = null;
                 Debug.LogError(e.ToString());
-            } finally {
+            }
+            finally {
                 if (once) {
                     onAlarm = null;
                 }

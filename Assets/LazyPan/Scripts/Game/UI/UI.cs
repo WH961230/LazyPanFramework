@@ -10,7 +10,7 @@ namespace LazyPan {
         private Dictionary<string, Comp> uICompAlwaysDics = new Dictionary<string, Comp>();
         private Dictionary<string, Comp> uICompExchangeDics = new Dictionary<string, Comp>();
         private Dictionary<string, Comp> uICompDics = new Dictionary<string, Comp>();
-        public UnityEvent<DataBody> OnAddOwnedDataBody = new UnityEvent<DataBody>();
+        public UnityEvent<Entity> OnAddOwnedEntity = new UnityEvent<Entity>();
 
         public void Init() {
             UIPreLoad();
@@ -19,17 +19,14 @@ namespace LazyPan {
 
         private void UIPreLoad() {
             UIRoot = Loader.LoadGo("画布", "Global/Global_UI_Root", null, true).transform;
-
             List<string> keys = UIConfig.GetKeys();
             int length = keys.Count;
-
             uICompDics.Clear();
             uICompExchangeDics.Clear();
             uICompAlwaysDics.Clear();
-
             for (int i = 0; i < length; i++) {
                 string key = keys[i];
-                GameObject uiGo = Loader.LoadGo(key, string.Concat("UI/",key), UIRoot, false);
+                GameObject uiGo = Loader.LoadGo(key, string.Concat("UI/", key), UIRoot, false);
                 switch (UIConfig.Get(key).Type) {
                     case 0:
                         uICompExchangeDics.Add(key, uiGo.GetComponent<Comp>());
@@ -46,21 +43,17 @@ namespace LazyPan {
         private void UIEventRegister() {
             Listener.AddListener(Get("UI_Setting").Get<Button>("UI_Setting_Quit"), Act.QuitGame);
             Listener.AddListener(Get("UI_Setting").Get<Button>("UI_Setting_Close"), Close);
-
             Input.Instance.Load("UI/Setting", (context) => {
                 if (GetExchangeUIName() == "UI_Setting") Close();
                 else Open("UI_Setting");
             });
-
             Listener.AddListener(Get("UI_Backpack").Get<Button>("UI_Backpack_Close"), Close);
             Input.Instance.Load("UI/Backpack", (context) => {
                 if (GetExchangeUIName() == "UI_Backpack") Close();
                 else Open("UI_Backpack");
             });
-
             Input.Instance.Load("UI/Switch_behaviour", Act.Input_Switch_Behaviour);
             Input.Instance.Load("UI/Switch_Obj", Act.Input_Switch_Obj);
-
             UI_Main.Instance.OnInit();
         }
 

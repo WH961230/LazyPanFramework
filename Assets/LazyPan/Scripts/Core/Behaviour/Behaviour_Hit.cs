@@ -27,20 +27,20 @@ namespace LazyPan {
                     }
 
                     int instanceID = hitCollider[i].gameObject.GetInstanceID();
-                    DataBody dataBody = Data.Instance.GetDataBodyByInstanceID(instanceID);
-                    if (dataBody == null && dataBody.GoInstanceID == SubjectUGo.GetInstanceID()) {
+                    Entity entity = Data.Instance.GetEntityByInstanceID(instanceID);
+                    if (entity == null && entity.GoInstanceID == SubjectUGo.GetInstanceID()) {
                         continue;
                     }
 
-                    if (dataBody.Health == 0 || dataBody.isLocalMainPlayer) {
+                    if (entity.Health == 0 || entity.isLocalMainPlayer) {
                         continue;
                     }
 
-                    dataBody.Damage(1, () => {
-                        Comp comp = dataBody.Go.UGo.GetComponent<Comp>();
+                    entity.Damage(1, () => {
+                        Comp comp = entity.Go.UGo.GetComponent<Comp>();
                         Transform health = comp.Get<Transform>("Health");
-                        RectTransform healthRect = (RectTransform)health;
-                        float healthRatio = (float)dataBody.Health / ObjConfig.Get(dataBody.GoSign).Health;
+                        RectTransform healthRect = (RectTransform) health;
+                        float healthRatio = (float) entity.Health / ObjConfig.Get(entity.GoSign).Health;
                         healthRect.sizeDelta = new Vector2(healthRatio, healthRect.sizeDelta.y);
                     });
                 }

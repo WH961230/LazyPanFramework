@@ -53,9 +53,7 @@ namespace LazyPan {
                 Color buttom = SubjectBehaviourData.IsGrounded ? Color.green : Color.red;
                 buttom.a = 0.2f;
                 Gizmos.color = buttom;
-                Gizmos.DrawSphere(
-                    SubjectUGo.transform.position + SubjectUGo.transform.up * controller.radius +
-                    SubjectUGo.transform.up * OverlapCapsuleOffset, controller.radius);
+                Gizmos.DrawSphere(SubjectUGo.transform.position + SubjectUGo.transform.up * controller.radius + SubjectUGo.transform.up * OverlapCapsuleOffset, controller.radius);
             }
         }
 #endif

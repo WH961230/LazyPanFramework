@@ -9,7 +9,7 @@ namespace LazyPan {
 
         public Go(uint id, string sign) {
             ID = id;
-            GoType goType = (GoType)ObjConfig.Get(sign).Type;
+            GoType goType = (GoType) ObjConfig.Get(sign).Type;
             UGo = Loader.LoadGo("", string.Concat("Obj/", sign), GetRoot(goType), true);
             UGo.name = string.Concat(GetGoName(goType), "_", UGo.GetInstanceID(), "_", ID);
             Comp = UGo.GetComponent<Comp>();
@@ -23,7 +23,7 @@ namespace LazyPan {
 
         public Go(uint id, string sign, GameObject uGo) {
             ID = id;
-            GoType goType = (GoType)ObjConfig.Get(sign).Type;
+            GoType goType = (GoType) ObjConfig.Get(sign).Type;
             UGo = uGo;
             UGo.transform.parent = GetRoot(goType);
             UGo.name = string.Concat(GetGoName(goType), "_", UGo.GetInstanceID(), "_", ID);
@@ -82,6 +82,7 @@ namespace LazyPan {
                     root = Obj.Instance.VolumeRoot;
                     break;
             }
+
             return root;
         }
     }

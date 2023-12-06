@@ -4,11 +4,8 @@ public class Lab_UI_Switch : MonoBehaviour {
     [SerializeField] private bool left;
     [SerializeField] private float leftBound;
     [SerializeField] private float rightBound;
-    [SerializeField] private float switchSpeed; 
+    [SerializeField] private float switchSpeed;
     [SerializeField] private RectTransform block;
-
-    void Start() {
-    }
 
     void Update() {
         if (left) {

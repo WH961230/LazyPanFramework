@@ -7,13 +7,10 @@ namespace LazyPan {
     public partial class Loader {
         private static string INPUTACTIONASSET_PATH = "Assets/LazyPan/Bundles/Configs/";
         private static string INPUTACTIONASSET_SUFFIX = ".inputactions";
-
         private static string PREFAB_PATH = "Assets/LazyPan/Bundles/Prefabs/";
         private static string PREFAB_SUFFIX = ".prefab";
-
         private static string ASSET_PATH = "Assets/LazyPan/Bundles/Configs/Setting/";
         private static string ASSET_SUFFIX = ".asset";
-
         private static string SOUND_PATH = "Assets/LazyPan/Bundles/Sounds/";
         private static string SOUND_SUFFIX = ".wav";
 
@@ -42,7 +39,8 @@ namespace LazyPan {
         }
 
         public static GameObject LoadGo(string finalName, string assetName, Transform parent, bool active) {
-            GameObject go = Addressables.InstantiateAsync(GetAddress(AssetType.PREFAB, assetName), parent).WaitForCompletion();
+            GameObject go = Addressables.InstantiateAsync(GetAddress(AssetType.PREFAB, assetName), parent)
+                .WaitForCompletion();
             go.SetActive(active);
             go.name = finalName;
             return go;

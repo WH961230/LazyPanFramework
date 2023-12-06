@@ -1,9 +1,7 @@
-﻿using Mirror;
-using UnityEngine;
-
-namespace LazyPan {
+﻿namespace LazyPan {
     public class NetGlobalClient {
         public bool ActiveGlobalClient;
+
         public NetGlobalClient() {
             Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
         }
@@ -27,8 +25,8 @@ namespace LazyPan {
             Obj.Instance.LoadSignObj("Obj_MainDirectionalLight");
             Obj.Instance.LoadSignObj("Obj_MainVolume");
             Obj.Instance.LoadSignObj("Obj_MainCamera");
-
-            UI.Instance.Open("UI_Main");;
+            UI.Instance.Open("UI_Main");
+            ;
         }
     }
 }

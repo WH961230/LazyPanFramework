@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace LazyPan {
     public class Behaviour {
@@ -11,13 +11,12 @@ namespace LazyPan {
 
         protected Behaviour(uint subjectId) {
             SubjectID = subjectId;
-
             if (SubjectID != -1) {
-                SubjectGo = Data.Instance.dataBodyDic[SubjectID].Go;
+                SubjectGo = Data.Instance.EntityDic[SubjectID].Go;
                 SubjectUGo = SubjectGo.UGo;
                 SubjectComp = SubjectGo.Comp;
-                SubjectBehaviourData = Data.Instance.dataBodyDic[SubjectID].BehaviourData;
-                SubjectIsLocal = Data.Instance.dataBodyDic[SubjectID].isLocalMainPlayer;
+                SubjectBehaviourData = Data.Instance.EntityDic[SubjectID].BehaviourData;
+                SubjectIsLocal = Data.Instance.EntityDic[SubjectID].isLocalMainPlayer;
             }
         }
     }

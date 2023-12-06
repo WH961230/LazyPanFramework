@@ -41,9 +41,10 @@ namespace LazyPan {
                 if (index < 0) {
                     index += 7;
                 }
-            } else if (scrollVec2.y < 0){
+            } else if (scrollVec2.y < 0) {
                 index++;
             }
+
             index %= 7;
             Transform grid = UI.Instance.Get("UI_Main").Get<Transform>(string.Concat("UI_Main_Obj_Grid_", index.ToString()));
             select.parent = grid;

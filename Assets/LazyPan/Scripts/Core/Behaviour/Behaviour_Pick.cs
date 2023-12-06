@@ -12,14 +12,14 @@ namespace LazyPan {
                 return;
             }
             uint id = uint.Parse(strArray[2]);
-            DataBody triggerDataBody = Data.Instance.dataBodyDic[id];
-            GoType type = (GoType)triggerDataBody.Type;
+            Entity triggerEntity = Data.Instance.EntityDic[id];
+            GoType type = (GoType)triggerEntity.Type;
             if (type == GoType.PickableObj) {
-                if (triggerDataBody.Health > 0) {
+                if (triggerEntity.Health > 0) {
                     return;
                 }
 
-                string bindBehaviour = ObjConfig.Get(triggerDataBody.GoSign).Behaviour;
+                string bindBehaviour = ObjConfig.Get(triggerEntity.GoSign).Behaviour;
                 if (!string.IsNullOrEmpty(bindBehaviour)) {
                     string[] behaviourArray = bindBehaviour.Split('|');
                     for (int i = 0; i < behaviourArray.Length; i++) {
@@ -31,8 +31,8 @@ namespace LazyPan {
                     }
                 }
                 
-                Data.Instance.AddOwnedDataBody(SubjectID, triggerDataBody);
-                triggerDataBody.Go.UGo.SetActive(false);
+                Data.Instance.AddOwnedEntity(SubjectID, triggerEntity);
+                triggerEntity.Go.UGo.SetActive(false);
                 Sound.Instance.PlaySound("Pickup", new Sound.SoundInfo(SubjectUGo.transform.position));
             }
         }

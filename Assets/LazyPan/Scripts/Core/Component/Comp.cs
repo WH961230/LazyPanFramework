@@ -14,7 +14,6 @@ namespace LazyPan {
         [HideInInspector] public UnityEvent<Collider> OnTriggerStayEvent;
         [HideInInspector] public UnityEvent<Collider> OnTriggerExitEvent;
         [HideInInspector] public UnityEvent OnDrawGizmosAction;
-
         public string ObjSign;
         public List<GameObjectData> GameObjects = new List<GameObjectData>();
         public List<TransformData> Transforms = new List<TransformData>();
@@ -94,12 +93,22 @@ namespace LazyPan {
             return null;
         }
 
-        public void OnTriggerEnter(Collider other) { OnTriggerEnterEvent?.Invoke(other); }
-        public void OnTriggerStay(Collider other) { OnTriggerStayEvent?.Invoke(other); }
-        private void OnTriggerExit(Collider other) { OnTriggerExitEvent?.Invoke(other); }
+        public void OnTriggerEnter(Collider other) {
+            OnTriggerEnterEvent?.Invoke(other);
+        }
+
+        public void OnTriggerStay(Collider other) {
+            OnTriggerStayEvent?.Invoke(other);
+        }
+
+        private void OnTriggerExit(Collider other) {
+            OnTriggerExitEvent?.Invoke(other);
+        }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmos() { OnDrawGizmosAction.Invoke(); }
+        private void OnDrawGizmos() {
+            OnDrawGizmosAction.Invoke();
+        }
 #endif
 
         [Serializable]
@@ -113,7 +122,7 @@ namespace LazyPan {
             public string Sign;
             public TMP_InputField Text;
         }
-        
+
         [Serializable]
         public class ButtonData {
             public string Sign;

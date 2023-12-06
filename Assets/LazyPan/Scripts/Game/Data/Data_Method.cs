@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Reflection;
-using UnityEngine;
 
 namespace LazyPan {
     public partial class Data : Singleton<Data> {
-        public bool TryGetDataBodyByType(int type, out uint id) {
-            foreach (var body in dataBodyDic.Values) {
+        public bool TryGetEntityByType(int type, out uint id) {
+            foreach (var body in EntityDic.Values) {
                 if (type == body.Type) {
                     id = body.ID;
                     return true;
@@ -17,12 +16,13 @@ namespace LazyPan {
         }
 
         public bool TryGetLocalPlayer(out uint id) {
-            foreach (var body in dataBodyDic.Values) {
+            foreach (var body in EntityDic.Values) {
                 if (body.isLocalMainPlayer) {
                     id = body.ID;
                     return true;
                 }
             }
+
             id = default;
             return false;
         }
@@ -30,28 +30,28 @@ namespace LazyPan {
         #region Behaviour
 
         public void AddBehaviour(uint id, string sign) {
-            if (!dataBodyDic.ContainsKey(id) || GetBehaviourIndex(id, sign) != -1) {
+            if (!EntityDic.ContainsKey(id) || GetBehaviourIndex(id, sign) != -1) {
                 return;
             }
 
             Type type = Assembly.Load("Assembly-CSharp").GetType(string.Concat("LazyPan.", sign));
-            dataBodyDic[id].Behaviours.Add((Behaviour) Activator.CreateInstance(type, id));
+            EntityDic[id].Behaviours.Add((Behaviour) Activator.CreateInstance(type, id));
         }
 
         public void RemoveBehaviour(uint id, string sign) {
             int index = GetBehaviourIndex(id, sign);
-            if (!dataBodyDic.ContainsKey(id) || index == -1) {
+            if (!EntityDic.ContainsKey(id) || index == -1) {
                 return;
             }
 
-            dataBodyDic[id].Behaviours.RemoveAt(index);
+            EntityDic[id].Behaviours.RemoveAt(index);
         }
 
         private int GetBehaviourIndex(uint id, string sign) {
             int retIndex = -1;
-            if (dataBodyDic.TryGetValue(id, out DataBody body)) {
-                for (int i = 0; i < body.Behaviours.Count; i++) {
-                    if (body.Behaviours[i].GetType().ToString() == sign) {
+            if (EntityDic.TryGetValue(id, out Entity entity)) {
+                for (int i = 0; i < entity.Behaviours.Count; i++) {
+                    if (entity.Behaviours[i].GetType().ToString() == sign) {
                         retIndex = i;
                         break;
                     }
@@ -62,32 +62,32 @@ namespace LazyPan {
         }
 
         #endregion
-        
-        #region OwnedDataBody
 
-        public void AddOwnedDataBody(uint id, DataBody dataBody) {
-            if (!dataBodyDic.ContainsKey(id) || GetOwnedDataBodyIndex(id, dataBody.ID) != -1) {
+        #region OwnedEntity
+
+        public void AddOwnedEntity(uint id, Entity entity) {
+            if (!EntityDic.ContainsKey(id) || GetOwnedEntityIndex(id, entity.ID) != -1) {
                 return;
             }
 
-            dataBodyDic[id].OwnedDataBodies.Add(dataBody);
-            UI.Instance.OnAddOwnedDataBody?.Invoke(dataBody);
+            EntityDic[id].OwnedEntities.Add(entity);
+            UI.Instance.OnAddOwnedEntity?.Invoke(entity);
         }
 
-        public void RemoveOwnedDataBody(uint id, uint ownedDataBody) {
-            int index = GetOwnedDataBodyIndex(id, ownedDataBody);
-            if (!dataBodyDic.ContainsKey(id) || index == -1) {
+        public void RemoveOwnedEntity(uint id, uint ownedEntity) {
+            int index = GetOwnedEntityIndex(id, ownedEntity);
+            if (!EntityDic.ContainsKey(id) || index == -1) {
                 return;
             }
 
-            dataBodyDic[id].OwnedDataBodies.RemoveAt(index);
+            EntityDic[id].OwnedEntities.RemoveAt(index);
         }
 
-        private int GetOwnedDataBodyIndex(uint id, uint dataBodyID) {
+        private int GetOwnedEntityIndex(uint id, uint entityID) {
             int retIndex = -1;
-            if (dataBodyDic.TryGetValue(id, out DataBody body)) {
-                for (int i = 0; i < body.OwnedDataBodies.Count; i++) {
-                    if (body.OwnedDataBodies[i].ID == dataBodyID) {
+            if (EntityDic.TryGetValue(id, out Entity entity)) {
+                for (int i = 0; i < entity.OwnedEntities.Count; i++) {
+                    if (entity.OwnedEntities[i].ID == entityID) {
                         retIndex = i;
                         break;
                     }
@@ -99,10 +99,10 @@ namespace LazyPan {
 
         #endregion
 
-        public DataBody GetDataBodyByInstanceID(int instanceID) {
-            foreach (var dataBody in dataBodyDic.Values) {
-                if (dataBody.GoInstanceID == instanceID) {
-                    return dataBody;
+        public Entity GetEntityByInstanceID(int instanceID) {
+            foreach (var entity in EntityDic.Values) {
+                if (entity.GoInstanceID == instanceID) {
+                    return entity;
                 }
             }
 

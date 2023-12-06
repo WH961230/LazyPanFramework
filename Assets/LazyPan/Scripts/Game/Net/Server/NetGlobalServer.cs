@@ -4,6 +4,7 @@ using UnityEngine;
 namespace LazyPan {
     public class NetGlobalServer {
         public bool ActiveGlobalServer;
+
         public NetGlobalServer() {
             Data.Instance.OnUpdateEvent?.AddListener(OnUpdate);
         }

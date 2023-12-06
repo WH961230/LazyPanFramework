@@ -6,13 +6,12 @@ public class Lab_Enemy : MonoBehaviour {
     private NavMeshAgent agent;
     private NavMeshObstacle obstacle;
     private GameObject Player;
-
     private Vector3 lastPos;
     private float moveIntervalTime;
     private float moveDeployTime;
     public bool IsMove;
-
     private NavMeshSurface surface;
+
     void Start() {
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
@@ -46,6 +45,7 @@ public class Lab_Enemy : MonoBehaviour {
             if (Vector3.Distance(transform.position, lastPos) < 0.1f) {
                 IsMove = false;
             }
+
             lastPos = transform.position;
             moveDeployTime = 0;
         }

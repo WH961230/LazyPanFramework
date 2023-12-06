@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Mirror;
 using UnityEngine;
 
 namespace LazyPan {
@@ -19,37 +18,37 @@ namespace LazyPan {
         }
 
         public uint LoadSignObj(string sign) {
-            DataBody dataBody = new DataBody();
-            dataBody.ID = Game.Instance.Setting.InstanceID == 0 ? 0 : Game.Instance.Setting.InstanceID;
+            Entity entity = new Entity();
+            entity.ID = Game.Instance.Setting.InstanceID == 0 ? 0 : Game.Instance.Setting.InstanceID;
             --Game.Instance.Setting.InstanceID;
-            dataBody.Go = new Go(dataBody.ID, sign);
-            dataBody.GoSign = sign;
-            dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
+            entity.Go = new Go(entity.ID, sign);
+            entity.GoSign = sign;
+            entity.GoInstanceID = entity.Go.UGo.GetInstanceID();
             ObjConfig config = ObjConfig.Get(sign);
-            dataBody.Health = config.Health;
-            dataBody.Type = config.Type;
-            dataBody.Behaviours = new List<Behaviour>();
-            Data.Instance.dataBodyDic.TryAdd(dataBody.ID, dataBody);
-            AddBehaviourFromConfig(dataBody.ID, sign, dataBody.Go.Comp);
-            return dataBody.ID;
+            entity.Health = config.Health;
+            entity.Type = config.Type;
+            entity.Behaviours = new List<Behaviour>();
+            Data.Instance.EntityDic.TryAdd(entity.ID, entity);
+            AddBehaviourFromConfig(entity.ID, sign, entity.Go.Comp);
+            return entity.ID;
         }
 
         public uint LoadObj(uint netID, bool isLocal, GameObject uGo) {
-            DataBody dataBody = new DataBody();
+            Entity entity = new Entity();
             string objSign = uGo.GetComponent<Comp>().ObjSign;
-            dataBody.ID = netID;
-            dataBody.Go = new Go(dataBody.ID, objSign, uGo);
-            dataBody.IconSprite = dataBody.Go.UGo.GetComponent<Comp>().Get<Sprite>("Icon");
-            dataBody.GoSign = objSign;
-            dataBody.isLocalMainPlayer = isLocal;
-            dataBody.GoInstanceID = dataBody.Go.UGo.GetInstanceID();
+            entity.ID = netID;
+            entity.Go = new Go(entity.ID, objSign, uGo);
+            entity.IconSprite = entity.Go.UGo.GetComponent<Comp>().Get<Sprite>("Icon");
+            entity.GoSign = objSign;
+            entity.isLocalMainPlayer = isLocal;
+            entity.GoInstanceID = entity.Go.UGo.GetInstanceID();
             ObjConfig config = ObjConfig.Get(objSign);
-            dataBody.Health = config.Health;
-            dataBody.Type = config.Type;
-            dataBody.Behaviours = new List<Behaviour>();
-            Data.Instance.dataBodyDic.TryAdd(dataBody.ID, dataBody);
-            AddBehaviourFromConfig(dataBody.ID, objSign, dataBody.Go.Comp);
-            return dataBody.ID;
+            entity.Health = config.Health;
+            entity.Type = config.Type;
+            entity.Behaviours = new List<Behaviour>();
+            Data.Instance.EntityDic.TryAdd(entity.ID, entity);
+            AddBehaviourFromConfig(entity.ID, objSign, entity.Go.Comp);
+            return entity.ID;
         }
 
         public void AddBehaviourFromConfig(uint id, string objSign, Comp comp) {

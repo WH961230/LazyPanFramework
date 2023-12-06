@@ -1,4 +1,4 @@
-﻿using Mirror;
+using Mirror;
 
 namespace LazyPan {
     public class NetManager : NetworkManager {
