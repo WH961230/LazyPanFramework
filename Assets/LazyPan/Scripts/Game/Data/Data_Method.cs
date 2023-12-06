@@ -3,6 +3,14 @@ using System.Reflection;
 
 namespace LazyPan {
     public partial class Data : Singleton<Data> {
+        public bool TryGetEntityByID(uint id, out Entity entity) {
+            if(EntityDic.TryGetValue(id, out entity)) {
+                return true;
+            }
+
+            return false;
+        }
+
         public bool TryGetEntityByType(int type, out uint id) {
             foreach (var body in EntityDic.Values) {
                 if (type == body.Type) {
@@ -111,14 +119,16 @@ namespace LazyPan {
 
         #endregion
 
-        public Entity GetEntityByInstanceID(int instanceID) {
+        public bool GetEntityByInstanceID(int instanceID, out Entity outEntity) {
             foreach (var entity in EntityDic.Values) {
                 if (entity.GoInstanceID == instanceID) {
-                    return entity;
+                    outEntity = entity;
+                    return true;
                 }
             }
 
-            return null;
+            outEntity = default;
+            return false;
         }
     }
 }

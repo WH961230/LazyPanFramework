@@ -27,7 +27,9 @@ namespace LazyPan {
                     }
 
                     int instanceID = hitCollider[i].gameObject.GetInstanceID();
-                    Entity entity = Data.Instance.GetEntityByInstanceID(instanceID);
+                    if (!Data.Instance.GetEntityByInstanceID(instanceID, out Entity entity)) {
+                        continue;
+                    }
                     if (entity == null && entity.GoInstanceID == SubjectUGo.GetInstanceID()) {
                         continue;
                     }
