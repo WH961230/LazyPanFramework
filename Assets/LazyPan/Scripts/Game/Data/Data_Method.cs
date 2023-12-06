@@ -83,7 +83,7 @@ namespace LazyPan {
             EntityDic[id].OwnedEntities.RemoveAt(index);
         }
 
-        private int GetOwnedEntityIndex(uint id, uint entityID) {
+        public int GetOwnedEntityIndex(uint id, uint entityID) {
             int retIndex = -1;
             if (EntityDic.TryGetValue(id, out Entity entity)) {
                 for (int i = 0; i < entity.OwnedEntities.Count; i++) {
@@ -95,6 +95,18 @@ namespace LazyPan {
             }
 
             return retIndex;
+        }
+
+        public bool TryGetOwnedEntity(uint id, Entity entity) {
+            if (EntityDic.TryGetValue(id, out Entity subjectEntity)) {
+                for (int i = 0; i < subjectEntity.OwnedEntities.Count; i++) {
+                    if (subjectEntity.OwnedEntities[i] == entity) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         #endregion

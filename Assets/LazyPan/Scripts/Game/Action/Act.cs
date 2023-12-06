@@ -33,7 +33,8 @@ namespace LazyPan {
 
         private static void SwitchObj(Vector2 scrollVec2) {
             Transform select = UI.Instance.Get("UI_Main").Get<Transform>("UI_Main_ObjSelect");
-            Transform selectParent = select.parent;
+            Transform selectParent = select.parent.parent;
+
             string[] split = selectParent.name.Split("_");
             int index = int.Parse(split[4]);
             if (scrollVec2.y > 0) {
@@ -46,7 +47,7 @@ namespace LazyPan {
             }
 
             index %= 7;
-            Transform grid = UI.Instance.Get("UI_Main").Get<Transform>(string.Concat("UI_Main_Obj_Grid_", index.ToString()));
+            Transform grid = UI.Instance.Get("UI_Main").Get<Transform>(string.Concat("UI_Main_Obj_Icon_", index.ToString()));
             select.parent = grid;
             select.localPosition = Vector3.zero;
         }

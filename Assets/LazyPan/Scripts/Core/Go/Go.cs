@@ -57,6 +57,9 @@ namespace LazyPan {
                 case GoType.PickableObj:
                     path = "可拾取物体";
                     break;
+                case GoType.PickableBehaviourObj:
+                    path = "可拾取行为物体";
+                    break;
             }
 
             return path;
@@ -65,6 +68,7 @@ namespace LazyPan {
         private Transform GetRoot(GoType type) {
             Transform root = null;
             switch (type) {
+                case GoType.PickableBehaviourObj:
                 case GoType.PickableObj:
                 case GoType.Player:
                     root = Obj.Instance.ObjRoot;
@@ -94,5 +98,6 @@ namespace LazyPan {
         Terrain,
         Volume,
         PickableObj,
+        PickableBehaviourObj,
     }
 }
