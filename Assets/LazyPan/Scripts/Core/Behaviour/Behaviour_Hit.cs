@@ -5,7 +5,7 @@ namespace LazyPan {
     public class Behaviour_Hit : Behaviour {
         private bool isHit;
 
-        public Behaviour_Hit(uint subjectId) : base(subjectId) {
+        public Behaviour_Hit(uint subjectId) : base(subjectId, "Behaviour_Hit") {
             Input.Instance.Load("Player/Hit", Input_Behaviour_Hit);
         }
 

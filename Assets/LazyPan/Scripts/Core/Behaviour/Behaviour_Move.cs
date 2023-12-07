@@ -11,7 +11,7 @@ namespace LazyPan {
         private GameObject Head;
         private CharacterController controller;
 
-        public Behaviour_Move(uint subjectId) : base(subjectId) {
+        public Behaviour_Move(uint subjectId) : base(subjectId, "Behaviour_Move") {
             Input.Instance.Load("Player/Move", Input_Move);
             Input.Instance.Load("Player/View", Input_View);
             controller = SubjectComp.Get<CharacterController>("CharacterController");

@@ -42,8 +42,13 @@ namespace LazyPan {
                 return;
             }
 
+            Entity entity = EntityDic[id];
             Type type = Assembly.Load("Assembly-CSharp").GetType(string.Concat("LazyPan.", sign));
-            EntityDic[id].Behaviours.Add((Behaviour) Activator.CreateInstance(type, id));
+            Behaviour instanceBehaviour = (Behaviour) Activator.CreateInstance(type, id);
+            entity.Behaviours.Add(instanceBehaviour);
+            if (entity.isLocalMainPlayer) {
+                UI.Instance.OnAddBehaviour?.Invoke(instanceBehaviour);
+            }
         }
 
         public void RemoveBehaviour(uint id, string sign) {

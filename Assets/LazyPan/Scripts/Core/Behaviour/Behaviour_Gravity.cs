@@ -7,7 +7,7 @@ namespace LazyPan {
         private float OverlapCapsuleOffset;
         private LayerMask GravityDetectMaskLayer;
 
-        public Behaviour_Gravity(uint subjectId) : base(subjectId) {
+        public Behaviour_Gravity(uint subjectId) : base(subjectId, "Behaviour_Gravity") {
             Data.Instance.OnUpdateEvent?.AddListener(Update_Behaviour_Gravity);
             Comp goComp = SubjectUGo.GetComponent<Comp>();
             controller = goComp.Get<CharacterController>("CharacterController");

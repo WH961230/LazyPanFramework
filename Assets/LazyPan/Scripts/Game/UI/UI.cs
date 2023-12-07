@@ -11,6 +11,7 @@ namespace LazyPan {
         private Dictionary<string, Comp> uICompExchangeDics = new Dictionary<string, Comp>();
         private Dictionary<string, Comp> uICompDics = new Dictionary<string, Comp>();
         public UnityEvent<Entity> OnAddOwnedEntity = new UnityEvent<Entity>();
+        public UnityEvent<Behaviour> OnAddBehaviour = new UnityEvent<Behaviour>();
 
         public void Init() {
             UIPreLoad();

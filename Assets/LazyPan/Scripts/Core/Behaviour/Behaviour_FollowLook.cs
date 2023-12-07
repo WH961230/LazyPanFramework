@@ -5,7 +5,7 @@ namespace LazyPan {
         private Transform targetViewPoint;
         private float followLerpSpeed;
 
-        public Behaviour_FollowLook(uint subjectId) : base(subjectId) {
+        public Behaviour_FollowLook(uint subjectId) : base(subjectId, "Behaviour_FollowLook") {
             string parameter = BehaviourConfig.Get("Behaviour_FollowLook").Parameter;
             followLerpSpeed = float.Parse(parameter);
             Data.Instance.OnLateUpdateEvent?.AddListener(LateUpdate_Behaviour_FollowLook);

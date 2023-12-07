@@ -22,12 +22,14 @@ namespace LazyPan {
                 Transform grid = UI_Main.Instance.UIMainComp.Get<Transform>(string.Concat("UI_Main_Behaviour_Grid_", index.ToString()));
                 select.parent = grid;
                 select.localPosition = Vector3.zero;
+                Sound.Instance.PlaySound("Switch", new Sound.SoundInfo(Vector3.zero));
             }
         }
 
         public static void Input_Switch_Obj(InputAction.CallbackContext callbackContext) {
             if (callbackContext.performed) {
                 SwitchObj(callbackContext.ReadValue<Vector2>());
+                Sound.Instance.PlaySound("Switch", new Sound.SoundInfo(Vector3.zero));
             }
         }
 

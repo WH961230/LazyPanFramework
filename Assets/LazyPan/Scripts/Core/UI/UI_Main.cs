@@ -19,6 +19,7 @@ namespace LazyPan {
         public void OnInit() {
             Act.SwitchObj(Vector2.zero);
             UI.Instance.OnAddOwnedEntity.AddListener(GetEmptyObjGrid);
+            UI.Instance.OnAddBehaviour.AddListener(GetEmptyBehaviourGrid);
         }
 
         public void GetEmptyObjGrid(Entity entity) {
@@ -37,6 +38,22 @@ namespace LazyPan {
             }
         }
 
+        public void GetEmptyBehaviourGrid(Behaviour behaviour) {
+            for (int i = 0; i < UIMainComp.Transforms.Count; i++) {
+                Comp.TransformData tranData = UIMainComp.Transforms[i];
+                if (tranData.Sign.Contains("UI_Main_Behaviour_Icon_")) {
+                    Image image = tranData.Tran.GetComponent<Image>();
+                    Sprite sprite = image.sprite;
+                    if (image.enabled == false && sprite == null) {
+                        tranData.Tran.GetComponent<Image>().sprite = behaviour.GetBehaviourIcon();
+                        image.enabled = true;
+                        tranData.Tran.name = string.Concat("UI_Main_Behaviour_Icon_", i , "_", behaviour.GetBehaviourSign());
+                        break;
+                    }
+                }
+            }
+        }
+
         public void DisplaySelectObj() {
             Transform select = UIMainComp.Get<Transform>("UI_Main_ObjSelect");
             Transform selectParent = select.parent;
@@ -46,15 +63,21 @@ namespace LazyPan {
                 uint ID = uint.Parse(signStr[5]);
                 if (Data.Instance.TryGetEntityByID(ID, out Entity entity)) {
                     if (displayedObj != null) {
-                        Debug.Log("displayed Obj:" + displayedObj.name);
                         displayedObj.SetActive(false);
                     }
-                    Debug.Log("Display Obj:" + ID);
                     entity.Go.UGo.SetActive(true);
                     entity.Go.UGo.transform.localPosition = Vector3.zero;
                     displayedObj = entity.Go.UGo;
                 }
+            } else {
+                if (displayedObj != null) {
+                    displayedObj.SetActive(false);
+                }
             }
+        }
+
+        public void DisplaySelectBehaviour() {
+            
         }
     }
 }

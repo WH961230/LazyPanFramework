@@ -2,7 +2,7 @@
 
 namespace LazyPan {
     public class Behaviour_Pick : Behaviour {
-        public Behaviour_Pick(uint subjectId) : base(subjectId) {
+        public Behaviour_Pick(uint subjectId) : base(subjectId, "Behaviour_Pick") {
             SubjectComp.OnTriggerStayEvent?.AddListener(OnTriggerStay);
         }
 
@@ -41,6 +41,9 @@ namespace LazyPan {
                 if (type == GoType.PickableObj) {
                     Data.Instance.AddOwnedEntity(SubjectID, triggerEntity);
                     triggerEntity.Go.UGo.transform.SetParent(SubjectComp.Get<Transform>("HandPoint"));
+                    triggerEntity.Go.UGo.transform.localPosition = Vector3.zero;
+                    triggerEntity.Go.UGo.SetActive(false);
+                    UI_Main.Instance.DisplaySelectObj();
                 } else {
                     triggerEntity.Go.UGo.SetActive(false);
                 }

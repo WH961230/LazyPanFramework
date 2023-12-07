@@ -325,6 +325,9 @@ MonoBehaviour:
   Buttons: []
   Sliders: []
   Texts: []
+  Sprites:
+  - Sign: Icon
+    sprite: {fileID: 21300000, guid: 4638a3b956a273640ba8c842a2d857bf, type: 3}
   TextMeshProUGUIs: []
   TMPInputFields: []
   BehaviourBundles: []

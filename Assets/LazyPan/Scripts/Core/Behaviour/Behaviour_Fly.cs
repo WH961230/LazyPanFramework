@@ -6,7 +6,7 @@ namespace LazyPan {
         private Vector2 inputFlyVec;
         private CharacterController controller;
 
-        public Behaviour_Fly(uint subjectID) : base(subjectID) {
+        public Behaviour_Fly(uint subjectID) : base(subjectID, "Behaviour_Fly") {
             controller = SubjectComp.Get<CharacterController>("CharacterController");
             Input.Instance.Load("Player/Fly", Input_Fly);
             Data.Instance.OnUpdateEvent?.AddListener(Update_Behaviour_Fly);
