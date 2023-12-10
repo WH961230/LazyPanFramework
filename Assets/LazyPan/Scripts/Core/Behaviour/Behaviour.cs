@@ -31,6 +31,10 @@ namespace LazyPan {
         public string GetBehaviourSign() {
             return BehaviouorSign;
         }
+
+        protected bool IsSelected() {
+            return UI_Main.Instance.GetSelectedBehaviourSign() == BehaviouorSign;
+        }
     }
 
     public class BehaviourData {

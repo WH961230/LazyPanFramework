@@ -17,9 +17,18 @@ namespace LazyPan {
         }
 
         private void Update_Behaviour_Fly() {
+            if (!IsSelected()) {
+                return;
+            }
+
             if (controller != null) {
                 SubjectBehaviourData.MoveVec.y += (inputFlyVec.y - inputFlyVec.x) * Time.deltaTime * 20f;
                 SubjectBehaviourData.IsFlying = inputFlyVec.y > 0 || inputFlyVec.x > 0;
+                if (SubjectBehaviourData.IsFlying) {
+                    Sound.Instance.PlaySound("Fly", SubjectGo.UGo.transform.position, true);
+                } else {
+                    Sound.Instance.StopSound("Fly");
+                }
             }
         }
     }

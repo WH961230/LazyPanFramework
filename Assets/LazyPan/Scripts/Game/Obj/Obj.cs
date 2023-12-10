@@ -38,11 +38,11 @@ namespace LazyPan {
             string objSign = uGo.GetComponent<Comp>().ObjSign;
             entity.ID = netID;
             entity.Go = new Go(entity.ID, objSign, uGo);
-            entity.IconSprite = entity.Go.UGo.GetComponent<Comp>().Get<Sprite>("Icon");
             entity.GoSign = objSign;
             entity.isLocalMainPlayer = isLocal;
             entity.GoInstanceID = entity.Go.UGo.GetInstanceID();
             ObjConfig config = ObjConfig.Get(objSign);
+            entity.IconSprite = Loader.LoadAsset<Sprite>(Loader.AssetType.SPRITE, objSign);
             entity.Health = config.Health;
             entity.Type = config.Type;
             entity.Behaviours = new List<Behaviour>();

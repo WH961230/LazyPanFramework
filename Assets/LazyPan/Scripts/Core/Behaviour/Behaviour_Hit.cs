@@ -12,14 +12,14 @@ namespace LazyPan {
         private void Input_Behaviour_Hit(InputAction.CallbackContext callbackContext) {
             if (callbackContext.performed) {
                 Hit();
+                SubjectComp.Get<Animator>("Animator").SetTrigger("Hit");
             }
         }
 
         private void Hit() {
             isHit = true;
-            Sound.Instance.PlaySound("WoodHit", new Sound.SoundInfo(SubjectUGo.transform.position));
-            Collider[] hitCollider =
-                Physics.OverlapBox(SubjectComp.Get<GameObject>("Head").transform.position, Vector3.one);
+            Sound.Instance.PlaySound("WoodHit", SubjectUGo.transform.position, false);
+            Collider[] hitCollider = Physics.OverlapBox(SubjectComp.Get<GameObject>("Head").transform.position, Vector3.one);
             if (hitCollider.Length > 0) {
                 for (int i = 0; i < hitCollider.Length; i++) {
                     if (hitCollider[i].isTrigger) {
@@ -30,6 +30,7 @@ namespace LazyPan {
                     if (!Data.Instance.GetEntityByInstanceID(instanceID, out Entity entity)) {
                         continue;
                     }
+
                     if (entity == null && entity.GoInstanceID == SubjectUGo.GetInstanceID()) {
                         continue;
                     }

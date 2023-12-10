@@ -47,6 +47,7 @@ namespace LazyPan {
             Behaviour instanceBehaviour = (Behaviour) Activator.CreateInstance(type, id);
             entity.Behaviours.Add(instanceBehaviour);
             if (entity.isLocalMainPlayer) {
+                //展示可主动操作的行为
                 UI.Instance.OnAddBehaviour?.Invoke(instanceBehaviour);
             }
         }
@@ -72,6 +73,20 @@ namespace LazyPan {
             }
 
             return retIndex;
+        }
+
+        public bool TryGetBehaviourBySign(uint id, string sign, out Behaviour outBehaviour) {
+            if (TryGetEntityByID(id, out Entity entity)) {
+                foreach (var behaviour in entity.Behaviours) {
+                    if (behaviour.GetBehaviourSign() == sign) {
+                        outBehaviour = behaviour;
+                        return true;
+                    }
+                }
+            }
+
+            outBehaviour = default;
+            return false;
         }
 
         #endregion

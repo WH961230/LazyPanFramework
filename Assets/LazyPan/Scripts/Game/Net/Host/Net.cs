@@ -30,18 +30,21 @@ namespace LazyPan {
         }
 
         [Command]
-        public void CmdShoot(Vector3 beginShootVec, Vector3 endShootVec) {
-            RpcShoot(beginShootVec, endShootVec);
+        public void CmdShoot(GameObject selectedObj, Vector3 beginShootVec, Vector3 endShootVec) {
+            RpcShoot(selectedObj, beginShootVec, endShootVec);
         }
 
         [ClientRpc]
-        public void RpcShoot(Vector3 beginShootVec, Vector3 endShootVec) {
-            GameObject bulletGo = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            bulletGo.transform.localScale /= 5;
-            bulletGo.transform.position = beginShootVec;
-            Rigidbody rb = bulletGo.AddComponent<Rigidbody>();
-            rb.AddForce((endShootVec - beginShootVec).normalized * 10f, ForceMode.Impulse);
-            Sound.Instance.PlaySound("BubbleShot", new Sound.SoundInfo(beginShootVec));
+        public void RpcShoot(GameObject selectedObj, Vector3 beginShootVec, Vector3 endShootVec) {
+            if (selectedObj == null) {
+                return;
+            }
+
+            selectedObj.transform.parent = Obj.Instance.ObjRoot;
+            selectedObj.transform.position = beginShootVec;
+            Rigidbody rb = selectedObj.AddComponent<Rigidbody>();
+            rb.AddForce((endShootVec - beginShootVec).normalized * 10f, ForceMode.Force);
+            Sound.Instance.PlaySound("BubbleShot", beginShootVec, false);
         }
     }
 }

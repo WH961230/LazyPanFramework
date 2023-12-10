@@ -47,7 +47,7 @@ namespace LazyPan {
                 } else {
                     triggerEntity.Go.UGo.SetActive(false);
                 }
-                Sound.Instance.PlaySound("Pickup", new Sound.SoundInfo(SubjectUGo.transform.position));
+                Sound.Instance.PlaySound("Pickup", SubjectUGo.transform.position, false);
             }
         }
     }

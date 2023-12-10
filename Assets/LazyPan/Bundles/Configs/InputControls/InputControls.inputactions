@@ -25,12 +25,12 @@
                 },
                 {
                     "name": "Switch_Behaviour",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "f5809595-86c9-47fd-b101-46cfcd7f2a2f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Switch_Obj",
@@ -62,17 +62,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Backpack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "25fb6d52-7b80-464d-a41c-ecf9c33eba83",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Switch_Behaviour",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -128,6 +117,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "Switch_Obj",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "35653821-74d2-480d-a151-ca71d8b5aacc",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Behaviour",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "6bde238d-9714-40a6-9f93-00d334a65f4c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Behaviour",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "8b6442e5-e616-40dd-8bab-0378466201d3",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Behaviour",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "059246c2-0d5e-474a-9ae7-8f11b775def4",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Behaviour",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "2f9c6fa3-0a21-4d32-a976-7f6ffb849577",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Behaviour",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

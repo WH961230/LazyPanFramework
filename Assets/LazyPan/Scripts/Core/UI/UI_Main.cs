@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 namespace LazyPan {
     public class UI_Main : Singleton<UI_Main> {
+        private Image displayBehaviourImage;
         private GameObject displayedObj;
         private Comp uiMainComp;
 
@@ -77,7 +78,23 @@ namespace LazyPan {
         }
 
         public void DisplaySelectBehaviour() {
-            
+        }
+
+        public string GetSelectedBehaviourSign() {
+            Transform select = UIMainComp.Get<Transform>("UI_Main_BehaviourSelect");
+            Transform selectParent = select.parent;
+
+            string behaviourSign = "";
+            string[] signStr = selectParent.name.Split("_");
+            if (signStr.Length > 6) {
+                behaviourSign = string.Concat(signStr[5], "_",signStr[6]);
+            }
+
+            return behaviourSign;
+        }
+
+        public GameObject GetSelectedObj() {
+            return displayedObj;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -22,9 +23,9 @@ namespace LazyPan {
         public List<ButtonData> Buttons = new List<ButtonData>();
         public List<SliderData> Sliders = new List<SliderData>();
         public List<TextData> Texts = new List<TextData>();
-        public List<SpriteData> Sprites = new List<SpriteData>();
         public List<TextMeshProUGUIData> TextMeshProUGUIs = new List<TextMeshProUGUIData>();
         public List<TMP_InputFieldData> TMPInputFields = new List<TMP_InputFieldData>();
+        public List<AnimatorData> Animators = new List<AnimatorData>();
         public List<string> BehaviourBundles = new List<string>();
 
         public T Get<T>(string sign) where T : Object {
@@ -52,12 +53,6 @@ namespace LazyPan {
                         return buttonData.Button as T;
                     }
                 }
-            } else if (typeof(T) == typeof(Sprite)) {
-                foreach (SpriteData spriteData in Sprites) {
-                    if (spriteData.Sign == sign) {
-                        return spriteData.sprite as T;
-                    }
-                }
             } else if (typeof(T) == typeof(Slider)) {
                 foreach (SliderData sliderData in Sliders) {
                     if (sliderData.Sign == sign) {
@@ -83,9 +78,15 @@ namespace LazyPan {
                     }
                 }
             } else if (typeof(T) == typeof(TMP_InputField)) {
-                foreach (TMP_InputFieldData test in TMPInputFields) {
-                    if (test.Sign == sign) {
-                        return test.Text as T;
+                foreach (TMP_InputFieldData textData in TMPInputFields) {
+                    if (textData.Sign == sign) {
+                        return textData.Text as T;
+                    }
+                }
+            } else if (typeof(T) == typeof(Animator)) {
+                foreach (AnimatorData animatorData in Animators) {
+                    if (animatorData.Sign == sign) {
+                        return animatorData.Animator as T;
                     }
                 }
             }
@@ -112,9 +113,9 @@ namespace LazyPan {
 #endif
 
         [Serializable]
-        public class SpriteData {
+        public class AnimatorData {
             public string Sign;
-            public Sprite sprite;
+            public Animator Animator;
         }
 
         [Serializable]

@@ -17,12 +17,17 @@ namespace LazyPan {
         }
 
         private void Shoot() {
+            if (!IsSelected()) {
+                return;
+            }
+
             if (ShootTran == null) {
                 return;
             }
 
             Net Net = SubjectUGo.GetComponent<Net>();
-            Net.CmdShoot(ShootTran.position, ShootTran.position + ShootTran.forward);
+            GameObject selectedObj = UI_Main.Instance.GetSelectedObj();
+            Net.CmdShoot(selectedObj, ShootTran.position, ShootTran.position + ShootTran.forward);
         }
     }
 }
