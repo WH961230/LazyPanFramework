@@ -9,6 +9,7 @@ public class Floating : MonoBehaviour {
     void Start() {
         positionTemp = transform.position;
         MainCameraGo = Camera.main.gameObject;
+        PositionDirection.x = Random.Range(-2, 2);
     }
 
     void Update() {
