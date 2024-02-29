@@ -1,29 +1,16 @@
-using System;
 using TMPro;
 using UnityEngine;
 
 public class Lab_SaveGame : MonoBehaviour {
-    [Serializable]
-    public class PlayerData {
-        public string PlayerName;
-        public int PlayerAge;
-        public string PlayerItem;
-        public int PlayerMoney;
-    }
-
-    public PlayerData playerData;
-    public TextMeshProUGUI playerName;
-    public TextMeshProUGUI playerAge;
-    public TextMeshProUGUI playerItem;
-    public TextMeshProUGUI playerMoney;
     private string SAVE_DATA_FILE = "MyData.wanghui";
-    void Update() {
-        if (playerData != null) {
-            playerName.text = playerData.PlayerName;
-            playerAge.text = playerData.PlayerAge.ToString();
-            playerItem.text = playerData.PlayerItem;
-            playerMoney.text = playerData.PlayerMoney.ToString();
-        }
+    public TextMeshProUGUI st;
+    public TextMeshProUGUI it;
+    public TextMeshProUGUI fl;
+
+    public Lab_SaveConfig.SavePlayerInfo addPlayerInfo;
+    public string loadPlayerNameInfo;
+    
+    private void Start() {
     }
 
     public void Save() {
@@ -34,12 +21,29 @@ public class Lab_SaveGame : MonoBehaviour {
         LoadDataFromJson();
     }
 
+    public void Add() {
+        Lab_SaveData.Instance.SavePlayerInfoDatas.Add(addPlayerInfo);
+    }
+
     private void SaveDataToJson() {
-        Lab_Save.Instance.Save(SAVE_DATA_FILE, playerData);
+        string info = "";
+        foreach (var VARIABLE in Lab_SaveData.Instance.SavePlayerInfoDatas) {
+            info += VARIABLE.PlayerName + " " + VARIABLE.PlayerAge + " " + VARIABLE.PlayerMoney + "\n\t";
+        }
+        Debug.Log(info);
+        Lab_Save.Instance.Save(SAVE_DATA_FILE, Lab_SaveData.Instance);
     }
 
     private void LoadDataFromJson() {
-        PlayerData playerData = Lab_Save.Instance.Load<PlayerData>(SAVE_DATA_FILE);
-        this.playerData = playerData;
+        Lab_SaveData saveConfig = Lab_Save.Instance.Load<Lab_SaveData>(SAVE_DATA_FILE);
+        if (saveConfig != null) {
+            foreach (var data in saveConfig.SavePlayerInfoDatas) {
+                if (data.PlayerName == loadPlayerNameInfo) {
+                    st.text = data.PlayerName;
+                    it.text = data.PlayerAge.ToString();
+                    fl.text = data.PlayerMoney.ToString();
+                }
+            }
+        }
     }
 }

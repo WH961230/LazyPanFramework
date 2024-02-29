@@ -4,10 +4,14 @@ using LazyPan;
 using UnityEngine;
 
 public class Lab_Save : Singleton<Lab_Save> {
+    //增
     public void Save(string saveFileName, object data) {
         string json = JsonUtility.ToJson(data);
         string path = Path.Combine(Application.persistentDataPath, saveFileName);
         try {
+            if (File.Exists(path)) {
+                File.Delete(path);
+            }
             File.WriteAllText(path, json);
 
             #if UNITY_EDITOR
@@ -19,9 +23,13 @@ public class Lab_Save : Singleton<Lab_Save> {
         }
     }
 
+    //查
     public T Load<T>(string loadFileName) {
         string path = Path.Combine(Application.persistentDataPath, loadFileName);
         try {
+            if (!File.Exists(path)) {
+                return default;
+            }
             string json = File.ReadAllText(path);
             T data = JsonUtility.FromJson<T>(json);
             return data;
@@ -29,6 +37,5 @@ public class Lab_Save : Singleton<Lab_Save> {
             Debug.LogFormat("错误! 信息:{0}", e.Message);
             throw;
         }
-        
     }
 }
