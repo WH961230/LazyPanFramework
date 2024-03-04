@@ -250,7 +250,7 @@ namespace PathCreation {
 
         /// For a given value 't' between 0 and 1, calculate the indices of the two vertices before and after t. 
         /// Also calculate how far t is between those two vertices as a percentage between 0 and 1.
-        TimeOnPathData CalculatePercentOnPathData (float t, EndOfPathInstruction endOfPathInstruction) {
+        public TimeOnPathData CalculatePercentOnPathData (float t, EndOfPathInstruction endOfPathInstruction) {
             // Constrain t based on the end of path instruction
             switch (endOfPathInstruction) {
                 case EndOfPathInstruction.Loop:

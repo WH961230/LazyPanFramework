@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace PathCreation.Examples
 {
@@ -10,12 +11,16 @@ namespace PathCreation.Examples
         public EndOfPathInstruction endOfPathInstruction;
         public float speed = 5;
         float distanceTravelled;
+        private Vector3 lastPosition;
+        public UnityEvent StopEvent;
+        public UnityAction StopAction;
 
-        void Start() {
+        public void Init() {
             if (pathCreator != null)
             {
                 // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
                 pathCreator.pathUpdated += OnPathChanged;
+                distanceTravelled = 0;
             }
         }
 
@@ -26,6 +31,13 @@ namespace PathCreation.Examples
                 distanceTravelled += speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
                 transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
+                if ((transform.position - lastPosition).sqrMagnitude == 0f) {
+                    if (StopAction != null) {
+                        StopAction.Invoke();
+                        StopAction = null;
+                    }
+                }
+                lastPosition = transform.position;
             }
         }
 
